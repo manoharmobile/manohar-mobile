@@ -1,0 +1,4017 @@
+<!DOCTYPE html>
+
+<html lang="hi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MANOHAR MOBILE SHOP | Mobile Covers &amp; Accessories</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f7f8fc;
+    color:#1f2937;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:9999;
+    background:rgba(15,23,42,.96);
+    backdrop-filter:blur(12px);
+    color:white;
+    padding:14px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    box-shadow:0 5px 25px rgba(0,0,0,.18);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:max-content;
+}
+
+.logo-icon{
+    width:55px;
+    height:55px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,#00f2fe,#4facfe,#a855f7);
+    font-size:31px;
+    box-shadow:0 5px 20px rgba(79,172,254,.35);
+}
+
+.logo-text{
+    font-size:25px;
+    font-weight:900;
+    line-height:1.1;
+}
+
+.logo-text span{
+    background:linear-gradient(90deg,#22d3ee,#a855f7,#f472b6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+nav{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:18px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#22d3ee;
+}
+
+.cart-button{
+    position:relative;
+    border:0;
+    background:linear-gradient(135deg,#f97316,#ec4899);
+    color:white;
+    padding:11px 18px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.cart-count{
+    position:absolute;
+    top:-8px;
+    right:-7px;
+    width:23px;
+    height:23px;
+    background:#22c55e;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:540px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:70px 8%;
+    color:white;
+
+    background:
+    radial-gradient(circle at 10% 20%,#00f2fe 0%,transparent 25%),
+    radial-gradient(circle at 90% 10%,#f472b6 0%,transparent 25%),
+    linear-gradient(135deg,#4f46e5,#7c3aed,#db2777);
+
+    overflow:hidden;
+}
+
+.hero-content{
+    max-width:650px;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 15px;
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:30px;
+    margin-bottom:20px;
+    font-size:13px;
+}
+
+.hero h1{
+    font-size:55px;
+    line-height:1.15;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#fde047;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.7;
+    color:#f3f4f6;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.primary-btn,
+.secondary-btn{
+    padding:14px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+}
+
+.primary-btn{
+    background:#fff;
+    color:#7c3aed;
+}
+
+.secondary-btn{
+    border:1px solid rgba(255,255,255,.6);
+    color:white;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* PHONE */
+
+.hero-phone{
+    width:280px;
+    height:420px;
+    border-radius:40px;
+    background:linear-gradient(145deg,#111827,#374151);
+    border:8px solid #0f172a;
+    box-shadow:20px 30px 60px rgba(0,0,0,.35);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transform:rotate(7deg);
+}
+
+.phone-screen{
+    width:90%;
+    height:90%;
+    border-radius:30px;
+    background:linear-gradient(135deg,#06b6d4,#8b5cf6,#ec4899);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:100px;
+}
+
+/* ================= FLIP COVER NAV DROPDOWN ================= */
+
+.flip-nav{
+    position:relative;
+}
+
+.flip-nav summary{
+    list-style:none;
+    cursor:pointer;
+    color:white;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.flip-nav summary::-webkit-details-marker{
+    display:none;
+}
+
+.flip-nav summary:hover{
+    color:#22d3ee;
+}
+
+.flip-dropdown{
+    position:absolute;
+    top:calc(100% + 14px);
+    right:0;
+    width:340px;
+    background:white;
+    color:#1f2937;
+    padding:16px;
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,.22);
+    z-index:10001;
+}
+
+.flip-dropdown .search-wrapper{
+    max-width:none;
+}
+
+.flip-dropdown .search-wrapper input{
+    padding:13px 48px 13px 16px;
+}
+
+.flip-dropdown .brands{
+    margin-top:12px;
+    justify-content:flex-start;
+}
+
+.flip-dropdown .brand-btn{
+    padding:8px 12px;
+    font-size:12px;
+}
+
+/* ================= FLIP COVER ================= */
+
+.flip-section{
+    padding:70px 7% 30px;
+    scroll-margin-top:90px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.section-title h2{
+    font-size:35px;
+    margin-bottom:8px;
+    background:linear-gradient(90deg,#4f46e5,#ec4899);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.section-title p{
+    color:#64748b;
+}
+
+.flip-box{
+    background:white;
+    border-radius:22px;
+    padding:25px;
+    box-shadow:0 15px 45px rgba(0,0,0,.10);
+}
+
+.search-wrapper{
+    position:relative;
+    max-width:850px;
+    margin:auto;
+}
+
+.search-wrapper input{
+    width:100%;
+    padding:17px 55px 17px 20px;
+    border:2px solid #e5e7eb;
+    border-radius:50px;
+    outline:none;
+    font-size:15px;
+}
+
+.search-wrapper input:focus{
+    border-color:#8b5cf6;
+    box-shadow:0 0 0 4px rgba(139,92,246,.12);
+}
+
+.search-icon{
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:22px;
+}
+
+.brands{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
+}
+
+.brand-btn{
+    border:0;
+    padding:9px 16px;
+    border-radius:25px;
+    background:#f1f5f9;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.brand-btn:hover,
+.brand-btn.active{
+    background:linear-gradient(135deg,#6366f1,#ec4899);
+    color:white;
+}
+
+/* ================= PRODUCTS ================= */
+
+.products{
+    padding:35px 7% 70px;
+    scroll-margin-top:80px;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.product{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.07);
+    transition:.3s;
+    border:1px solid #f1f5f9;
+}
+
+.product:hover{
+    transform:translateY(-7px);
+    box-shadow:0 20px 40px rgba(79,70,229,.15);
+}
+
+/* ================= PRODUCT IMAGE ================= */
+
+.product-img{
+    height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#dbeafe,#fce7f3);
+    position:relative;
+    overflow:hidden;
+}
+
+/*
+=====================================================
+IMPORTANT:
+Baad me picture lagane ke liye sirf ye code use karein:
+
+<img src="images/vivo-v70.jpg"
+     alt="Vivo V70 Cover">
+
+Example:
+=====================================================
+*/
+
+/* =====================================================
+   FLIP COVER IMAGE
+   Same picture is used for every Flip Cover model.
+   Replace images/flip-cover.jpg with your own photo later.
+   The existing product box size stays unchanged.
+===================================================== */
+.product-img .flip-cover-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    padding:0;
+    margin:0;
+    display:block;
+}
+
+.image-placeholder{
+    font-size:75px;
+    color:#64748b;
+}
+
+.product-img::after{
+    content:"PREMIUM";
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:#111827;
+    color:white;
+    font-size:10px;
+    padding:5px 10px;
+    border-radius:20px;
+    z-index:2;
+}
+
+.product-info{
+    padding:18px;
+}
+
+.company{
+    color:#6366f1;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.product h3{
+    margin:7px 0;
+    font-size:18px;
+}
+
+.product-description{
+    color:#64748b;
+    font-size:13px;
+    min-height:40px;
+}
+
+.price{
+    color:#16a34a;
+    font-size:22px;
+    font-weight:700;
+    margin:12px 0;
+}
+
+.old-price{
+    color:#94a3b8;
+    text-decoration:line-through;
+    font-size:13px;
+    margin-left:5px;
+}
+
+.product-actions{
+    display:flex;
+    gap:8px;
+}
+
+.add-cart{
+    flex:1;
+    padding:11px;
+    border:0;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);
+}
+
+.buy-now{
+    padding:11px 13px;
+    border:0;
+    border-radius:10px;
+    background:#25D366;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+/* ================= ACCESSORIES ================= */
+
+.accessories{
+    padding:70px 7%;
+    background:linear-gradient(135deg,#eef2ff,#fdf2f8);
+    scroll-margin-top:80px;
+}
+
+.category-menu{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.category-btn{
+    border:0;
+    background:white;
+    padding:11px 17px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:600;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+
+.category-btn.active,
+.category-btn:hover{
+    background:linear-gradient(135deg,#4f46e5,#ec4899);
+    color:white;
+}
+
+.accessory-brands{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:30px;
+}
+
+.accessory-brand{
+    border:1px solid #ddd;
+    background:white;
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.accessory-brand.active,
+.accessory-brand:hover{
+    background:#111827;
+    color:white;
+}
+
+.accessory-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+    padding:60px 7%;
+    background:white;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.feature{
+    background:#f8fafc;
+    padding:28px 20px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.feature-icon{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.feature h3{
+    margin-bottom:8px;
+}
+
+.feature p{
+    color:#64748b;
+    font-size:14px;
+}
+
+/* ================= CONTACT ================= */
+
+.contact{
+    padding:70px 20px;
+    text-align:center;
+    background:#111827;
+    color:white;
+    scroll-margin-top:80px;
+}
+
+.contact h2{
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+.contact-info{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.contact-card{
+    background:#1e293b;
+    padding:15px 25px;
+    border-radius:12px;
+    color:#e2e8f0;
+}
+
+.address{
+    max-width:700px;
+    margin:25px auto;
+    padding:18px;
+    background:#1e293b;
+    border-radius:15px;
+    line-height:1.7;
+}
+
+.delivery-note{
+    font-size:17px;
+    font-weight:700;
+    color:#fde047;
+    margin:20px 0;
+}
+
+.whatsapp{
+    display:inline-block;
+    padding:14px 28px;
+    border-radius:30px;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#020617;
+    color:#94a3b8;
+    padding:25px;
+    text-align:center;
+    font-size:13px;
+}
+
+/* ================= CART ================= */
+
+.cart-panel{
+    position:fixed;
+    right:-420px;
+    top:0;
+    width:390px;
+    max-width:95%;
+    height:100vh;
+    background:white;
+    z-index:10000;
+    box-shadow:-10px 0 40px rgba(0,0,0,.2);
+    transition:.4s;
+    display:flex;
+    flex-direction:column;
+}
+
+.cart-panel.open{
+    right:0;
+}
+
+.cart-header{
+    padding:20px;
+    background:linear-gradient(135deg,#4f46e5,#ec4899);
+    color:white;
+    display:flex;
+    justify-content:space-between;
+}
+
+.close-cart{
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.cart-items{
+    flex:1;
+    overflow-y:auto;
+    padding:20px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+}
+
+.remove-btn{
+    background:#fee2e2;
+    border:0;
+    color:#dc2626;
+    padding:5px 8px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.cart-footer{
+    padding:20px;
+    border-top:1px solid #eee;
+}
+
+.total{
+    display:flex;
+    justify-content:space-between;
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.checkout{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:#25D366;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1050px){
+
+    .product-grid,
+    .accessory-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .features{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .hero-phone{
+        width:220px;
+        height:350px;
+    }
+}
+ 
+    right:0;
+    width:760px;
+    max-width:calc(100vw - 24px);
+    max-height:calc(100vh - 105px);
+    overflow-y:auto;
+    overflow-x:hidden;
+    background:#fff;
+    color:#1f2937;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,.22);
+    z-index:99999;
+    box-sizing:border-box;
+}
+
+.flip-dropdown::-webkit-scrollbar,
+.accessory-dropdown::-webkit-scrollbar{
+    width:7px;
+}
+
+.flip-dropdown::-webkit-scrollbar-thumb,
+.accessory-dropdown::-webkit-scrollbar-thumb{
+    background:#c7c7c7;
+    border-radius:20px;
+}
+
+.flip-dropdown .search-wrapper{
+    width:100%;
+    max-width:none;
+    margin-bottom:15px;
+}
+
+.flip-dropdown .search-wrapper input{
+    width:100%;
+    box-sizing:border-box;
+}
+
+.flip-dropdown .brands{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+    margin-bottom:18px;
+    justify-content:flex-start;
+}
+
+.flip-dropdown .product-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+}
+
+.flip-dropdown .product{
+    min-width:0;
+    width:100%;
+}
+
+.flip-dropdown .product-img{
+    height:140px;
+}
+
+.flip-dropdown .product-info{
+    padding:12px;
+}
+
+.flip-dropdown .product h3{
+    font-size:15px;
+    line-height:1.3;
+}
+
+.flip-dropdown .product-description{
+    font-size:12px;
+}
+
+.accessory-nav summary{
+    list-style:none;
+    cursor:pointer;
+    color:white;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.accessory-nav summary::-webkit-details-marker{
+    display:none;
+}
+
+.accessory-nav summary:hover{
+    color:#22d3ee;
+}
+
+.accessory-dropdown .accessory-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+}
+
+.accessory-dropdown .product{
+    min-width:0;
+    width:100%;
+}
+
+.accessory-dropdown .category-menu,
+.accessory-dropdown .accessory-brands{
+    margin-left:0;
+    margin-right:0;
+}
+
+/* Main page: keep only the requested Mobile Covers heading. */
+#models .product-grid{
+    display:none;
+}
+
+#models .section-title{
+    margin-bottom:35px;
+}
+
+@media(max-width:900px){
+    .flip-dropdown,
+    .accessory-dropdown{
+        position:fixed;
+        top:76px;
+        left:12px;
+        right:12px;
+        width:auto;
+        max-width:none;
+        max-height:calc(100vh - 90px);
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+
+    .flip-dropdown .product-grid,
+    .accessory-dropdown .accessory-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+}
+
+@media(max-width:500px){
+    .flip-dropdown,
+    .accessory-dropdown{
+        top:70px;
+        left:8px;
+        right:8px;
+        padding:14px;
+        max-height:calc(100vh - 80px);
+        border-radius:14px;
+    }
+
+    .flip-dropdown .product-grid,
+    .accessory-dropdown .accessory-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =====================================================
+   MAIN PAGE MOBILE COVERS SEARCH + MODEL LIST
+   ===================================================== */
+
+.main-mobile-cover-search{
+    width:100%;
+    max-width:1100px;
+    margin:0 auto 30px;
+}
+
+.main-cover-search-box{
+    width:100%;
+    margin:0 auto 18px;
+}
+
+.main-cover-search-box input{
+    width:100%;
+    box-sizing:border-box;
+    padding:15px 18px;
+    border:1px solid #d7dce2;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+    background:#fff;
+    box-shadow:0 4px 14px rgba(0,0,0,.07);
+}
+
+.main-cover-search-box input:focus{
+    border-color:#22d3ee;
+    box-shadow:0 4px 16px rgba(34,211,238,.16);
+}
+
+.main-mobile-brands{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:9px;
+    margin-bottom:22px;
+}
+
+.main-mobile-brand{
+    border:1px solid #d9dee5;
+    background:#fff;
+    color:#333;
+    padding:9px 15px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:13px;
+    transition:.2s;
+}
+
+.main-mobile-brand:hover,
+.main-mobile-brand.active{
+    background:#111827;
+    color:#fff;
+    border-color:#111827;
+}
+
+.main-mobile-model-list{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:10px;
+}
+
+.main-mobile-model-item{
+    display:block;
+    padding:12px 14px;
+    border:1px solid #e1e5ea;
+    border-radius:10px;
+    background:#fff;
+    color:#222;
+    text-decoration:none;
+    text-align:center;
+    font-size:13px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.main-mobile-model-item:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.main-mobile-model-company{
+    display:block;
+    margin-top:4px;
+    font-size:10px;
+    font-weight:400;
+    opacity:.65;
+}
+
+.main-mobile-no-result{
+    grid-column:1/-1;
+    text-align:center;
+    padding:20px;
+    color:#777;
+}
+
+@media(max-width:900px){
+    .main-mobile-model-list{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+}
+
+@media(max-width:600px){
+    .main-mobile-model-list{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .main-mobile-brand{
+        padding:8px 12px;
+        font-size:12px;
+    }
+}
+
+
+/* =====================================================
+   MAIN PAGE MOBILE PRODUCT CARDS
+   ===================================================== */
+
+.main-mobile-model-list{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+    text-align:left;
+}
+
+.main-mobile-model-list .main-mobile-product-card{
+    width:100%;
+    min-width:0;
+}
+
+.main-mobile-model-list .main-mobile-product-card .product-img{
+    height:180px;
+}
+
+.main-mobile-model-list .main-mobile-product-card .product-info{
+    padding:14px;
+}
+
+.main-mobile-model-list .main-mobile-product-card h3{
+    font-size:15px;
+}
+
+.main-mobile-model-list .main-mobile-product-card .price{
+    margin-top:8px;
+}
+
+.main-mobile-model-list .main-mobile-product-card .product-actions{
+    display:flex;
+    gap:8px;
+}
+
+.main-mobile-model-list .main-mobile-product-card .product-actions button{
+    flex:1;
+}
+
+.main-mobile-no-result{
+    grid-column:1/-1;
+}
+
+@media(max-width:1000px){
+    .main-mobile-model-list{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+}
+
+@media(max-width:700px){
+    .main-mobile-model-list{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+}
+
+@media(max-width:450px){
+    .main-mobile-model-list{
+        grid-template-columns:1fr;
+    }
+}
+
+
+/* =====================================================
+   INDEPENDENT MAIN MOBILE COVER CARDS
+   ===================================================== */
+
+
+/* =====================================================
+   FLIP COVER CARD LAYOUT
+   LEFT = MODEL / PRICE / BUTTONS
+   RIGHT = FULL FLIP COVER IMAGE
+   ===================================================== */
+
+.flip-dropdown .product{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(120px, 1fr);
+    grid-template-areas:"info image";
+    align-items:stretch;
+    min-height:220px;
+}
+
+.flip-dropdown .product-img{
+    grid-area:image;
+    height:220px !important;
+    min-height:220px;
+    width:100%;
+    padding:8px !important;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.flip-dropdown .product-img .flip-cover-image{
+    width:100% !important;
+    height:100% !important;
+    max-width:100% !important;
+    max-height:100% !important;
+    object-fit:contain !important;
+    object-position:center !important;
+    display:block !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+
+.flip-dropdown .product-info{
+    grid-area:info;
+    min-width:0;
+    padding:16px !important;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.flip-dropdown .product-info h3{
+    font-size:15px;
+    line-height:1.3;
+    word-break:break-word;
+}
+
+.flip-dropdown .product-info .product-description{
+    font-size:12px;
+    line-height:1.35;
+}
+
+.flip-dropdown .product-info .product-actions{
+    margin-top:auto;
+}
+
+@media(max-width:500px){
+    .flip-dropdown .product{
+        grid-template-columns:minmax(0, 1fr) minmax(110px, 1fr);
+        grid-template-areas:"info image";
+    }
+
+    .flip-dropdown .product-img{
+        height:200px !important;
+        min-height:200px;
+    }
+}
+
+
+/* ================= UV GLASS NAV DROPDOWN ================= */
+.uv-nav{position:relative;}
+.uv-nav summary{list-style:none;cursor:pointer;color:white;font-size:14px;font-weight:600;transition:.3s;}
+.uv-nav summary::-webkit-details-marker{display:none;}
+.uv-nav summary:hover{color:#22d3ee;}
+.uv-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:760px;max-width:calc(100vw - 24px);max-height:calc(100vh - 105px);overflow-y:auto;overflow-x:hidden;background:#fff;color:#1f2937;padding:20px;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.22);z-index:99999;box-sizing:border-box;}
+.uv-dropdown::-webkit-scrollbar{width:7px;}
+.uv-dropdown::-webkit-scrollbar-thumb{background:#c7c7c7;border-radius:20px;}
+.uv-dropdown .uv-search-wrapper{width:100%;margin-bottom:15px;position:relative;}
+.uv-dropdown .uv-search-wrapper input{width:100%;padding:13px 48px 13px 16px;border:1px solid #d1d5db;border-radius:12px;outline:none;box-sizing:border-box;font-size:14px;}
+.uv-dropdown .uv-search-wrapper input:focus{border-color:#6366f1;}
+.uv-dropdown .uv-search-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);}
+.uv-dropdown .uv-product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.uv-dropdown .uv-product{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,1fr);grid-template-areas:"info image";align-items:stretch;min-width:0;min-height:220px;width:100%;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;background:#fff;}
+.uv-dropdown .uv-product-image{grid-area:image;min-width:0;height:220px;padding:8px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.uv-dropdown .uv-product-image img{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center;display:block;}
+.uv-dropdown .uv-product-info{grid-area:info;min-width:0;padding:16px;display:flex;flex-direction:column;justify-content:center;}
+.uv-dropdown .uv-product-info .company{margin-bottom:5px;}
+.uv-dropdown .uv-product-info h3{font-size:15px;line-height:1.3;word-break:break-word;}
+.uv-dropdown .uv-product-info .product-description{font-size:12px;line-height:1.35;}
+.uv-dropdown .uv-product-info .product-actions{margin-top:auto;}
+@media(max-width:900px){.uv-dropdown{position:fixed;top:76px;left:12px;right:12px;width:auto;max-width:none;max-height:calc(100vh - 90px);}.uv-dropdown .uv-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:500px){.uv-dropdown{top:70px;left:8px;right:8px;padding:14px;max-height:calc(100vh - 80px);border-radius:14px;}.uv-dropdown .uv-product-grid{grid-template-columns:1fr;}.uv-dropdown .uv-product{grid-template-columns:minmax(0,1fr) minmax(110px,1fr);}.uv-dropdown .uv-product-image{height:200px;}}
+
+/* ================= HOME REDESIGN ================= */
+.header-spacer{flex:1;}
+.hero-brand-kicker{font-size:16px;font-weight:800;letter-spacing:5px;opacity:.9;margin-bottom:8px;animation:homeFadeUp .8s ease both;}
+.hero-brand-name{font-size:clamp(48px,7vw,82px)!important;line-height:1!important;font-weight:1000;letter-spacing:2px;margin-bottom:12px!important;text-transform:uppercase;animation:homeBrandIn 1s ease both,homeGlow 3s ease-in-out infinite 1s;}
+.hero-brand-name span{color:#fde047!important;}
+.hero-tagline{font-size:19px!important;margin-bottom:24px!important;font-weight:600;}
+.hero-navigation{align-items:center;gap:10px;}
+.hero-navigation .flip-nav,.hero-navigation .accessory-nav,.hero-navigation .uv-nav{position:relative;display:block;}
+.hero-navigation .flip-nav summary,.hero-navigation .accessory-nav summary,.hero-navigation .uv-nav summary{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 22px;border-radius:30px;border:1px solid rgba(255,255,255,.6);color:white;font-weight:700;cursor:pointer;transition:.3s;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);}
+.hero-navigation .flip-nav summary:hover,.hero-navigation .accessory-nav summary:hover,.hero-navigation .uv-nav summary:hover{transform:translateY(-3px);background:rgba(255,255,255,.15);color:white;}
+.hero-navigation .flip-dropdown,.hero-navigation .accessory-dropdown,.hero-navigation .uv-dropdown{left:0;right:auto;top:calc(100% + 12px);}
+.hero-navigation .uv-dropdown{right:auto;}
+.realistic-phone{position:relative!important;width:300px!important;height:500px!important;border-radius:42px!important;background:linear-gradient(145deg,#05070b,#1b2230 45%,#06080d)!important;border:7px solid #020307!important;box-shadow:22px 30px 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.12)!important;transform:rotate(5deg)!important;overflow:hidden;}
+.realistic-phone:before{content:"";position:absolute;inset:5px;border-radius:36px;border:1px solid rgba(255,255,255,.12);pointer-events:none;}
+.phone-camera{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:92px;height:23px;border-radius:20px;background:#020307;z-index:5;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);}
+.phone-camera:after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:#1d4ed8;right:15px;top:8px;box-shadow:0 0 8px #3b82f6;}
+.realistic-phone .phone-screen{position:absolute;inset:7px;width:auto;height:auto;border-radius:35px;background:radial-gradient(circle at 75% 15%,rgba(34,211,238,.7),transparent 24%),radial-gradient(circle at 20% 80%,rgba(236,72,153,.55),transparent 32%),linear-gradient(145deg,#07111f,#172554 48%,#111827);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;}
+.phone-welcome{font-size:14px;letter-spacing:4px;font-weight:800;color:#cbd5e1;animation:phonePulse 2.4s ease-in-out infinite;}
+.phone-brand{margin-top:10px;font-size:31px;line-height:1.05;font-weight:1000;letter-spacing:2px;background:linear-gradient(90deg,#fff,#67e8f9,#f0abfc,#fff);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:phoneTextFlow 4s linear infinite;}
+.phone-brand span{font-size:25px;}
+.phone-sub{margin-top:18px;color:#e2e8f0;font-size:11px;letter-spacing:1px;opacity:.9;}
+.phone-mini-row{display:flex;gap:6px;margin-top:25px;flex-wrap:wrap;justify-content:center;padding:0 20px;}
+.phone-mini-row span{font-size:9px;padding:7px 8px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.13);color:#f8fafc;}
+.phone-glow{position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(34,211,238,.18);filter:blur(35px);bottom:-50px;left:-30px;animation:phoneFloatGlow 4s ease-in-out infinite;}
+@keyframes homeBrandIn{from{opacity:0;transform:translateY(25px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes homeFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes homeGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(253,224,71,0))}50%{filter:drop-shadow(0 0 14px rgba(253,224,71,.22))}}
+@keyframes phoneTextFlow{to{background-position:250% center}}
+@keyframes phonePulse{0%,100%{opacity:.65;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes phoneFloatGlow{0%,100%{transform:translate(0,0);opacity:.65}50%{transform:translate(20px,-18px);opacity:1}}
+@media(max-width:900px){.hero{gap:35px}.realistic-phone{width:250px!important;height:420px!important}.hero-navigation .flip-dropdown,.hero-navigation .accessory-dropdown,.hero-navigation .uv-dropdown{position:fixed;left:12px;right:12px;top:76px;width:auto;max-width:none;}}
+@media(max-width:700px){.hero{flex-direction:column;text-align:center;padding:55px 5%;}.hero-buttons{justify-content:center}.realistic-phone{width:220px!important;height:370px!important;transform:rotate(3deg)!important}.phone-brand{font-size:25px}.phone-brand span{font-size:21px}.phone-mini-row{margin-top:18px}.hero-navigation .flip-nav summary,.hero-navigation .accessory-nav summary,.hero-navigation .uv-nav summary{min-height:44px;padding:11px 16px;font-size:13px;}}
+
+
+/* ================= FIXED SIDE POPUPS ================= */
+.flip-dropdown, .accessory-dropdown, .uv-dropdown{
+    position:fixed !important;
+    top:88px !important;
+    right:18px !important;
+    left:auto !important;
+    width:min(780px, calc(100vw - 36px)) !important;
+    max-width:none !important;
+    max-height:calc(100vh - 106px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    padding:22px !important;
+    border-radius:20px !important;
+    box-shadow:0 20px 60px rgba(0,0,0,.32) !important;
+    z-index:100000 !important;
+}
+.popup-close-btn{
+    position:sticky;
+    top:0;
+    float:right;
+    z-index:10;
+    width:38px; height:38px;
+    border:0; border-radius:50%;
+    background:#111827; color:#fff;
+    font-size:24px; line-height:38px;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    margin:-8px -8px 8px 10px;
+}
+.popup-close-btn:hover{transform:scale(1.06);background:#dc2626;}
+.flip-dropdown .product-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+.accessory-dropdown .accessory-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+@media(max-width:600px){
+ .flip-dropdown,.accessory-dropdown,.uv-dropdown{top:72px !important;right:8px !important;width:calc(100vw - 16px) !important;max-height:calc(100vh - 82px) !important;padding:15px !important;}
+ .flip-dropdown .product-grid,.accessory-dropdown .accessory-grid,.uv-dropdown .uv-product-grid{grid-template-columns:1fr !important;}
+}
+
+/* ================= CLEAR FLIP + UV POPUP TEXT FIX ================= */
+.flip-dropdown .product-info,
+.flip-dropdown .product-info h3,
+.flip-dropdown .product-info .product-description,
+.flip-dropdown .product-info .company,
+.uv-dropdown .uv-product-info,
+.uv-dropdown .uv-product-info h3,
+.uv-dropdown .uv-product-info .product-description,
+.uv-dropdown .uv-product-info .company{
+    opacity:1 !important;
+    visibility:visible !important;
+    color:#111827 !important;
+    text-shadow:none !important;
+    filter:none !important;
+}
+.flip-dropdown .product-info .company,
+.uv-dropdown .uv-product-info .company{
+    color:#4f46e5 !important;
+    font-weight:800 !important;
+}
+.flip-dropdown .product-info h3,
+.uv-dropdown .uv-product-info h3{
+    font-size:18px !important;
+    font-weight:800 !important;
+    line-height:1.35 !important;
+    margin:7px 0 10px !important;
+}
+.flip-dropdown .product-info .product-description,
+.uv-dropdown .uv-product-info .product-description{
+    color:#374151 !important;
+    font-size:14px !important;
+    font-weight:500 !important;
+    line-height:1.6 !important;
+    min-height:auto !important;
+}
+.flip-dropdown .product-info .product-description strong,
+.uv-dropdown .uv-product-info .product-description strong{
+    color:#111827 !important;
+    font-weight:800 !important;
+}
+.flip-dropdown .product-img::after{
+    display:none !important;
+}
+.uv-dropdown .uv-product-image::after{
+    display:none !important;
+}
+.uv-dropdown .uv-product{
+    background:#fff !important;
+}
+.uv-dropdown .uv-product-info{
+    background:#fff !important;
+}
+
+</style>
+
+<style id="morbi-charger-layout-fix">
+/* Charger detail cards: image left, details right */
+.accessory-detail-card{display:flex!important;flex-direction:row!important;align-items:center!important;gap:24px!important;width:100%!important;max-width:760px!important;box-sizing:border-box!important;margin:0 auto 20px!important;padding:18px!important;overflow:hidden!important;}
+.accessory-detail-card .detail-image{flex:0 0 230px!important;width:230px!important;height:230px!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;border-radius:16px!important;}
+.accessory-detail-card .detail-image img{display:block!important;width:100%!important;height:100%!important;max-width:230px!important;max-height:230px!important;object-fit:contain!important;}
+.accessory-detail-card .detail-info{flex:1 1 auto!important;min-width:0!important;text-align:left!important;}
+.accessory-detail-card .detail-info h3{margin:6px 0 10px!important;}
+.accessory-detail-card .detail-description{margin:8px 0 12px!important;}
+.accessory-detail-card .product-actions{display:flex!important;flex-wrap:wrap!important;gap:10px!important;}
+@media(max-width:650px){.accessory-detail-card{flex-direction:column!important;align-items:stretch!important;}.accessory-detail-card .detail-image{width:100%!important;flex-basis:auto!important;height:210px!important;}.accessory-detail-card .detail-image img{max-width:210px!important;max-height:210px!important;}.accessory-detail-card .detail-info{text-align:left!important;}}
+</style>
+
+<style id="accessory-detail-final-fix">
+/* Final accessory charger layout: one full-width card, image left, details right */
+.accessory-dropdown .accessory-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  align-items:stretch !important;
+}
+.accessory-dropdown .accessory-detail-card{
+  grid-column:1 / -1 !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  width:100% !important;
+  max-width:none !important;
+  min-height:260px !important;
+  padding:18px !important;
+  gap:26px !important;
+  margin:0 !important;
+  overflow:hidden !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-image{
+  flex:0 0 250px !important;
+  width:250px !important;
+  height:220px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:hidden !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-image img{
+  width:100% !important;
+  height:100% !important;
+  max-width:250px !important;
+  max-height:220px !important;
+  object-fit:contain !important;
+  display:block !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-info{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  text-align:left !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-info h3{
+  margin:5px 0 10px !important;
+  font-size:20px !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-description{
+  line-height:1.7 !important;
+  margin:8px 0 12px !important;
+}
+.accessory-dropdown .accessory-detail-card .product-actions{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:10px !important;
+}
+@media(max-width:650px){
+  .accessory-dropdown .accessory-grid{grid-template-columns:1fr !important;}
+  .accessory-dropdown .accessory-detail-card{
+    grid-column:1 !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+  }
+  .accessory-dropdown .accessory-detail-card .detail-image{
+    flex:0 0 auto !important;
+    width:100% !important;
+    height:200px !important;
+  }
+  .accessory-dropdown .accessory-detail-card .detail-image img{max-width:210px !important;max-height:200px !important;}
+}
+</style>
+<style id="final-accessory-readability-fix">
+/* Final accessory product presentation: image left, readable details right */
+.accessory-dropdown .accessory-detail-card{
+ display:flex !important; flex-direction:row !important; align-items:center !important;
+ width:100% !important; max-width:780px !important; margin:0 auto 18px !important;
+ padding:18px !important; gap:24px !important; overflow:hidden !important;
+ background:#fff !important; border-radius:18px !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-image{
+ flex:0 0 220px !important; width:220px !important; height:220px !important;
+ display:flex !important; align-items:center !important; justify-content:center !important;
+ overflow:hidden !important; background:#f8fafc !important; border-radius:14px !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-image img{
+ width:100% !important; height:100% !important; max-width:220px !important; max-height:220px !important;
+ object-fit:contain !important; display:block !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-info{
+ flex:1 1 auto !important; min-width:0 !important; text-align:left !important; color:#111827 !important;
+}
+.accessory-dropdown .accessory-detail-card .company{
+ display:inline-block !important; color:#4f46e5 !important; opacity:1 !important; font-weight:800 !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-info h3{
+ color:#111827 !important; opacity:1 !important; font-size:21px !important; font-weight:800 !important;
+ margin:7px 0 12px !important; line-height:1.3 !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-description{
+ color:#374151 !important; opacity:1 !important; font-size:15px !important; font-weight:500 !important;
+ line-height:1.8 !important; margin:8px 0 14px !important;
+}
+.accessory-dropdown .accessory-detail-card .detail-description strong{
+ color:#111827 !important; font-weight:800 !important;
+}
+.accessory-dropdown .accessory-detail-card .price{
+ color:#111827 !important; opacity:1 !important; font-size:22px !important; font-weight:900 !important; margin:8px 0 14px !important;
+}
+.accessory-dropdown .accessory-detail-card .product-actions{display:flex !important; flex-wrap:wrap !important; gap:10px !important;}
+@media(max-width:650px){
+ .accessory-dropdown .accessory-detail-card{flex-direction:column !important; align-items:stretch !important;}
+ .accessory-dropdown .accessory-detail-card .detail-image{width:100% !important; height:200px !important; flex-basis:auto !important;}
+ .accessory-dropdown .accessory-detail-card .detail-image img{max-width:200px !important; max-height:200px !important;}
+}
+.accessory-product[hidden]{display:none !important;}
+</style>
+</head>
+
+<!-- 🔥 OFFERS COMING SOON STICKER -->
+<div class="offers-coming-soon">
+    <span class="offers-star">★</span>
+    <div class="offers-text">
+        <small>EXCLUSIVE</small>
+        <strong>OFFERS</strong>
+        <b>COMING SOON</b>
+    </div>
+</div>
+
+<style>
+/* Offers Coming Soon Sticker */
+.offers-coming-soon {
+    position: fixed;
+    right: 20px;
+    top: 150px;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #111, #292929);
+    border: 3px solid #ffd700;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    transform: rotate(8deg);
+    animation: offerFloat 2.5s ease-in-out infinite;
+}
+
+/* Star decoration */
+.offers-star {
+    position: absolute;
+    top: 7px;
+    right: 13px;
+    color: #ffd700;
+    font-size: 18px;
+}
+
+/* Text */
+.offers-text {
+    color: white;
+    line-height: 1.05;
+}
+
+.offers-text small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #ffd700;
+}
+
+.offers-text strong {
+    display: block;
+    font-size: 23px;
+    letter-spacing: 1px;
+}
+
+.offers-text b {
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+/* Floating animation */
+@keyframes offerFloat {
+    0%, 100% {
+        transform: rotate(8deg) translateY(0);
+    }
+    50% {
+        transform: rotate(8deg) translateY(-7px);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .offers-coming-soon {
+        right: 10px;
+        top: 120px;
+        width: 95px;
+        height: 95px;
+    }
+
+    .offers-text strong {
+        font-size: 18px;
+    }
+
+    .offers-text small {
+        font-size: 7px;
+    }
+
+    .offers-text b {
+        font-size: 8px;
+    }
+
+    .offers-star {
+        font-size: 14px;
+    }
+}
+</style>
+
+<body>
+<!-- ================= HEADER ================= -->
+<header>
+<div class="logo">
+<div class="logo-icon">📱</div>
+<div class="logo-text">
+<span>MANOHAR</span><br/>
+MOBILE SHOP
+</div>
+</div>
+<div class="header-spacer"></div>
+<button class="cart-button" onclick="openCart()">
+🛒 Cart
+<span class="cart-count" id="cartCount">0</span>
+</button>
+</header>
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+<div class="hero-content">
+<div class="hero-brand-kicker">WELCOME TO</div>
+<h1 class="hero-brand-name">MANOHAR <span>MOBILE</span></h1>
+<p class="hero-tagline">Your trusted mobile accessories destination</p>
+<div class="hero-buttons hero-navigation">
+<a class="primary-btn" href="#home">🏠 Home</a>
+<a class="secondary-btn" href="#models">📱 Models</a>
+<details class="flip-nav">
+<summary>📱 Flip Cover</summary>
+<div class="flip-dropdown">
+<button type="button" class="popup-close-btn" aria-label="Close" onclick="this.closest('details').removeAttribute('open'); event.stopPropagation();">×</button>
+<div class="search-wrapper">
+<input id="searchBox" oninput="searchProducts()" placeholder="Search: Vivo V70, iPhone 15, Redmi Note 13..." type="search"/>
+<span class="search-icon">🔎</span>
+</div>
+<div class="brands">
+<button class="brand-btn active" onclick="filterBrand('All',this)">All</button>
+<button class="brand-btn" onclick="filterBrand('Apple',this)">🍎 Apple</button>
+<button class="brand-btn" onclick="filterBrand('Samsung',this)">Samsung</button>
+<button class="brand-btn" onclick="filterBrand('Redmi',this)">Redmi</button>
+<button class="brand-btn" onclick="filterBrand('Realme',this)">Realme</button>
+<button class="brand-btn" onclick="filterBrand('Vivo',this)">Vivo</button>
+<button class="brand-btn" onclick="filterBrand('Oppo',this)">Oppo</button>
+<button class="brand-btn" onclick="filterBrand('OnePlus',this)">OnePlus</button>
+<button class="brand-btn" onclick="filterBrand('Motorola',this)">Motorola</button>
+</div>
+<div class="product-grid" id="productList">
+<!-- =====================================================
+     FLIP COVER MODELS
+     All 19 Flip Cover models use:
+     images/flip-cover.jpg
+     To change the picture for all models, replace that file.
+===================================================== -->
+<!-- ================= FLIP COVER MODEL 1 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y12">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y12</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y12 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y12 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+
+<!-- ================= FLIP COVER MODEL 2 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y20">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y20</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y20 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y20 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 3 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y91/Y93/Y95">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y91/Y93/Y95</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y91/Y93/Y95 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y91/Y93/Y95 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 4 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y16">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y16</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y16 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y16 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 5 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y18/T3 light">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y18/T3 light</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y18/T3 light Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y18/T3 light Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 6 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y19s/ Vivo Y29 5g">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y19s/ Vivo Y29 5g</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y19s/ Vivo Y29 5g Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y19s/ Vivo Y29 5g Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 7 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y17s">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y17s</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y17s Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y17s Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 8 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo YT3x">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="200"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo YT3x</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo YT3x Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo YT3x Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 9 ================= -->
+<div class="product" data-brand="Vivo" data-name="Vivo Y01">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y01</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y01 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Vivo Y01 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 10 ================= -->
+<div class="product" data-brand="Realme" data-name="Realme C53">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Realme</span>
+<h3>Realme C53</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Realme C53 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Realme C53 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 11 ================= -->
+<div class="product" data-brand="Realme" data-name="Realme 12x">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Realme</span>
+<h3>Realme 12x</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Realme 12x Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Realme 12x Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 12 ================= -->
+<div class="product" data-brand="Oppo" data-name="Oppo A3x">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Oppo</span>
+<h3>Oppo A3x</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Oppo A3x Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Oppo A3x Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 13 ================= -->
+<div class="product" data-brand="Oppo" data-name="Oppo A57">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Oppo</span>
+<h3>Oppo A57</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Oppo A57 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Oppo A57 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 14 ================= -->
+<div class="product" data-brand="Redmi" data-name="Mi 9A/9i">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Mi 9A/9i</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Mi 9A/9i Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Mi 9A/9i Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 15 ================= -->
+<div class="product" data-brand="Redmi" data-name="Mi A7">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Mi A7</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Mi A7 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Mi A7 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 16 ================= -->
+<div class="product" data-brand="Redmi" data-name="Mi A5/C71">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Mi A5/C71</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Mi A5/C71 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Mi A5/C71 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 17 ================= -->
+<div class="product" data-brand="Motorola" data-name="Moto G34">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Motorola</span>
+<h3>Moto G34</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Moto G34 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Moto G34 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 18 ================= -->
+<div class="product" data-brand="Motorola" data-name="Moto 50 Fusion">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Motorola</span>
+<h3>Moto 50 Fusion</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Moto 50 Fusion Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Moto 50 Fusion Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 19 ================= -->
+<div class="product" data-brand="Motorola" data-name="Moto G96">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Motorola</span>
+<h3>Moto G96</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Moto G96 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Moto G96 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 20 ================= -->
+<div class="product" data-brand="Redmi" data-name="Mi A1">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Mi A1</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Mi A1 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Mi A1 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 21 ================= -->
+<div class="product" data-brand="Redmi" data-name="Mi A4/Poco C75">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Mi A4/Poco C75</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Mi A4/Poco C75',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Mi A4/Poco C75 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 22 ================= -->
+<div class="product" data-brand="Redmi" data-name="Mi A4/Poco C75">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Mi/Poco C61</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Mi/Poco C61',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Mi/Poco C61 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 23 ================= -->
+<div class="product" data-brand="Redmi" data-name="Mi 15A">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Redmi 15A</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Mi 15A',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Mi 15A Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+
+<!-- ================= FLIP COVER MODEL 24 ================= -->
+<div class="product" data-brand="Realme" data-name="Realme C21y">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Realme</span>
+<h3>Realme C21y</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Realme C21y Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Realme C21y Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 25 ================= -->
+<div class="product" data-brand="Realme" data-name="Realme C20">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Realme</span>
+<h3>Realme C20</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Realme C20 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Realme C20 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 26 ================= -->
+<div class="product" data-brand="Motorola" data-name="Moto G85">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Motorola</span>
+<h3>Moto G85</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Moto G85 Cover',149)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Moto G85 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+<!-- ================= FLIP COVER MODEL 25 ================= -->
+<div class="product" data-brand="Realme" data-name="Realme C75">
+<div class="detail-image"><img src="image/Filip Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
+width="210"
+height="170"
+class="flip-cover-image">
+</div>
+<div class="product-info">
+<span class="company">Realme</span>
+<h3>Realme C75</h3>
+<p class="product-description">Premium protective mobile cover.</p>
+<div class="price">
+₹149
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Realme C75 Cover',149)">
+<button class="buy-now" onclick="buyNow('Realme C75 Cover',149)">
+💬
+</button>
+</div>
+</div>
+</div>
+</details><details class="accessory-nav"><summary>🎧 Accessories</summary><div class="accessory-dropdown">
+<button type="button" class="popup-close-btn" aria-label="Close" onclick="this.closest('details').removeAttribute('open'); event.stopPropagation();">×</button><div class="category-menu">
+<button class="category-btn active" onclick="filterAccessoryCategory('All',this)">
+All
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Charger',this)">
+🔌 Charger
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Neckband',this)">
+🎧 Neckband
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Earphone',this)">
+🎵 Earphone
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Headphone',this)">
+🎧 Headphone
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Data Cable',this)">
+🔋 Data Cable
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Speaker',this)">
+🔊 Speaker
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Buds',this)">
+🎶 Buds
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Smart Watch',this)">
+🎶 Smart Watch
+</button>
+</div><div class="accessory-brands">
+<button class="accessory-brand active" onclick="filterAccessoryBrand('All',this)">
+All Brands
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Ubon',this)">
+Ubon
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Y Com',this)">
+Y Com
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Nexteraa',this)">
+Nexteraa
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Black Kat',this)">
+Black Kat
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Soroo',this)">
+Soroo
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Morbi',this)">
+Morbi
+</button>
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Nothing (CMF)',this)">
+Nothing (CMF)
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('boat ',this)">
+boat
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('One Plus',this)">
+One Plus
+</button>
+<button class="accessory-brand" onclick="filterAccessoryBrand('Zebronics',this)">
+Zebronics
+</button>
+<button class="category-btn" onclick="filterAccessoryCategory('Power Bank',this)">
+ Power Bank
+</button>
+</div><div class="accessory-grid">
+<!-- USER CHARGER 1: restored original picture -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Morbi" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_201540.jpg" alt="Morbi Thunder+ 200W">"</div>
+ <div class="detail-info"><span class="company">Morbi</span><h3>Thunder 200W </h3>
+<p class="detail-description"><strong>Model:</strong> Thunder 200W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Multi Protocol Support</p><div class="price">₹499</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Morbi Thunder 400W Travel Charger',499)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Morbi Thunder 400W Travel Charger',499)">💬 Buy</button></div></div>
+</div>
+<!-- USER CHARGER 2: restored original picture -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Morbi" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_201503.jpg" alt="Morbi Thunder-X 30W Travel Charger "></div>
+ <div class="detail-info"><span class="company">Morbi</span><h3>Thunder-X 30W </h3>
+<p class="detail-description"><strong>Model:</strong> Thunder-X 30W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Multi Protocol Support</p><div class="price">₹399</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Morbi Thunder-X 30W Travel Charger',399)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Morbi Thunder-X 30W Travel Charger',399)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 1 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260901_130256.jpg" alt="Ubon 100W Speedup 3.0 Charger"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 100W C To C With USB Port </h3>
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-910  100W<br><strong>Type:</strong> 
+Speedup 3.0<br><strong>Feature:</strong> Multi Protocol Support, QC+PD Fast & Safe Charger  Charger</p><div class="price">₹799</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Ubon 100W Supeedup 3.0 Charger',799)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Ubon 100W Supeedup 3.0 Charger',799)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 2-->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_203420.jpg" alt="Ubon 15W Boost Charger"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W Type-C </h3>
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-586  15W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Doal Usb, Fast & Safe Charger</p><div class="price">₹299</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Ubon 15W Boost Charger',299)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Ubon  15W Boost Charger',299)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 3-->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_203432.jpg" alt="Ubon15W Boost Charger"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W V-8 </h3>
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-586  15W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Doal Usb, Fast & Safe Charger</p><div class="price">₹299</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Ubon 15W Boost Charger',299)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Ubon 15W Boost Charger',299)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 4-->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_203443.jpg" alt="Ubon 15W Boost Charger"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W Type-C </h3>
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-41  15W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Seven Light Doal Usb, Fast & Safe Charger</p><div class="price">₹299</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Ubon 15W ',299)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Ubon 15W ',299)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 5 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_203315.jpg" alt="Ubon 15W Boost Charger"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W  </h3>
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-777  15W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Boost Charge With Built-In Usb Port & V8 Cable </p><div class="price">₹299</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Ubon 15W ',299)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Ubon 15W ',299)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 6 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Data Cable">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_203246.jpg" alt="Ubon 25W Fast Data Cable"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Ubon Type-C 25W  </h3>
+<p class="detail-description"><strong>Model:</strong> Ubon Wr-560 Deluxe 25W<br><strong>Type:</strong> 
+C<br><strong>Feature:</strong> Braided Cable </p><div class="price">₹199</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Ubon 25W ',199)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Ubon 25W ',199)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 7 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Data Cable">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_203300.jpg" alt="Ubon 20W Fast Data Cable"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Ubon V-8 20W  </h3>
+<p class="detail-description"><strong>Model:</strong> Ubon Wr-550 Deluxe 25W<br><strong>Type:</strong> 
+V-8<br><strong>Feature:</strong> Braided Cable </p><div class="price">₹149</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Ubon 20W ',149)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Ubon 20W ',149)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 8 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Black Kat" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260902_174210.jpg" alt="Black Kat Buds"></div>
+ <div class="detail-info"><span class="company">Black Kat</span><h3>Black Kat </h3>
+<p class="detail-description"><strong>Model:</strong> Buds-T110 <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> V.-5.4 With 3 Munth Guarantee </p><div class="price">₹599</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Black Kat T-110 ',599)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Black Kat T-110 ',599)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 9 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_201709.jpg" alt="Y Com 65W Fast Charger"></div>
+ <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 65W Type-C </h3>
+<p class="detail-description"><strong>Model:</strong> Y Com Shakti 65W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Multi Protocol Support Charger</p><div class="price">₹499</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Y Com 65W ',499)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Y Com 65W ',499)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 10 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_201725.jpg" alt="Y Com 67W Fast Charger"></div>
+ <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 67W Type-C </h3>
+<p class="detail-description"><strong>Model:</strong> Y Com Thunder 67W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Multi Protocol Support Charger</p><div class="price">₹599</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Y Com 67W ',599)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Y Com 67W ',599)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 11 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_201652.jpg" alt="Y Com 45W Fast Charger"></div>
+ <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 45W Type-C </h3>
+<p class="detail-description"><strong>Model:</strong> Y Com Sparkle 45W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Multi Protocol Support Charger</p><div class="price">₹399</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Y Com 45W ',399)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Y Com 45W ',399)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 12 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_201628.jpg" alt="Y Com 18W Fast Charger"></div>
+ <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 18W Type-C </h3>
+<p class="detail-description"><strong>Model:</strong> Y Com Raftar 18W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Fast Charger</p><div class="price">₹299</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Y Com 18W ',299)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Y Com 18W ',299)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 13 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260827_201605.jpg" alt="Y Com 18W Fast Charger"></div>
+ <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 18W V-8 </h3>
+<p class="detail-description"><strong>Model:</strong> Y Com Jeet 18W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Fast Charger</p><div class="price">₹249</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Y Com 18W ',249)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Y Com 18W ',249)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 14 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260901_132959.jpg" alt="Y Com 25W PD Charger"></div>
+ <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 25W C TO C (PD) </h3>
+<p class="detail-description"><strong>Model:</strong> Y Com Smash 25W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong> Multi Protocol Support </p><div class="price">₹499</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Y Com 25W ',499)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Y Com 25W ',499)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 15 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
+ <div class="detail-image"><img src="image/Charger/IMG_20260901_133744.jpg" alt="Y Com 12W Charger"></div>
+ <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 12W V8/C TO C </h3>
+<p class="detail-description"><strong>Model:</strong> Y Com Volt 12W<br><strong>Type:</strong> 
+Travel Charger<br><strong>Feature:</strong>Best For Normal & Old Mobiles Phon </p><div class="price">₹199/249</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Y Com 12W ',199/249)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Y Com 12W ',199/249)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 16 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Black Kat" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260902_180521.jpg" alt="Black Kat Buds"></div>
+ <div class="detail-info"><span class="company">Black Kat</span><h3>Black Kat </h3>
+<p class="detail-description"><strong>Model:</strong> Airpods-161 <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> V.-5.4 With 3 Munth Guarantee </p><div class="price">₹599</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Black Kat T-110 ',599)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Black Kat T-110 ',599)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 17 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Nothing (CMF)" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260902_190107.jpg" alt="Nothing (CMF)"></div>
+ <div class="detail-info"><span class="company">Nothing (CMF)</span><h3>Nothing (CMF) </h3>
+<p class="detail-description"><strong>Model:</strong> Buds B168 <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> </p><div class="price">₹399</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Nothing (CMF) ',399)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Nothing (CMF) ',399)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 18 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Nothing (CMF)" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260902_191631.jpg" alt="Nothing (CMF)"></div>
+ <div class="detail-info"><span class="company">Nothing (CMF)</span><h3>Nothing (CMF) </h3>
+<p class="detail-description"><strong>Model:</strong> Buds Pro B168 <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> </p><div class="price">₹449</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Nothing (CMF) ',449)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Nothing (CMF) ',449)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 19 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="boat" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260904_133527.jpg" alt="boat)"></div>
+ <div class="detail-info"><span class="company">boat </span><h3>boat </h3>
+<p class="detail-description"><strong>Model:</strong> Nirvana Zenith Pro <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> </p><div class="price">₹499</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('One Plus ',499)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('One Plus ',499)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 20 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="boat" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260904_133458.jpg" alt="boat)"></div>
+ <div class="detail-info"><span class="company">boat </span><h3>boat </h3>
+<p class="detail-description"><strong>Model:</strong> Lucky Pods <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> </p><div class="price">₹549</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('One Plus ',549)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('One Plus ',549)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 21 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="One Plus" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260904_133558.jpg" alt="One Plus)"></div>
+ <div class="detail-info"><span class="company">One Plus</span><h3>One Plus </h3>
+<p class="detail-description"><strong>Model:</strong> Buds 2r <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> </p><div class="price">₹549</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('One Plus ',549)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('One Plus ',549)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 22 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="One Plus" data-category="Buds">
+ <div class="detail-image"><img src="image/Buds/IMG_20260904_133435.jpg" alt="One Plus)"></div>
+ <div class="detail-info"><span class="company">One Plus</span><h3>One Plus </h3>
+<p class="detail-description"><strong>Model:</strong> Buds Pro 3 <br><strong>Type:</strong> 
+Wireless<br><strong>Feature:</strong> </p><div class="price">₹449</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('One Plus ',449)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('One Plus ',449)">💬 Buy</button></div></div>
+</div>
+<!-- ACCESSORY 23 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Zebronics" data-category="Headphone">
+ <div class="detail-image"><img src="image/Headphone/IMG_20260904_154533.jpg" alt="Zebronics)"></div>
+ <div class="detail-info"><span class="company">Zebronics</span><h3>Zebronics </h3>
+<p class="detail-description"><strong>Model:</strong> Paradise Neo R <br><strong>Type:</strong> 
+Wireless(Bt V5.4) & AUX <br><strong>Feature:</strong> Soft Ear Cushions, Lightweight & Comfortable, Upto 50h Backup, Dual Pairing, ENC, Supports Voice Assistant
+ </p><div class="price">₹999</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Zebronics ',999)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Zebronics ',999)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 24 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="boat" data-category="Headphone">
+ <div class="detail-image"><img src="image/Headphone/IMG_20260904_161442.jpg" alt="boat)"></div>
+ <div class="detail-info"><span class="company">boat</span><h3>boat </h3>
+<p class="detail-description"><strong>Model:</strong> G4 <br><strong>Type:</strong> 
+Wireless & AUX <br><strong>Feature:</strong> Lightweight & Comfortable
+ </p><div class="price">₹499</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('boat ',499)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('boat ',499)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 25 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Black kat" data-category="Neckband">
+ <div class="detail-image"><img src="image/Neckband/IMG_20260904_154146.jpg" alt="Black kat)"></div>
+ <div class="detail-info"><span class="company">Black kat</span><h3>Black kat </h3>
+<p class="detail-description"><strong>Model:</strong> Magestic Series <br><strong>Type:</strong> 
+Wireless <br><strong>Feature:</strong> Magnetic On/Off With 3 Munth Guarantee
+ </p><div class="price">₹599</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Black kat ',599)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Black kat ',599)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 26 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Nexteraa" data-category="Power Bank">
+ <div class="detail-image"><img src="image/Power Bank/IMG_20260904_154247.jpg" alt="Black kat)"></div>
+ <div class="detail-info"><span class="company">Nexteraa</span><h3>Nexteraa Power Bank </h3>
+<p class="detail-description"><strong>Model:</strong> PB-4036 <br><strong>Type:</strong> 
+USB & C TO C 36w Fast Support <br><strong>Feature:</strong> Multi protocol Supprt 
+ </p><div class="price">₹1299</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Nexteraa ',1299)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Nexteraa ',1299)">💬 Buy</button></div></div>
+</div>
+
+<!-- ACCESSORY 27 -->
+<div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Smart Watch">
+ <div class="detail-image"><img src="image/Smart Watch/IMG_20260904_154405.jpg" alt="Ubon)"></div>
+ <div class="detail-info"><span class="company">Ubon</span><h3>Smart Watch </h3>
+<p class="detail-description"><strong>Model:</strong> Glamour Series SW-121 <br><strong>Type:</strong> 
+Smart Watch <br><strong>Feature:</strong> BT CALLING, HEALTH TRACKER 
+ </p><div class="price">₹1499 (Currently Not Available) </div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Smart Watch ',1499)">🛒 Add to Cart</button>
+<button class="buy-now" onclick="buyNow('Smart Watch ',1499)">💬 Buy</button></div></div>
+</div>
+
+</div></div></details><details class="uv-nav"><summary>📱 UV Glass</summary><div class="uv-dropdown">
+<button type="button" class="popup-close-btn" aria-label="Close" onclick="this.closest('details').removeAttribute('open'); event.stopPropagation();">×</button>
+<div class="uv-search-wrapper">
+<input id="uvGlassSearchBox" oninput="searchUVGlass()" placeholder="Search UV Glass model..." type="search"/>
+<span class="uv-search-icon">🔎</span>
+</div>
+<div class="uv-product-grid" id="uvGlassProductList"></div>
+</div></details>
+<a class="secondary-btn" href="#contact">📞 Contact Us</a>
+</div>
+</div>
+<div class="hero-phone realistic-phone">
+<div class="phone-camera"></div>
+<div class="phone-screen">
+<div class="phone-welcome">WELCOME TO</div>
+<div class="phone-brand">MANOHAR<br><span>MOBILE</span></div>
+<div class="phone-sub">Covers • UV Glass • Accessories</div>
+<div class="phone-mini-row">
+<span>🛡️ Premium</span><span>⚡ Fast</span><span>✨ Stylish</span>
+</div>
+<div class="phone-glow"></div>
+</div>
+</div>
+</section>
+<!-- ================= FLIP COVER ================= -->
+
+<!-- ================= MOBILE MODELS ================= -->
+<section class="products" id="models">
+<div class="section-title">
+<h2>✨ Mobile Covers</h2>
+<p>Apne mobile model ke liye premium cover select karein</p>
+<div class="main-mobile-cover-search">
+
+    <div class="main-cover-search-box">
+        <input
+            type="search"
+            id="mainMobileSearch"
+            placeholder="🔎 Search mobile company or model..."
+            oninput="filterMainMobileCovers()">
+    </div>
+
+    <div class="main-mobile-brands" id="mainMobileBrands">
+
+        <button type="button" class="main-mobile-brand active"
+            onclick="filterMainMobileBrand('All', this)">All</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('Apple', this)">🍎 Apple</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('Samsung', this)">Samsung</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('Redmi', this)">Redmi</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('Realme', this)">Realme</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('Vivo', this)">Vivo</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('Oppo', this)">Oppo</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('OnePlus', this)">OnePlus</button>
+
+        <button type="button" class="main-mobile-brand"
+            onclick="filterMainMobileBrand('Motorola', this)">Motorola</button>
+
+    </div>
+
+    <div class="main-mobile-model-list" id="mainMobileModelList">
+<div class="product main-mobile-product-card" data-brand="Apple" data-name="iPhone 15">
+<div class="product-img">
+<!-- E:\MANOHAR MOBILE SHOP\images:
+<img src="images/iphone-15.jpg" alt="iPhone 15 Cover">
+-->
+<div class="image-placeholder">🍎</div>
+</div>
+<div class="product-info">
+<span class="company">Apple</span>
+<h3>iPhone 15</h3>
+<p class="product-description">
+Premium stylish mobile cover.
+</p>
+<div class="price">
+₹199
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Apple iPhone 15 Cover',199)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Apple iPhone 15 Cover',199)">
+💬
+</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Apple" data-name="iPhone 14">
+<div class="product-img">
+<!-- <img src="images/iphone-14.jpg" alt="iPhone 14 Cover"> -->
+<div class="image-placeholder">🍎</div>
+</div>
+<div class="product-info">
+<span class="company">Apple</span>
+<h3>iPhone 14</h3>
+<p class="product-description">
+Premium protective cover.
+</p>
+<div class="price">
+₹199
+<span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Apple iPhone 14 Cover',199)">
+🛒 Add
+</button>
+<button class="buy-now" onclick="buyNow('Apple iPhone 14 Cover',199)">
+💬
+</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V70">
+<div class="product-img">
+<!-- <img src="images/vivo-v70.jpg" alt="Vivo V70 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo V70</h3>
+<p class="product-description">Stylish premium cover.</p>
+<div class="price">
+₹149 <span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo V70 Cover',149)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo V70 Cover',149)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo X300">
+<div class="product-img">
+<!-- <img src="images/vivo-x300.jpg" alt="Vivo X300 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo X300</h3>
+<p class="product-description">Premium protection cover.</p>
+<div class="price">
+₹199 <span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo X300 Cover',199)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo X300 Cover',199)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V60">
+<div class="product-img">
+    <img 
+        src="file:///E:/MANOHAR%20MOBILE%20SHOP/images/Vivo%20V60.jpg.jpg"
+        alt="Vivo V60"
+        style="width:100% !important; height:100% !important; object-fit:contain !important; display:block !important;">
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo V60</h3>
+<p class="product-description">Premium mobile cover.</p>
+<div class="price">
+₹199 <span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo V60 Cover',199)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo V60 Cover',199)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo X200">
+<div class="product-img">
+<!-- <img src="images/vivo-x200.jpg" alt="Vivo X200 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo X200</h3>
+<p class="product-description">Shockproof cover.</p>
+<div class="price">
+₹199 <span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo X200 Cover',199)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo X200 Cover',199)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo T4x">
+<div class="product-img">
+<!-- <img src="images/vivo-t4x.jpg" alt="Vivo T4x Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo T4x</h3>
+<p class="product-description">Durable protective cover.</p>
+<div class="price">
+₹199 <span class="old-price">₹299</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo T4x Cover',199)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo T4x Cover',199)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y20">
+<div class="product-img">
+<!-- <img src="images/vivo-y20.jpg" alt="Vivo Y20 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y20</h3>
+<p class="product-description">Daily-use stylish cover.</p>
+<div class="price">
+₹149 <span class="old-price">₹249</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y20 Cover',149)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y20 Cover',149)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y16">
+<div class="product-img">
+<!-- <img src="images/vivo-y16.jpg" alt="Vivo Y16 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y16</h3>
+<p class="product-description">Affordable stylish cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹149</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y16 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y16 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y91 Y93 Y95">
+<div class="product-img">
+<!-- <img src="images/vivo-y91-y93-y95.jpg" alt="Vivo Y91 Y93 Y95 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y91 / Y93 / Y95</h3>
+<p class="product-description">Compatible model cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹149</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y91 Y93 Y95 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y91 Y93 Y95 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y31">
+<div class="product-img">
+<!-- <img src="images/vivo-y31.jpg" alt="Vivo Y31 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y31</h3>
+<p class="product-description">Strong daily-use cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹149</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y31 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y31 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y21">
+<div class="product-img">
+<!-- <img src="images/vivo-y21.jpg" alt="Vivo Y21 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y21</h3>
+<p class="product-description">Stylish protective cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹149</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y21 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y21 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y12 Y15 Y17">
+<div class="product-img">
+<!-- <img src="images/vivo-y12-y15-y17.jpg" alt="Vivo Y12 Y15 Y17 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y12 / Y15 / Y17</h3>
+<p class="product-description">Compatible cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹149</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y12 Y15 Y17 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y12 Y15 Y17 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y22">
+<div class="product-img">
+<!-- <img src="images/vivo-y22.jpg" alt="Vivo Y22 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y22</h3>
+<p class="product-description">Stylish protective cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹149</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y22 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y22 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo S2">
+<div class="product-img">
+<!-- <img src="images/vivo-s2.jpg" alt="Vivo S2 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo S2</h3>
+<p class="product-description">Premium cover.</p>
+<div class="price">
+₹149 <span class="old-price">₹249</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo S2 Cover',149)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo S2 Cover',149)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y21 5G">
+<div class="product-img">
+<!-- <img src="images/vivo-y21-5g.jpg" alt="Vivo Y21 5G Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y21 5G</h3>
+<p class="product-description">5G protective cover.</p>
+<div class="price">
+₹149 <span class="old-price">₹249</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y21 5G Cover',149)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y21 5G Cover',149)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y19s">
+<div class="product-img">
+<!-- <img src="images/vivo-y19s.jpg" alt="Vivo Y19s Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y19s</h3>
+<p class="product-description">Affordable protective cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹149</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y19s Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y19s Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y400">
+<div class="product-img">
+<!-- <img src="images/vivo-y400.jpg" alt="Vivo Y400 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo Y400</h3>
+<p class="product-description">Premium stylish cover.</p>
+<div class="price">
+₹120 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo Y400 Cover',120)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo Y400 Cover',120)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo T4">
+<div class="product-img">
+<!-- <img src="images/vivo-t4.jpg" alt="Vivo T4 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo T4</h3>
+<p class="product-description">Shockproof cover.</p>
+<div class="price">
+₹120 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo T4 Cover',120)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo T4 Cover',120)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V30">
+<div class="product-img">
+<!-- <img src="images/vivo-v30.jpg" alt="Vivo V30 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Vivo</span>
+<h3>Vivo V30</h3>
+<p class="product-description">Slim transparent premium cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Vivo V30 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Vivo V30 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi Note 13">
+<div class="product-img">
+<!-- <img src="images/redmi-note-13.jpg" alt="Redmi Note 13 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Redmi Note 13</h3>
+<p class="product-description">Camera protection with shockproof body.</p>
+<div class="price">
+₹120 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Redmi Note 13 Cover',120)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Redmi Note 13 Cover',120)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 13C">
+<div class="product-img">
+<!-- <img src="images/redmi-13c.jpg" alt="Redmi 13C Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Redmi</span>
+<h3>Redmi 13C</h3>
+<p class="product-description">Durable stylish daily-use cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Redmi 13C Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Redmi 13C Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 12 Pro">
+<div class="product-img">
+<!-- <img src="images/realme-12-pro.jpg" alt="Realme 12 Pro Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Realme</span>
+<h3>Realme 12 Pro</h3>
+<p class="product-description">Premium silicone stylish cover.</p>
+<div class="price">
+₹120 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Realme 12 Pro Cover',120)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Realme 12 Pro Cover',120)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A59">
+<div class="product-img">
+<!-- <img src="images/oppo-a59.jpg" alt="Oppo A59 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Oppo</span>
+<h3>Oppo A59</h3>
+<p class="product-description">Strong and stylish protective cover.</p>
+<div class="price">
+₹99 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Oppo A59 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Oppo A59 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+<div class="product main-mobile-product-card" data-brand="Motorola" data-name="Motorola G54">
+<div class="product-img">
+<!-- <img src="images/motorola-g54.jpg" alt="Motorola G54 Cover"> -->
+<div class="image-placeholder">📱</div>
+</div>
+<div class="product-info">
+<span class="company">Motorola</span>
+<h3>Moto G54</h3>
+<p class="product-description">Heavy-duty shockproof protection.</p>
+<div class="price">
+₹99 <span class="old-price">₹199</span>
+</div>
+<div class="product-actions">
+<button class="add-cart" onclick="addToCart('Motorola G54 Cover',99)">🛒 Add</button>
+<button class="buy-now" onclick="buyNow('Motorola G54 Cover',99)">💬</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ================= ACCESSORIES ================= -->
+
+<!-- ================= FEATURES ================= -->
+<section class="features">
+<div class="feature">
+<div class="feature-icon">🛡️</div>
+<h3>Premium Protection</h3>
+<p>
+Strong, stylish aur durable mobile covers.
+</p>
+</div>
+<div class="feature">
+<div class="feature-icon">🚚</div>
+<h3>Fast Delivery</h3>
+<p>
+Fast aur safe delivery available.
+</p>
+</div>
+<div class="feature">
+<div class="feature-icon">💳</div>
+<h3>Easy Ordering</h3>
+<p>
+WhatsApp se simple aur fast order.
+</p>
+</div>
+<div class="feature">
+<div class="feature-icon">🚫</div>
+<h3>No Return Policy</h3>
+<p>
+Product purchase se pehle model aur item check karein.
+</p>
+</div>
+</section>
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+<h2>
+📱 MANOHAR MOBILE SHOP
+</h2>
+<div class="contact-info">
+<div class="contact-card">
+📞 +91 94070 17035
+</div>
+<div class="contact-card">
+📧 manoharmobileshop01@email.com
+</div>
+</div>
+<div class="address">
+<strong>📍 Shop Address</strong>
+<br/>
+
+For more information please visit
+<strong>MANOHAR MOBILE SHOP</strong>
+<br/>
+
+Near Mahakali Temple, Khurai, M.P.
+
+</div>
+<div class="delivery-note">
+
+🚚 Home Delivery currently available only in Khurai city.
+
+<br/>
+
+Not Other Place.
+
+</div>
+<a class="whatsapp" href="https://wa.me/919407017035" target="_blank">
+
+💬 WhatsApp Par Contact Karein
+</a>
+<div>
+<a class="instagram" href="https://www.instagram.com/manohar_mobile_shop/" target="_blank">
+
+📸 Follow us on Instagram
+
+</a></div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+
+© 2026 MANOHAR MOBILE SHOP
+
+<br/>
+
+All Rights Reserved
+
+</footer>
+<!-- ================= CART ================= -->
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h3>🛒 My Cart</h3>
+<button class="close-cart" onclick="closeCart()">
+
+×
+</button>
+</div>
+<div class="cart-items" id="cartItems">
+<p style="text-align:center;color:#777;">
+Cart abhi empty hai.
+</p>
+</div>
+<div class="cart-footer">
+<div class="total">
+<span>Total</span>
+<span id="cartTotal">₹0</span>
+</div>
+<button class="checkout" onclick="checkoutWhatsApp()">
+
+💬 Order on WhatsApp
+
+</button>
+</div>
+</div>
+<script>
+
+/* ================= CART ================= */
+
+let cart = [];
+
+
+/* ================= SEARCH PRODUCTS ================= */
+
+function searchProducts(){
+
+    const search =
+        document.getElementById("searchBox")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const products =
+        document.querySelectorAll("#productList .product");
+
+    products.forEach(product => {
+
+        const text =
+            product.innerText.toLowerCase();
+
+        if(text.includes(search)){
+
+            product.style.display="block";
+
+        }else{
+
+            product.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* ================= BRAND FILTER ================= */
+
+function filterBrand(brand,button){
+
+    document
+    .querySelectorAll(".brand-btn")
+    .forEach(btn =>
+        btn.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    document.getElementById("searchBox").value="";
+
+    document
+    .querySelectorAll("#productList .product")
+    .forEach(product => {
+
+        if(
+            brand === "All" ||
+            product.dataset.brand === brand
+        ){
+
+            product.style.display="block";
+
+        }else{
+
+            product.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* ================= ACCESSORY CATEGORY ================= */
+
+function applyAccessoryFilters(){
+    const activeCategory = (window.selectedAccessoryCategory || "All").trim().toLowerCase();
+    const activeBrand = (window.selectedAccessoryBrand || "All").trim().toLowerCase();
+
+    document.querySelectorAll(".accessory-product").forEach(product => {
+        const category = (product.dataset.category || "").trim().toLowerCase();
+        const brand = (product.dataset.accessoryBrand || "").trim().toLowerCase();
+        const categoryMatch = activeCategory === "all" || category === activeCategory;
+        const brandMatch = activeBrand === "all" || brand === activeBrand;
+        product.hidden = !(categoryMatch && brandMatch);
+    });
+}
+
+function filterAccessoryCategory(category,button){
+    window.selectedAccessoryCategory = category;
+    document.querySelectorAll(".category-btn").forEach(btn => btn.classList.remove("active"));
+    if(button) button.classList.add("active");
+    applyAccessoryFilters();
+}
+
+function filterAccessoryBrand(brand,button){
+    window.selectedAccessoryBrand = brand;
+    document.querySelectorAll(".accessory-brand").forEach(btn => btn.classList.remove("active"));
+    if(button) button.classList.add("active");
+    applyAccessoryFilters();
+}
+
+/* ================= ADD CART ================= */
+
+function addToCart(name,price){
+
+    const existing =
+        cart.find(item =>
+            item.name === name
+        );
+
+    if(existing){
+
+        existing.quantity++;
+
+    }else{
+
+        cart.push({
+            name:name,
+            price:price,
+            quantity:1
+        });
+
+    }
+
+    updateCart();
+
+    showMessage("🛒 Product cart me add ho gaya!");
+
+}
+
+
+/* ================= UPDATE CART ================= */
+
+function updateCart(){
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    let totalItems = 0;
+
+    let totalPrice = 0;
+
+
+    if(cart.length === 0){
+
+        cartItems.innerHTML = `
+        <p style="text-align:center;color:#777;">
+        Cart abhi empty hai.
+        </p>`;
+
+    }else{
+
+        cartItems.innerHTML = "";
+
+        cart.forEach((item,index)=>{
+
+            totalItems += item.quantity;
+
+            if(item.price !== null){
+                totalPrice += item.price * item.quantity;
+            }
+
+
+            cartItems.innerHTML += `
+
+            <div class="cart-item">
+
+                <div>
+
+                    <strong>
+                    ${item.name}
+                    </strong>
+
+                    <br>
+
+                    ${item.price !== null ? "₹" + item.price : "Price not specified"}
+                    × ${item.quantity}
+
+                    <br>
+
+                    <button
+                    onclick="changeQuantity(${index},-1)"
+                    style="margin-top:6px;">
+                    ➖
+                    </button>
+
+                    <button
+                    onclick="changeQuantity(${index},1)">
+                    ➕
+                    </button>
+
+                </div>
+
+                <button
+                class="remove-btn"
+                onclick="removeItem(${index})">
+
+                Remove
+
+                </button>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+
+    cartCount.innerText = totalItems;
+
+    cartTotal.innerText =
+        "₹" + totalPrice;
+
+}
+
+
+/* ================= QUANTITY ================= */
+
+function changeQuantity(index,value){
+
+    cart[index].quantity += value;
+
+    if(cart[index].quantity <= 0){
+
+        cart.splice(index,1);
+
+    }
+
+    updateCart();
+
+}
+
+
+/* ================= REMOVE ================= */
+
+function removeItem(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+
+}
+
+
+/* ================= OPEN CART ================= */
+
+function openCart(){
+
+    document
+    .getElementById("cartPanel")
+    .classList.add("open");
+
+}
+
+
+/* ================= CLOSE CART ================= */
+
+function closeCart(){
+
+    document
+    .getElementById("cartPanel")
+    .classList.remove("open");
+
+}
+
+
+/* ================= BUY NOW ================= */
+
+function buyNow(name,price){
+
+    const phone = "919407017035";
+
+    const message =
+        "Hello MANOHAR MOBILE SHOP,\n\n" +
+        "Mujhe mobile/accessory order karna hai.\n\n" +
+        "Product: " + name + "\n" +
+        "Price: ₹" + price + "\n\n" +
+        "Mobile Model / Address: ";
+
+    const url =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.open(url,"_blank");
+
+}
+
+
+/* ================= CART CHECKOUT ================= */
+
+function checkoutWhatsApp(){
+
+    if(cart.length === 0){
+
+        alert(
+            "Pehle cart me product add karein."
+        );
+
+        return;
+
+    }
+
+    const phone = "919407017035";
+
+    let message =
+        "Hello MANOHAR MOBILE SHOP,\n\n" +
+        "Mujhe ye products order karne hain:\n\n";
+
+    let total = 0;
+
+
+    cart.forEach(item => {
+
+        const subtotal =
+            item.price * item.quantity;
+
+        total += subtotal;
+
+        if(item.price === null){
+            message +=
+                item.name +
+                " - Price not specified × " +
+                item.quantity +
+                "\n";
+        }else{
+            message +=
+                item.name +
+                " - ₹" +
+                item.price +
+                " × " +
+                item.quantity +
+                " = ₹" +
+                subtotal +
+                "\n";
+        }
+
+    });
+
+
+    message +=
+        "\nTotal: ₹" +
+        total +
+        "\n\nMobile Model / Address: ";
+
+
+    const url =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.open(url,"_blank");
+
+}
+
+
+/* ================= MESSAGE ================= */
+
+function showMessage(text){
+
+    const message =
+        document.createElement("div");
+
+    message.innerText = text;
+
+    message.style.position="fixed";
+
+    message.style.bottom="25px";
+
+    message.style.left="50%";
+
+    message.style.transform=
+        "translateX(-50%)";
+
+    message.style.background=
+        "linear-gradient(135deg,#4f46e5,#ec4899)";
+
+    message.style.color="white";
+
+    message.style.padding=
+        "13px 22px";
+
+    message.style.borderRadius=
+        "30px";
+
+    message.style.zIndex="99999";
+
+    message.style.boxShadow=
+        "0 10px 30px rgba(0,0,0,.2)";
+
+    document.body.appendChild(message);
+
+
+    setTimeout(()=>{
+
+        message.remove();
+
+    },2000);
+
+}
+
+
+/* ================= UV GLASS ================= */
+
+const uvGlassImage = "image/Uv Glass/IMG2026090615222.jpeg";
+const uvGlassModels = [
+{brand:'Vivo',name:'Vivo X200 Pro'},
+{brand:'Vivo',name:'Vivo Y300 Plus/V40e'},
+{brand:'Vivo',name:'Vivo V29/V29Pro'},
+{brand:'Vivo',name:'Vivo V27/V27Pro'},
+{brand:'Vivo',name:'Vivo V50e/T4'},
+{brand:'Vivo',name:'Vivo Y400 Pro'},
+{brand:'Realme',name:'Realme 15 Pro'},
+{brand:'Realme',name:'Realme 13 Pro'},
+{brand:'Realme',name:'Realme 12 Pro'},
+{brand:'Realme',name:'Realme 11 Pro'},
+{brand:'Realme',name:'Realme P2 Pro'},
+{brand:'Oppo',name:'Oppo F27 Pro'},
+{brand:'Oppo',name:'Oppo Reno 12 Pro'},
+{brand:'Oppo',name:'Oppo Reno 12'},
+{brand:'Oppo',name:'Oppo Reno 5pro'},
+{brand:'Moto',name:'Moto G85'},
+{brand:'Moto',name:'Moto Edge 50 Fusion'},
+{brand:'Moto',name:'Moto Edge 40'},
+{brand:'OnePlus',name:'One Plus 8'}
+];
+
+function renderUVGlassProducts(){
+    const list = document.getElementById("uvGlassProductList");
+    if(!list) return;
+    list.innerHTML = uvGlassModels.map(function(item){
+        const safeName = item.name.replace(/'/g, "\\'");
+        return `
+        <div class="uv-product" data-name="${item.name.toLowerCase()}" data-brand="${item.brand.toLowerCase()}">
+            <div class="uv-product-info">
+                <span class="company">${item.brand}</span>
+                <h3>${item.name}</h3>
+                <p class="product-description">UV Glass - Full Glue Curved</p>
+                <div class="product-actions">
+                    <button class="add-cart" onclick="addUVToCart('${safeName}')">🛒 Add</button>
+                    <button class="buy-now" onclick="buyUVNow('${safeName}')">💬</button>
+                </div>
+            </div>
+            <div class="uv-product-image">
+                <img src="${uvGlassImage}" alt="UV Glass - ${item.name}">
+            </div>
+        </div>`;
+    }).join("");
+}
+
+function searchUVGlass(){
+    const input = document.getElementById("uvGlassSearchBox");
+    const search = input ? input.value.toLowerCase().trim() : "";
+    document.querySelectorAll("#uvGlassProductList .uv-product").forEach(function(product){
+        product.style.display = product.innerText.toLowerCase().includes(search) ? "grid" : "none";
+    });
+}
+
+function addUVToCart(name){
+    const existing = cart.find(item => item.name === name + " UV Glass");
+    if(existing){
+        existing.quantity++;
+    }else{
+        cart.push({name:name + " UV Glass",price:null,quantity:1,type:"uv-glass"});
+    }
+    updateCart();
+    showMessage("🛒 UV Glass cart me add ho gaya!");
+}
+
+function buyUVNow(name){
+    const phone = "919407017035";
+    const message =
+        "Hello MANOHAR MOBILE SHOP,\n\n" +
+        "Mujhe UV Glass order karna hai.\n\n" +
+        "Mobile Model: " + name + "\n\n" +
+        "Mobile Model / Address: ";
+    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+    window.open(url,"_blank");
+}
+
+renderUVGlassProducts();
+
+/* ================= INITIAL CART ================= */
+
+updateCart();
+
+
+
+/* =========================================================
+   DROPDOWN BEHAVIOUR
+   - Menus open on click and stay open.
+   - Close only with X / Escape / the summary toggle.
+   - Fixed right-side panel keeps the popup inside the viewport.
+   ========================================================= */
+(function(){
+    const flip = document.querySelector('.flip-nav');
+    const acc = document.querySelector('.accessory-nav');
+    const uv = document.querySelector('.uv-nav');
+
+    function closeOthers(except){
+        [flip,acc,uv].forEach(function(menu){
+            if(menu && menu !== except) menu.removeAttribute('open');
+        });
+    }
+
+    [flip,acc,uv].forEach(function(menu){
+        if(!menu) return;
+        const summary=menu.querySelector(':scope > summary');
+        if(summary){
+            summary.addEventListener('click',function(){
+                setTimeout(function(){ if(menu.hasAttribute('open')) closeOthers(menu); },0);
+            });
+        }
+    });
+
+    document.addEventListener('keydown',function(e){
+        if(e.key==='Escape'){
+            [flip,acc,uv].forEach(function(menu){ if(menu) menu.removeAttribute('open'); });
+        }
+    });
+
+    document.querySelectorAll('.hero-buttons a[href="#flip-cover"]').forEach(function(link){
+        link.addEventListener('click',function(e){
+            e.preventDefault();
+            if(flip){ closeOthers(flip); flip.setAttribute('open',''); }
+        });
+    });
+    document.querySelectorAll('.hero-buttons a[href="#accessories"]').forEach(function(link){
+        link.addEventListener('click',function(e){
+            e.preventDefault();
+            if(acc){ closeOthers(acc); acc.setAttribute('open',''); }
+        });
+    });
+    document.querySelectorAll('.hero-buttons a[href="#uv-glass"]').forEach(function(link){
+        link.addEventListener('click',function(e){
+            e.preventDefault();
+            if(uv){ closeOthers(uv); uv.setAttribute('open',''); }
+        });
+    });
+})();
+
+
+/* =====================================================
+   MAIN PAGE MOBILE COMPANY / MODEL LIST
+   Independent cards — does NOT use #productList.
+   ===================================================== */
+
+(function(){
+
+    let selectedMainMobileBrand = "All";
+
+    function getMainMobileProducts(){
+
+        return Array.from(
+            document.querySelectorAll(
+                "#mainMobileModelList .main-mobile-product-card"
+            )
+        ).map(function(product){
+
+            const name =
+                product.getAttribute("data-name") ||
+                product.querySelector("h3")?.textContent.trim() ||
+                "";
+
+            const brand =
+                product.getAttribute("data-brand") ||
+                product.querySelector(".company")?.textContent.trim() ||
+                "";
+
+            return {
+                name:name,
+                brand:brand,
+                element:product
+            };
+        });
+    }
+
+    function renderMainMobileModels(){
+
+        const container =
+            document.getElementById("mainMobileModelList");
+
+        if(!container) return;
+
+        const input =
+            document.getElementById("mainMobileSearch");
+
+        const search =
+            (input ? input.value : "").trim().toLowerCase();
+
+        const products =
+            getMainMobileProducts();
+
+        products.forEach(function(item){
+
+            const brandMatch =
+                selectedMainMobileBrand === "All" ||
+                item.brand.toLowerCase() ===
+                selectedMainMobileBrand.toLowerCase();
+
+            const searchMatch =
+                !search ||
+                item.name.toLowerCase().includes(search) ||
+                item.brand.toLowerCase().includes(search);
+
+            item.element.style.display =
+                (brandMatch && searchMatch) ? "" : "none";
+        });
+
+        const oldMessage =
+            container.querySelector(".main-mobile-no-result");
+
+        if(oldMessage) oldMessage.remove();
+
+        const visibleCount =
+            products.filter(function(item){
+                return item.element.style.display !== "none";
+            }).length;
+
+        if(visibleCount === 0){
+
+            const message =
+                document.createElement("div");
+
+            message.className =
+                "main-mobile-no-result";
+
+            message.textContent =
+                "No mobile model found.";
+
+            container.appendChild(message);
+        }
+    }
+
+    window.filterMainMobileBrand =
+        function(brand, button){
+
+            selectedMainMobileBrand = brand;
+
+            document
+                .querySelectorAll(".main-mobile-brand")
+                .forEach(function(btn){
+                    btn.classList.remove("active");
+                });
+
+            if(button){
+                button.classList.add("active");
+            }
+
+            renderMainMobileModels();
+        };
+
+    window.filterMainMobileCovers =
+        function(){
+            renderMainMobileModels();
+        };
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function(){
+            renderMainMobileModels();
+        }
+    );
+
+})();
+
+</script>
+</body>
+</html>
