@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="hi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MANOHAR MOBILE SHOP - Admin Orders</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app-config.js"></script>
+<style>
+body{font-family:Arial,sans-serif;background:#f6f7fb;margin:0;color:#172033}
+header{background:#0f172a;color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center}
+main{padding:25px 5%;max-width:1400px;margin:auto}.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px;margin-bottom:18px}
+input,select,button{padding:11px;border:1px solid #cbd5e1;border-radius:9px;font:inherit}
+button{cursor:pointer;font-weight:700}.primary{background:#4f46e5;color:#fff;border:0}
+table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:11px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:13px}th{background:#f8fafc}
+.badge{padding:5px 8px;border-radius:15px;background:#eef2ff}.hidden{display:none}.filters{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:800px){table{display:block;overflow:auto;white-space:nowrap}}
+</style></head>
+<body>
+<header><b>🛠️ MANOHAR MOBILE SHOP — ADMIN</b><button onclick="logout()">Logout</button></header>
+<main>
+<div id="login" class="card">
+<h2>Admin Login</h2>
+<p>Customer account se login karein; SQL me role = admin hona chahiye.</p>
+<input id="email" type="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button class="primary" onclick="login()">Login</button>
+</div>
+<div id="panel" class="hidden">
+<div class="card"><h2>📊 Orders</h2><div class="filters"><input id="search" placeholder="Order / customer search" oninput="render()"><select id="statusFilter" onchange="render()"><option value="">All Status</option><option>New</option><option>Confirmed</option><option>Packed</option><option>Shipped</option><option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option></select></div></div>
+<div class="card"><div id="stats"></div></div>
+<div class="card"><table><thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Tracking</th><th>Action</th></tr></thead><tbody id="rows"></tbody></table></div>
+</div></main>
+<script>
+let sb=null,orders=[];
+function ready(){return window.APP_CONFIG&&!window.APP_CONFIG.SUPABASE_URL.includes("YOUR_")&&window.supabase}
+async function login(){
+ if(!ready()){alert("app-config.js me Supabase details bhariye.");return}
+ sb=window.supabase.createClient(window.APP_CONFIG.SUPABASE_URL,window.APP_CONFIG.SUPABASE_ANON_KEY);
+ const {data,error}=await sb.auth.signInWithPassword({email:email.value.trim(),password:password.value});
+ if(error){alert(error.message);return}
+ const {data:p}=await sb.from("profiles").select("role").eq("id",data.user.id).single();
+ if(!p||p.role!=="admin"){await sb.auth.signOut();alert("Admin access nahi hai.");return}
+ loginBox(false); await load();
+}
+function loginBox(show){document.getElementById("login").classList.toggle("hidden",!show);document.getElementById("panel").classList.toggle("hidden",show)}
+async function load(){const r=await sb.from("orders").select("*").order("created_at",{ascending:false});if(r.error){alert(r.error.message);return}orders=r.data||[];render()}
+function render(){
+ const q=(search.value||"").toLowerCase(), sf=statusFilter.value;
+ const list=orders.filter(o=>(!sf||o.status===sf)&&(!q||String(o.order_id).toLowerCase().includes(q)||String(o.customer_name).toLowerCase().includes(q)||String(o.customer_phone).includes(q)));
+ stats.innerHTML=`Total Orders: <b>${orders.length}</b> &nbsp; | &nbsp; Showing: <b>${list.length}</b> &nbsp; | &nbsp; Sales: <b>₹${orders.reduce((s,o)=>s+Number(o.total||0),0).toFixed(2)}</b>`;
+ rows.innerHTML=list.map(o=>`<tr><td><b>${o.order_id}</b><br><small>${new Date(o.created_at).toLocaleString("en-IN")}</small></td><td>${o.customer_name}<br>${o.customer_phone}<br>${o.city} - ${o.pin}</td><td>${(o.items||[]).map(x=>`${x.name} × ${x.quantity||1}`).join("<br>")}</td><td>₹${Number(o.total||0)}</td><td>${o.payment_method}<br><b>${o.payment_status}</b></td><td><select onchange="changeStatus('${o.order_id}',this.value)">${["New","Confirmed","Packed","Shipped","Out for Delivery","Delivered","Cancelled"].map(s=>`<option ${s===o.status?"selected":""}>${s}</option>`).join("")}</select></td><td><input value="${o.tracking_number||""}" id="trk_${o.order_id}"></td><td><button onclick="saveOrder('${o.order_id}')">Save</button></td></tr>`).join("");
+}
+function changeStatus(id,v){const o=orders.find(x=>x.order_id===id);if(o)o.status=v}
+async function saveOrder(id){const o=orders.find(x=>x.order_id===id);const tr=document.getElementById("trk_"+id).value.trim();const r=await sb.from("orders").update({status:o.status,tracking_number:tr,updated_at:new Date().toISOString()}).eq("order_id",id);if(r.error)alert(r.error.message);else alert("Order updated")}
+async function logout(){if(sb)await sb.auth.signOut();loginBox(true)}
+</script></body></html>
