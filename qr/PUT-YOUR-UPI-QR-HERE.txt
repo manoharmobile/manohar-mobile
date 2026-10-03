@@ -1,0 +1,1 @@
+Put the actual shop QR image here as qr/upi-qr.png.

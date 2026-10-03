@@ -18,16 +18,11 @@ html{
     scroll-behavior:smooth;
 }
 
-
-
 body{
     font-family:Arial, sans-serif;
     background:#f7f8fc;
     color:#1f2937;
 }
-
-/* ================= HEADER ================= */
-
 header{
     position:sticky;
     top:0;
@@ -120,9 +115,6 @@ nav a:hover{
     font-size:12px;
     font-weight:bold;
 }
-
-/* ================= HERO ================= */
-
 .hero{
     min-height:540px;
     display:flex;
@@ -199,9 +191,6 @@ nav a:hover{
 .secondary-btn:hover{
     transform:translateY(-3px);
 }
-
-/* PHONE */
-
 .hero-phone{
     width:280px;
     height:420px;
@@ -225,9 +214,6 @@ nav a:hover{
     align-items:center;
     font-size:100px;
 }
-
-/* ================= FLIP COVER NAV DROPDOWN ================= */
-
 .flip-nav{
     position:relative;
 }
@@ -279,9 +265,6 @@ nav a:hover{
     padding:8px 12px;
     font-size:12px;
 }
-
-/* ================= FLIP COVER ================= */
-
 .flip-section{
     padding:70px 7% 30px;
     scroll-margin-top:90px;
@@ -361,9 +344,6 @@ nav a:hover{
     background:linear-gradient(135deg,#6366f1,#ec4899);
     color:white;
 }
-
-/* ================= PRODUCTS ================= */
-
 .products{
     padding:35px 7% 70px;
     scroll-margin-top:80px;
@@ -388,9 +368,6 @@ nav a:hover{
     transform:translateY(-7px);
     box-shadow:0 20px 40px rgba(79,70,229,.15);
 }
-
-/* ================= PRODUCT IMAGE ================= */
-
 .product-img{
     height:220px;
     display:flex;
@@ -400,25 +377,6 @@ nav a:hover{
     position:relative;
     overflow:hidden;
 }
-
-/*
-=====================================================
-IMPORTANT:
-Baad me picture lagane ke liye sirf ye code use karein:
-
-<img src="images/vivo-v70.jpg"
-     alt="Vivo V70 Cover">
-
-Example:
-=====================================================
-*/
-
-/* =====================================================
-   FLIP COVER IMAGE
-   Same picture is used for every Flip Cover model.
-   Replace ./image/Flip-Cover/IMG_20260904_153333.jpg with your own photo later.
-   The existing product box size stays unchanged.
-===================================================== */
 .product-img .flip-cover-image{
     width:100%;
     height:100%;
@@ -508,9 +466,6 @@ Example:
     cursor:pointer;
     font-size:16px;
 }
-
-/* ================= ACCESSORIES ================= */
-
 .accessories{
     padding:70px 7%;
     background:linear-gradient(135deg,#eef2ff,#fdf2f8);
@@ -569,9 +524,6 @@ Example:
     grid-template-columns:repeat(4,1fr);
     gap:22px;
 }
-
-/* ================= FEATURES ================= */
-
 .features{
     padding:60px 7%;
     background:white;
@@ -601,9 +553,6 @@ Example:
     color:#64748b;
     font-size:14px;
 }
-
-/* ================= CONTACT ================= */
-
 .contact{
     padding:70px 20px;
     text-align:center;
@@ -657,9 +606,6 @@ Example:
     text-decoration:none;
     font-weight:700;
 }
-
-/* ================= FOOTER ================= */
-
 footer{
     background:#020617;
     color:#94a3b8;
@@ -667,9 +613,6 @@ footer{
     text-align:center;
     font-size:13px;
 }
-
-/* ================= CART ================= */
-
 .cart-panel{
     position:fixed;
     right:-420px;
@@ -711,12 +654,46 @@ footer{
     padding:20px;
 }
 
-.cart-item{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
+\.cart-item{
+    display:grid;
+    grid-template-columns:78px minmax(0,1fr) auto;
+    align-items:center;
+    gap:12px;
     padding:12px 0;
     border-bottom:1px solid #eee;
+}
+.cart-item-image{
+    width:78px;
+    height:78px;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    background:#f8fafc;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+.cart-item-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+}
+.cart-item-image .cart-no-image{font-size:30px;color:#94a3b8;}
+.cart-item-info{min-width:0;}
+.cart-item-name{font-weight:900;color:#111827;font-size:14px;line-height:1.35;}
+.cart-item-company{font-size:11px;color:#4f46e5;font-weight:800;text-transform:uppercase;margin-top:3px;}
+.cart-item-description{font-size:11px;color:#64748b;line-height:1.35;margin-top:3px;}
+.cart-item-price{font-size:12px;color:#374151;margin-top:5px;}
+.cart-item-subtotal{font-size:13px;font-weight:900;color:#111827;margin-top:4px;}
+.cart-item-actions{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.cart-qty-btn{border:1px solid #cbd5e1;background:#fff;color:#111827;width:30px;height:30px;border-radius:8px;cursor:pointer;font-weight:800;}
+.cart-qty-count{min-width:24px;text-align:center;font-weight:800;color:#111827;}
+.cart-item-remove{align-self:start;background:#fee2e2;border:0;color:#dc2626;padding:6px 8px;border-radius:7px;cursor:pointer;font-size:12px;}
+@media(max-width:520px){
+  .cart-item{grid-template-columns:64px minmax(0,1fr);gap:9px;}
+  .cart-item-image{width:64px;height:64px;}
+  .cart-item-remove{grid-column:2;justify-self:start;margin-top:2px;}
 }
 
 .remove-btn{
@@ -751,9 +728,6 @@ footer{
     font-weight:bold;
     cursor:pointer;
 }
-
-/* ================= RESPONSIVE ================= */
-
 @media(max-width:1050px){
 
     .product-grid,
@@ -770,8 +744,6 @@ footer{
         height:350px;
     }
 }
-
-/* Desktop dropdown base layout (repaired) */
 .flip-dropdown,
 .accessory-dropdown{
     position:absolute;
@@ -883,8 +855,6 @@ footer{
     margin-left:0;
     margin-right:0;
 }
-
-/* Main page: keep only the requested Mobile Covers heading. */
 #models .product-grid{
     display:none;
 }
@@ -929,11 +899,6 @@ footer{
         grid-template-columns:1fr;
     }
 }
-
-/* =====================================================
-   MAIN PAGE MOBILE COVERS SEARCH + MODEL LIST
-   ===================================================== */
-
 .main-mobile-cover-search{
     width:100%;
     max-width:1100px;
@@ -1044,12 +1009,6 @@ footer{
         font-size:12px;
     }
 }
-
-
-/* =====================================================
-   MAIN PAGE MOBILE PRODUCT CARDS
-   ===================================================== */
-
 .main-mobile-model-list{
     display:grid;
     grid-template-columns:repeat(4,minmax(0,1fr));
@@ -1108,19 +1067,6 @@ footer{
         grid-template-columns:1fr;
     }
 }
-
-
-/* =====================================================
-   INDEPENDENT MAIN MOBILE COVER CARDS
-   ===================================================== */
-
-
-/* =====================================================
-   FLIP COVER CARD LAYOUT
-   LEFT = MODEL / PRICE / BUTTONS
-   RIGHT = FULL FLIP COVER IMAGE
-   ===================================================== */
-
 .flip-dropdown .product{
     display:grid;
     grid-template-columns:minmax(0, 1fr) minmax(120px, 1fr);
@@ -1189,9 +1135,6 @@ footer{
         min-height:200px;
     }
 }
-
-
-/* ================= UV GLASS NAV DROPDOWN ================= */
 .uv-nav{position:relative;}
 .uv-nav summary{list-style:none;cursor:pointer;color:white;font-size:14px;font-weight:600;transition:.3s;}
 .uv-nav summary::-webkit-details-marker{display:none;}
@@ -1214,8 +1157,6 @@ footer{
 .uv-dropdown .uv-product-info .product-actions{margin-top:auto;}
 @media(max-width:900px){.uv-dropdown{position:fixed;top:76px;left:12px;right:12px;width:auto;max-width:none;max-height:calc(100vh - 90px);}.uv-dropdown .uv-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:500px){.uv-dropdown{top:70px;left:8px;right:8px;padding:14px;max-height:calc(100vh - 80px);border-radius:14px;}.uv-dropdown .uv-product-grid{grid-template-columns:1fr;}.uv-dropdown .uv-product{grid-template-columns:minmax(0,1fr) minmax(110px,1fr);}.uv-dropdown .uv-product-image{height:200px;}}
-
-/* ================= HOME REDESIGN ================= */
 .header-spacer{flex:1;}
 .hero-brand-kicker{font-size:16px;font-weight:800;letter-spacing:5px;opacity:.9;margin-bottom:8px;animation:homeFadeUp .8s ease both;}
 .hero-brand-name{font-size:clamp(48px,7vw,82px)!important;line-height:1!important;font-weight:1000;letter-spacing:2px;margin-bottom:12px!important;text-transform:uppercase;animation:homeBrandIn 1s ease both,homeGlow 3s ease-in-out infinite 1s;}
@@ -1247,9 +1188,6 @@ footer{
 @keyframes phoneFloatGlow{0%,100%{transform:translate(0,0);opacity:.65}50%{transform:translate(20px,-18px);opacity:1}}
 @media(max-width:900px){.hero{gap:35px}.realistic-phone{width:250px!important;height:420px!important}.hero-navigation .flip-dropdown,.hero-navigation .accessory-dropdown,.hero-navigation .uv-dropdown{position:fixed;left:12px;right:12px;top:76px;width:auto;max-width:none;}}
 @media(max-width:700px){.hero{flex-direction:column;text-align:center;padding:55px 5%;}.hero-buttons{justify-content:center}.realistic-phone{width:220px!important;height:370px!important;transform:rotate(3deg)!important}.phone-brand{font-size:25px}.phone-brand span{font-size:21px}.phone-mini-row{margin-top:18px}.hero-navigation .flip-nav summary,.hero-navigation .accessory-nav summary,.hero-navigation .uv-nav summary{min-height:44px;padding:11px 16px;font-size:13px;}}
-
-
-/* ================= FIXED SIDE POPUPS ================= */
 .flip-dropdown, .accessory-dropdown, .uv-dropdown{
     position:fixed !important;
     top:88px !important;
@@ -1285,15 +1223,12 @@ footer{
  .flip-dropdown,.accessory-dropdown,.uv-dropdown{top:72px !important;right:8px !important;width:calc(100vw - 16px) !important;max-height:calc(100vh - 82px) !important;padding:15px !important;}
  .flip-dropdown .product-grid,.accessory-dropdown .accessory-grid,.uv-dropdown .uv-product-grid{grid-template-columns:1fr !important;}
 }
-
-/* ================= FINAL PRODUCT ACTION + UV VISIBILITY FIX ================= */
 .flip-dropdown .product-actions,.uv-dropdown .product-actions{display:flex!important;align-items:stretch!important;gap:7px!important;min-width:0!important;overflow:visible!important}
 .flip-dropdown .whatsapp-product-btn,.uv-dropdown .whatsapp-product-btn{flex:0 0 44px!important;width:44px!important;min-width:44px!important}
 .uv-dropdown{display:block!important;visibility:visible!important;opacity:1!important}
 .uv-dropdown .uv-product-grid{display:grid!important;visibility:visible!important;opacity:1!important}
 .uv-dropdown .uv-product{display:grid!important;visibility:visible!important}
 @media(max-width:500px){.flip-dropdown .whatsapp-product-btn,.uv-dropdown .whatsapp-product-btn{flex-basis:42px!important;width:42px!important;min-width:42px!important}}
-/* ================= CLEAR FLIP + UV POPUP TEXT FIX ================= */
 .flip-dropdown .product-info,
 .flip-dropdown .product-info h3,
 .flip-dropdown .product-info .product-description,
@@ -1345,9 +1280,6 @@ footer{
 .uv-dropdown .uv-product-info{
     background:#fff !important;
 }
-
-
-/* ================= AMAZON-STYLE CHECKOUT ================= */
 .checkout-overlay{position:fixed;inset:0;z-index:100000;background:rgba(15,23,42,.68);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px}
 .checkout-overlay.open{display:flex}
 .checkout-box{width:min(980px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:22px;box-shadow:0 25px 80px rgba(0,0,0,.35)}
@@ -1365,10 +1297,6 @@ footer{
 .checkout-note{margin-top:10px;font-size:12px;color:#64748b;line-height:1.5}.order-success{display:none;padding:28px;text-align:center}.order-success.open{display:block}
 .order-success .success-icon{font-size:55px}.order-id{display:inline-block;margin:12px 0;padding:10px 15px;background:#f1f5f9;border-radius:10px;font-weight:900}
 @media(max-width:760px){.checkout-grid{grid-template-columns:1fr;padding:14px}.checkout-row{grid-template-columns:1fr}.checkout-top{padding:14px 16px}}
-
-
-/* ================= ACCOUNT / ONLINE STORE SYSTEM ================= */
-/* ================= MODERN AMAZON-STYLE ACCOUNT UI ================= */
 .account-button{background:linear-gradient(135deg,#0ea5e9,#6366f1);margin-right:6px}
 .account-chooser{grid-column:1/-1;max-width:520px;width:100%;margin:0 auto;padding:28px;border:1px solid #e5e7eb;border-radius:22px;background:linear-gradient(180deg,#ffffff,#f8fafc);box-shadow:0 12px 35px rgba(15,23,42,.08)}
 .account-chooser h3{font-size:25px;margin:0 0 7px;font-weight:900;color:#111827}
@@ -1378,10 +1306,6 @@ footer{
 .account-choice-tab.active{background:#fff;color:#4338ca;box-shadow:0 2px 8px rgba(15,23,42,.08)}
 .account-auth-panel{display:none}.account-auth-panel.active{display:block}
 .account-auth-title{font-size:18px;font-weight:900;margin:0 0 14px;color:#111827}
-.google-login-btn{width:100%;height:48px;border:1px solid #d1d5db;border-radius:10px;background:#fff;color:#1f2937;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.05)}
-.google-login-btn:hover{background:#f8fafc;box-shadow:0 4px 12px rgba(15,23,42,.08);transform:translateY(-1px)}
-.google-login-btn svg{width:20px;height:20px;flex:0 0 20px}
-.auth-divider{display:flex;align-items:center;gap:10px;color:#94a3b8;font-size:12px;margin:16px 0}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#e2e8f0;flex:1}
 @media(max-width:760px){.account-chooser{padding:20px;border-radius:18px}}
 
 .account-overlay{position:fixed;inset:0;z-index:100001;background:rgba(15,23,42,.68);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px}
@@ -1406,9 +1330,6 @@ footer{
 .payment-methods h4{margin-bottom:10px}.payment-option{display:flex;gap:10px;align-items:center;border:1px solid #dbe3ef;border-radius:11px;padding:11px;margin:8px 0;cursor:pointer}
 .payment-option input{accent-color:#4f46e5}.payment-option span{display:flex;flex-direction:column;gap:2px}.payment-option small{color:#64748b}
 @media(max-width:760px){.account-grid{grid-template-columns:1fr;padding:14px}.order-card-top{align-items:flex-start;flex-direction:column}}
-
-
-/* WhatsApp product button - equal action size + modern WhatsApp branding */
 .product-actions{display:flex!important;align-items:stretch!important;gap:7px!important;min-width:0!important}
 .product-actions .add-cart,.product-actions .whatsapp-product-btn,.product-actions .buy-now{flex:1 1 0!important;min-width:0!important;width:auto!important;height:44px!important;box-sizing:border-box!important}
 .whatsapp-product-btn{padding:0 10px!important;border:0!important;border-radius:10px!important;background:linear-gradient(135deg,#25D366 0%,#20BD5A 100%)!important;color:#fff!important;cursor:pointer;display:flex!important;align-items:center!important;justify-content:center!important;transition:transform .2s,box-shadow .2s,filter .2s;box-shadow:0 4px 12px rgba(37,211,102,.30);overflow:hidden}
@@ -1418,9 +1339,7 @@ footer{
 .flip-dropdown .product-actions,.uv-dropdown .product-actions{display:flex!important;align-items:stretch!important;gap:7px!important}
 .flip-dropdown .product-actions .add-cart,.flip-dropdown .product-actions .whatsapp-product-btn,.flip-dropdown .product-actions .buy-now,.uv-dropdown .product-actions .add-cart,.uv-dropdown .product-actions .whatsapp-product-btn,.uv-dropdown .product-actions .buy-now{flex:1 1 0!important;width:auto!important;min-width:0!important;height:44px!important}
 @media(max-width:500px){.product-actions{gap:5px!important}.product-actions .add-cart,.product-actions .whatsapp-product-btn,.product-actions .buy-now{height:42px!important}.whatsapp-product-btn{padding:0 8px!important}.whatsapp-product-btn svg{width:22px!important;height:22px!important}}
-.otp-status{margin:8px 0 12px;padding:10px 12px;border-radius:10px;background:#eff6ff;color:#1d4ed8;font-size:13px;display:none}.otp-status.show{display:block}.otp-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}.otp-send-btn{border:0;border-radius:10px;padding:12px 14px;background:#0ea5e9;color:#fff;font-weight:800;cursor:pointer;white-space:nowrap}.otp-send-btn:disabled{opacity:.6;cursor:not-allowed}.otp-verify-btn{width:100%;margin-top:8px}@media(max-width:500px){.otp-row{grid-template-columns:1fr}.otp-send-btn{width:100%}}
 <style id="mobile-layout-and-image-fix">
-/* Mobile layout + static image reliability fixes */
 html,body{width:100%;max-width:100%;overflow-x:hidden;}
 img{max-width:100%;}
 .main-mobile-model-list .main-mobile-product-card .detail-image{
@@ -1499,7 +1418,6 @@ img{max-width:100%;}
 </style>
 
 <style id="morbi-charger-layout-fix">
-/* Charger detail cards: image left, details right */
 .accessory-detail-card{display:flex!important;flex-direction:row!important;align-items:center!important;gap:24px!important;width:100%!important;max-width:760px!important;box-sizing:border-box!important;margin:0 auto 20px!important;padding:18px!important;overflow:hidden!important;}
 .accessory-detail-card .detail-image{flex:0 0 230px!important;width:230px!important;height:230px!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;border-radius:16px!important;}
 .accessory-detail-card .detail-image img{display:block!important;width:100%!important;height:100%!important;max-width:230px!important;max-height:230px!important;object-fit:contain!important;}
@@ -1511,7 +1429,6 @@ img{max-width:100%;}
 </style>
 
 <style id="accessory-detail-final-fix">
-/* Final accessory charger layout: one full-width card, image left, details right */
 .accessory-dropdown .accessory-grid{
   grid-template-columns:repeat(2,minmax(0,1fr)) !important;
   align-items:stretch !important;
@@ -1580,7 +1497,6 @@ img{max-width:100%;}
 }
 </style>
 <style id="final-accessory-readability-fix">
-/* Final accessory product presentation: image left, readable details right */
 .accessory-dropdown .accessory-detail-card{
  display:flex !important; flex-direction:row !important; align-items:center !important;
  width:100% !important; max-width:780px !important; margin:0 auto 18px !important;
@@ -1628,10 +1544,7 @@ img{max-width:100%;}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="app-config.js"></script>
 
-
-
 <style id="account-security-legal-styles">
-/* ================= ACCOUNT LEGAL + SECURITY ================= */
 .account-policy-links{margin-top:16px;padding-top:14px;border-top:1px solid #e5e7eb;text-align:center;color:#64748b;font-size:12px;line-height:1.6}
 .account-policy-links button{border:0;background:none;color:#4f46e5;font:inherit;font-weight:800;cursor:pointer;padding:0 2px;text-decoration:underline;text-underline-offset:2px}
 .account-policy-links button:hover{color:#7c3aed}
@@ -1639,12 +1552,14 @@ img{max-width:100%;}
 .account-consent{display:flex;gap:9px;align-items:flex-start;margin-top:13px;padding:10px 11px;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;color:#475569;font-size:12px;line-height:1.55}
 .account-consent input{margin-top:3px;accent-color:#4f46e5;flex:0 0 auto}
 .account-consent button{border:0;background:none;color:#4f46e5;font:inherit;font-weight:800;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px}
-.otp-security-hint{margin-top:8px;color:#64748b;font-size:11px;line-height:1.45}
 @media(max-width:500px){.account-policy-links{font-size:11px}.account-security-note{font-size:11px}}
 </style>
 
+<style id="email-password-account-fix">
+.account-auth-panel input[type="password"]{letter-spacing:.03em;}
+</style>
+
 <style id="legal-policy-styles">
-/* ================= PRIVACY + TERMS ================= */
 .footer-legal-links{
     display:flex;
     align-items:center;
@@ -1755,9 +1670,22 @@ img{max-width:100%;}
 }
 </style>
 
+<style id="checkout-product-details-fix">
+.checkout-summary-item{display:grid!important;grid-template-columns:76px 1fr auto!important;align-items:center!important;gap:12px!important;padding:12px 0!important;border-bottom:1px solid #eef2f7!important}
+.checkout-product-thumb{width:76px;height:76px;border-radius:12px;border:1px solid #e5e7eb;background:#f8fafc;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.checkout-product-thumb img{width:100%;height:100%;object-fit:contain;display:block}
+.checkout-product-thumb .checkout-no-image{font-size:28px;color:#94a3b8}
+.checkout-product-meta{min-width:0}
+.checkout-product-name{font-size:14px;font-weight:900;color:#111827;line-height:1.35}
+.checkout-product-company{font-size:11px;font-weight:800;color:#4f46e5;text-transform:uppercase;margin-top:2px}
+.checkout-product-desc{font-size:11px;color:#64748b;line-height:1.35;margin-top:3px}
+.checkout-product-qty{font-size:11px;color:#64748b;margin-top:4px}
+.checkout-product-price{text-align:right;white-space:nowrap;font-size:14px;font-weight:900;color:#111827}
+.checkout-customer-saved{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;font-size:12px;line-height:1.45}
+@media(max-width:520px){.checkout-summary-item{grid-template-columns:58px 1fr!important}.checkout-product-thumb{width:58px;height:58px}.checkout-product-price{grid-column:2;text-align:left}.checkout-customer-saved{font-size:11px}}
+</style>
 </head>
 
-<!-- 🔥 OFFERS COMING SOON STICKER -->
 <div class="offers-coming-soon">
     <span class="offers-star">★</span>
     <div class="offers-text">
@@ -1768,7 +1696,6 @@ img{max-width:100%;}
 </div>
 
 <style>
-/* Offers Coming Soon Sticker */
 .offers-coming-soon {
     position: fixed;
     right: 20px;
@@ -1789,8 +1716,6 @@ img{max-width:100%;}
     transform: rotate(8deg);
     animation: offerFloat 2.5s ease-in-out infinite;
 }
-
-/* Star decoration */
 .offers-star {
     position: absolute;
     top: 7px;
@@ -1798,8 +1723,6 @@ img{max-width:100%;}
     color: #ffd700;
     font-size: 18px;
 }
-
-/* Text */
 .offers-text {
     color: white;
     line-height: 1.05;
@@ -1825,8 +1748,6 @@ img{max-width:100%;}
     letter-spacing: 1px;
     color: #fff;
 }
-
-/* Floating animation */
 @keyframes offerFloat {
     0%, 100% {
         transform: rotate(8deg) translateY(0);
@@ -1835,8 +1756,6 @@ img{max-width:100%;}
         transform: rotate(8deg) translateY(-7px);
     }
 }
-
-/* Mobile */
 @media (max-width: 600px) {
     .offers-coming-soon {
         right: 10px;
@@ -1861,8 +1780,6 @@ img{max-width:100%;}
         font-size: 14px;
     }
 }
-
-/* FINAL BUTTON READABILITY FIX */
 .action-buttons, .product-actions, .buy-actions, .card-actions { display:flex !important; gap:8px !important; align-items:stretch !important; flex-wrap:nowrap !important; }
 .action-buttons > button, .product-actions > button, .buy-actions > button, .card-actions > button, .whatsapp-product-btn, .buy-now, .add-to-cart { min-width:0 !important; flex:1 1 0 !important; width:auto !important; box-sizing:border-box !important; white-space:nowrap !important; overflow:visible !important; text-overflow:clip !important; padding-left:10px !important; padding-right:10px !important; font-size:14px !important; line-height:1.15 !important; }
 .whatsapp-product-btn { background:#25D366 !important; color:#fff !important; border:0 !important; border-radius:10px !important; display:inline-flex !important; align-items:center !important; justify-content:center !important; gap:6px !important; }
@@ -1870,8 +1787,6 @@ img{max-width:100%;}
 .whatsapp-product-btn .wa-icon-circle { fill:#25D366 !important; }
 .whatsapp-product-btn .wa-icon-phone { fill:#fff !important; }
 @media(max-width:650px){ .action-buttons > button, .product-actions > button, .buy-actions > button, .card-actions > button, .whatsapp-product-btn, .buy-now, .add-to-cart { font-size:13px !important; padding-left:7px !important; padding-right:7px !important; } .whatsapp-product-btn svg{width:19px !important;height:19px !important;flex-basis:19px !important;} }
-
-/* FINAL BUTTON READABILITY + TRUE WHATSAPP LOGO FIX */
 .cart-button{white-space:nowrap!important;overflow:visible!important;min-width:max-content!important;}
 .cart-button .cart-count{z-index:2;}
 .product-actions .add-cart,
@@ -1910,8 +1825,6 @@ img{max-width:100%;}
  .product-actions .add-cart,.product-actions .whatsapp-product-btn,.product-actions .buy-now{font-size:13px!important;padding:0 6px!important;height:44px!important;}
  .product-actions .whatsapp-product-btn svg{width:25px!important;height:25px!important;min-width:25px!important;min-height:25px!important;}
 }
-
-/* ================= FLIP + UV ACTION BUTTON TEXT FINAL FIX ================= */
 .flip-dropdown .product-info .product-actions,
 .uv-dropdown .uv-product-info .product-actions{
   display:grid!important;
@@ -1988,12 +1901,11 @@ img{max-width:100%;}
     max-width:44px!important;
   }
 }
-/* Prevent the account/cart header button from shrinking its label */
 .cart-button{flex:0 0 auto!important;white-space:nowrap!important;min-width:max-content!important;overflow:visible!important;}
 </style>
 
 <body>
-<!-- ================= HEADER ================= -->
+
 <header>
 <div class="logo">
 <div class="logo-icon">📱</div>
@@ -2009,7 +1921,7 @@ MOBILE SHOP
 <span class="cart-count" id="cartCount">0</span>
 </button>
 </header>
-<!-- ================= HERO ================= -->
+
 <section class="hero" id="home">
 <div class="hero-content">
 <div class="hero-brand-kicker">WELCOME TO</div>
@@ -2037,13 +1949,7 @@ MOBILE SHOP
 <button class="brand-btn" onclick="filterBrand('Motorola',this)">Motorola</button>
 </div>
 <div class="product-grid" id="productList">
-<!-- =====================================================
-     FLIP COVER MODELS
-     All 19 Flip Cover models use:
-     ./image/Flip-Cover/IMG_20260904_153333.jpg
-     To change the picture for all models, replace that file.
-===================================================== -->
-<!-- ================= FLIP COVER MODEL 1 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y12">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2067,7 +1973,6 @@ class="flip-cover-image">
 </div>
 </div>
 
-<!-- ================= FLIP COVER MODEL 2 ================= -->
 <div class="product" data-brand="Vivo" data-name="Vivo Y20">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2090,7 +1995,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 3 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y91/Y93/Y95">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2113,7 +2018,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 4 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y16">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2136,7 +2041,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 5 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y18/T3 light">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2159,7 +2064,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 6 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y19s/ Vivo Y29 5g">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2182,7 +2087,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 7 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y17s">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2205,7 +2110,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 8 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo YT3x">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2228,7 +2133,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 9 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y01">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2251,7 +2156,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 10 ================= -->
+
 <div class="product" data-brand="Realme" data-name="Realme C53/C51">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2274,7 +2179,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 11 ================= -->
+
 <div class="product" data-brand="Realme" data-name="Realme 12x">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2297,7 +2202,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 12 ================= -->
+
 <div class="product" data-brand="Oppo" data-name="Oppo A3x">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2320,7 +2225,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 13 ================= -->
+
 <div class="product" data-brand="Oppo" data-name="Oppo A57">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2343,7 +2248,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 14 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi 9A/9i">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2366,7 +2271,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 15 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi A7">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2389,7 +2294,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 16 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi A5/C71">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2412,7 +2317,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 17 ================= -->
+
 <div class="product" data-brand="Motorola" data-name="Moto G34">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2435,7 +2340,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 18 ================= -->
+
 <div class="product" data-brand="Motorola" data-name="Moto 50 Fusion">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2458,7 +2363,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 19 ================= -->
+
 <div class="product" data-brand="Motorola" data-name="Moto G96">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2481,7 +2386,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 20 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi A1">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2504,7 +2409,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 21 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi A4/Poco C75">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2527,7 +2432,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 22 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi A4/Poco C75">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2550,7 +2455,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 23 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi 15A">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2574,7 +2479,6 @@ class="flip-cover-image">
 </div>
 </div>
 
-<!-- ================= FLIP COVER MODEL 24 ================= -->
 <div class="product" data-brand="Realme" data-name="Realme C21y">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2597,7 +2501,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 25 ================= -->
+
 <div class="product" data-brand="Realme" data-name="Realme C20">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2620,7 +2524,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 26 ================= -->
+
 <div class="product" data-brand="Motorola" data-name="Moto G85">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2643,7 +2547,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 27 ================= -->
+
 <div class="product" data-brand="Realme" data-name="Realme C75">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2664,7 +2568,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 28 ================= -->
+
 <div class="product" data-brand="Redmi" data-name="Mi 13 5G">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2687,7 +2591,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 29 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y28 5G">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2710,7 +2614,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 30 ================= -->
+
 <div class="product" data-brand="Realme" data-name="Realme C83 5G">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="210"
@@ -2731,7 +2635,7 @@ class="flip-cover-image">
 </div>
 </div>
 </div>
-<!-- ================= FLIP COVER MODEL 31 ================= -->
+
 <div class="product" data-brand="Vivo" data-name="Vivo Y200">
 <div class="detail-image"><img src="./image/Flip-Cover/IMG_20260904_153333.jpg" alt="Flip Cover"
 width="200"
@@ -2825,259 +2729,251 @@ Zebronics
  Compact
 </button>
 </div><div class="accessory-grid">
-<!-- USER CHARGER 1: restored original picture -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Morbi" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_201540.jpg" alt="Morbi Thunder+ 200W">"</div>
  <div class="detail-info"><span class="company">Morbi</span><h3>Thunder 200W </h3>
-<p class="detail-description"><strong>Model:</strong> Thunder 200W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Thunder 200W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Multi Protocol Support</p><div class="price">₹499</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Morbi Thunder 400W Travel Charger',499)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Morbi Thunder 400W Travel Charger',499)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Morbi Thunder 400W Travel Charger',499)">🛍️ Buy</button></div></div>
 </div>
-<!-- USER CHARGER 2: restored original picture -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Morbi" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_201503.jpg" alt="Morbi Thunder-X 30W Travel Charger "></div>
  <div class="detail-info"><span class="company">Morbi</span><h3>Thunder-X 30W </h3>
-<p class="detail-description"><strong>Model:</strong> Thunder-X 30W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Thunder-X 30W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Multi Protocol Support</p><div class="price">₹399</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Morbi Thunder-X 30W Travel Charger',399)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Morbi Thunder-X 30W Travel Charger',399)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Morbi Thunder-X 30W Travel Charger',399)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 1 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260901_130256.jpg" alt="Ubon 100W Speedup 3.0 Charger"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 100W C To C With USB Port </h3>
-<p class="detail-description"><strong>Model:</strong> Ubon Ch-910  100W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-910  100W<br><strong>Type:</strong>
 Speedup 3.0<br><strong>Feature:</strong> Multi Protocol Support, QC+PD Fast & Safe Charger  Charger</p><div class="price">₹799</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Ubon 100W Supeedup 3.0 Charger',799)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Ubon 100W Supeedup 3.0 Charger',799)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Ubon 100W Supeedup 3.0 Charger',799)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 2-->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_203420.jpg" alt="Ubon 15W Boost Charger"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W Type-C </h3>
-<p class="detail-description"><strong>Model:</strong> Ubon Ch-586  15W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-586  15W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Doal Usb, Fast & Safe Charger</p><div class="price">₹299</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Ubon 15W Boost Charger',299)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Ubon  15W Boost Charger',299)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Ubon  15W Boost Charger',299)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 3-->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_203432.jpg" alt="Ubon15W Boost Charger"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W V-8 </h3>
-<p class="detail-description"><strong>Model:</strong> Ubon Ch-586  15W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-586  15W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Doal Usb, Fast & Safe Charger</p><div class="price">₹299</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Ubon 15W Boost Charger',299)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Ubon 15W Boost Charger',299)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Ubon 15W Boost Charger',299)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 4-->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_203443.jpg" alt="Ubon 15W Boost Charger"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W Type-C </h3>
-<p class="detail-description"><strong>Model:</strong> Ubon Ch-41  15W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-41  15W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Seven Light Doal Usb, Fast & Safe Charger</p><div class="price">₹299</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Ubon 15W ',299)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Ubon 15W ',299)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Ubon 15W ',299)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 5 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_203315.jpg" alt="Ubon 15W Boost Charger"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Ubon 15W  </h3>
-<p class="detail-description"><strong>Model:</strong> Ubon Ch-777  15W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Ubon Ch-777  15W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Boost Charge With Built-In Usb Port & V8 Cable </p><div class="price">₹299</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Ubon 15W ',299)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Ubon 15W ',299)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Ubon 15W ',299)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 6 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Data Cable">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_203246.jpg" alt="Ubon 25W Fast Data Cable"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Ubon Type-C 25W  </h3>
-<p class="detail-description"><strong>Model:</strong> Ubon Wr-560 Deluxe 25W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Ubon Wr-560 Deluxe 25W<br><strong>Type:</strong>
 C<br><strong>Feature:</strong> Braided Cable </p><div class="price">₹199</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Ubon 25W ',199)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Ubon 25W ',199)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Ubon 25W ',199)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 7 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Data Cable">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_203300.jpg" alt="Ubon 20W Fast Data Cable"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Ubon V-8 20W  </h3>
-<p class="detail-description"><strong>Model:</strong> Ubon Wr-550 Deluxe 25W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Ubon Wr-550 Deluxe 25W<br><strong>Type:</strong>
 V-8<br><strong>Feature:</strong> Braided Cable </p><div class="price">₹149</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Ubon 20W ',149)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Ubon 20W ',149)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Ubon 20W ',149)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 8 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Black Kat" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260902_174210.jpg" alt="Black Kat Buds"></div>
  <div class="detail-info"><span class="company">Black Kat</span><h3>Black Kat </h3>
-<p class="detail-description"><strong>Model:</strong> Buds-T110 <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Buds-T110 <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> V.-5.4 With 3 Munth Guarantee </p><div class="price">₹599</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Black Kat T-110 ',599)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Black Kat T-110 ',599)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Black Kat T-110 ',599)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 9 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_201709.jpg" alt="Y Com 65W Fast Charger"></div>
  <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 65W Type-C </h3>
-<p class="detail-description"><strong>Model:</strong> Y Com Shakti 65W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Y Com Shakti 65W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Multi Protocol Support Charger</p><div class="price">₹499</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Y Com 65W ',499)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Y Com 65W ',499)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Y Com 65W ',499)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 10 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_201725.jpg" alt="Y Com 67W Fast Charger"></div>
  <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 67W Type-C </h3>
-<p class="detail-description"><strong>Model:</strong> Y Com Thunder 67W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Y Com Thunder 67W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Multi Protocol Support Charger</p><div class="price">₹599</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Y Com 67W ',599)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Y Com 67W ',599)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Y Com 67W ',599)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 11 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_201652.jpg" alt="Y Com 45W Fast Charger"></div>
  <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 45W Type-C </h3>
-<p class="detail-description"><strong>Model:</strong> Y Com Sparkle 45W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Y Com Sparkle 45W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Multi Protocol Support Charger</p><div class="price">₹399</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Y Com 45W ',399)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Y Com 45W ',399)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Y Com 45W ',399)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 12 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_201628.jpg" alt="Y Com 18W Fast Charger"></div>
  <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 18W Type-C </h3>
-<p class="detail-description"><strong>Model:</strong> Y Com Raftar 18W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Y Com Raftar 18W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Fast Charger</p><div class="price">₹299</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Y Com 18W ',299)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Y Com 18W ',299)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Y Com 18W ',299)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 13 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260827_201605.jpg" alt="Y Com 18W Fast Charger"></div>
  <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 18W V-8 </h3>
-<p class="detail-description"><strong>Model:</strong> Y Com Jeet 18W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Y Com Jeet 18W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Fast Charger</p><div class="price">₹249</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Y Com 18W ',249)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Y Com 18W ',249)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Y Com 18W ',249)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 14 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260901_132959.jpg" alt="Y Com 25W PD Charger"></div>
  <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 25W C TO C (PD) </h3>
-<p class="detail-description"><strong>Model:</strong> Y Com Smash 25W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Y Com Smash 25W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong> Multi Protocol Support </p><div class="price">₹499</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Y Com 25W ',499)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Y Com 25W ',499)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Y Com 25W ',499)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 15 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Y Com" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260901_133744.jpg" alt="Y Com 12W Charger"></div>
  <div class="detail-info"><span class="company">Y Com</span><h3>Y Com 12W V8/C TO C </h3>
-<p class="detail-description"><strong>Model:</strong> Y Com Volt 12W<br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Y Com Volt 12W<br><strong>Type:</strong>
 Travel Charger<br><strong>Feature:</strong>Best For Normal & Old Mobiles Phon </p><div class="price">₹199/249</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Y Com 12W ',199/249)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Y Com 12W ',199/249)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Y Com 12W ',199/249)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 16 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Black Kat" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260902_180521.jpg" alt="Black Kat Buds"></div>
  <div class="detail-info"><span class="company">Black Kat</span><h3>Black Kat </h3>
-<p class="detail-description"><strong>Model:</strong> Airpods-161 <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Airpods-161 <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> V.-5.4 With 3 Munth Guarantee </p><div class="price">₹599</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Black Kat T-110 ',599)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Black Kat T-110 ',599)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Black Kat T-110 ',599)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 17 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Nothing (CMF)" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260902_190107.jpg" alt="Nothing (CMF)"></div>
  <div class="detail-info"><span class="company">Nothing (CMF)</span><h3>Nothing (CMF) </h3>
-<p class="detail-description"><strong>Model:</strong> Buds B168 <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Buds B168 <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> </p><div class="price">₹399</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Nothing (CMF) ',399)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Nothing (CMF) ',399)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Nothing (CMF) ',399)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 18 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Nothing (CMF)" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260902_191631.jpg" alt="Nothing (CMF)"></div>
  <div class="detail-info"><span class="company">Nothing (CMF)</span><h3>Nothing (CMF) </h3>
-<p class="detail-description"><strong>Model:</strong> Buds Pro B168 <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Buds Pro B168 <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> </p><div class="price">₹449</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Nothing (CMF) ',449)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Nothing (CMF) ',449)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Nothing (CMF) ',449)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 19 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="boat" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260904_133527.jpg" alt="boat)"></div>
  <div class="detail-info"><span class="company">boat </span><h3>boat </h3>
-<p class="detail-description"><strong>Model:</strong> Nirvana Zenith Pro <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Nirvana Zenith Pro <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> </p><div class="price">₹499</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('One Plus ',499)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('One Plus ',499)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('One Plus ',499)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 20 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="boat" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260904_133458.jpg" alt="boat)"></div>
  <div class="detail-info"><span class="company">boat </span><h3>boat </h3>
-<p class="detail-description"><strong>Model:</strong> Lucky Pods <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Lucky Pods <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> </p><div class="price">₹549</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('One Plus ',549)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('One Plus ',549)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('One Plus ',549)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 21 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="One Plus" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260904_133558.jpg" alt="One Plus)"></div>
  <div class="detail-info"><span class="company">One Plus</span><h3>One Plus </h3>
-<p class="detail-description"><strong>Model:</strong> Buds 2r <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Buds 2r <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> </p><div class="price">₹549</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('One Plus ',549)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('One Plus ',549)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('One Plus ',549)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 22 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="One Plus" data-category="Buds">
  <div class="detail-image"><img src="./image/Buds/IMG_20260904_133435.jpg" alt="One Plus)"></div>
  <div class="detail-info"><span class="company">One Plus</span><h3>One Plus </h3>
-<p class="detail-description"><strong>Model:</strong> Buds Pro 3 <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Buds Pro 3 <br><strong>Type:</strong>
 Wireless<br><strong>Feature:</strong> </p><div class="price">₹449</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('One Plus ',449)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('One Plus ',449)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('One Plus ',449)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 23 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Zebronics" data-category="Headphone">
  <div class="detail-image"><img src="./image/Headphone/IMG_20260904_154533.jpg" alt="Zebronics)"></div>
  <div class="detail-info"><span class="company">Zebronics</span><h3>Zebronics </h3>
-<p class="detail-description"><strong>Model:</strong> Paradise Neo R <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Paradise Neo R <br><strong>Type:</strong>
 Wireless(Bt V5.4) & AUX <br><strong>Feature:</strong> Soft Ear Cushions, Lightweight & Comfortable, Upto 50h Backup, Dual Pairing, ENC, Supports Voice Assistant
  </p><div class="price">₹999</div>
 <div class="product-actions">
@@ -3085,11 +2981,10 @@ Wireless(Bt V5.4) & AUX <br><strong>Feature:</strong> Soft Ear Cushions, Lightwe
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Zebronics ',999)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Zebronics ',999)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 24 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="boat" data-category="Headphone">
  <div class="detail-image"><img src="./image/Headphone/IMG_20260904_161442.jpg" alt="boat)"></div>
  <div class="detail-info"><span class="company">boat</span><h3>boat </h3>
-<p class="detail-description"><strong>Model:</strong> G4 <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> G4 <br><strong>Type:</strong>
 Wireless & AUX <br><strong>Feature:</strong> Lightweight & Comfortable
  </p><div class="price">₹499</div>
 <div class="product-actions">
@@ -3097,11 +2992,10 @@ Wireless & AUX <br><strong>Feature:</strong> Lightweight & Comfortable
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('boat ',499)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('boat ',499)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 25 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Black kat" data-category="Neckband">
  <div class="detail-image"><img src="./image/Neckband/IMG_20260904_154146.jpg" alt="Black kat)"></div>
  <div class="detail-info"><span class="company">Black kat</span><h3>Black kat </h3>
-<p class="detail-description"><strong>Model:</strong> Magestic Series <br><strong>Type:</strong> 
+<p class="detail-description"><strong>Model:</strong> Magestic Series <br><strong>Type:</strong>
 Wireless <br><strong>Feature:</strong> Magnetic On/Off With 3 Munth Guarantee
  </p><div class="price">₹599</div>
 <div class="product-actions">
@@ -3109,52 +3003,49 @@ Wireless <br><strong>Feature:</strong> Magnetic On/Off With 3 Munth Guarantee
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Black kat ',599)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Black kat ',599)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 26 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Nexteraa" data-category="Power Bank">
  <div class="detail-image"><img src="./image/Power-Bank/IMG_20260904_154247.jpg" alt="Black kat)"></div>
  <div class="detail-info"><span class="company">Nexteraa</span><h3>Nexteraa Power Bank </h3>
-<p class="detail-description"><strong>Model:</strong> PB-4036 <br><strong>Type:</strong> 
-USB & C TO C 36w Fast Support <br><strong>Feature:</strong> Multi protocol Supprt 
+<p class="detail-description"><strong>Model:</strong> PB-4036 <br><strong>Type:</strong>
+USB & C TO C 36w Fast Support <br><strong>Feature:</strong> Multi protocol Supprt
  </p><div class="price">₹1299</div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Nexteraa ',1299)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Nexteraa ',1299)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Nexteraa ',1299)">🛍️ Buy</button></div></div>
 </div>
 
-<!-- ACCESSORY 27 -->
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Ubon" data-category="Smart Watch">
  <div class="detail-image"><img src="./image/Smart-Watch/IMG_20260904_154405.jpg" alt="Ubon)"></div>
  <div class="detail-info"><span class="company">Ubon</span><h3>Smart Watch </h3>
-<p class="detail-description"><strong>Model:</strong> Glamour Series SW-121 <br><strong>Type:</strong> 
-Smart Watch <br><strong>Feature:</strong> BT CALLING, HEALTH TRACKER 
+<p class="detail-description"><strong>Model:</strong> Glamour Series SW-121 <br><strong>Type:</strong>
+Smart Watch <br><strong>Feature:</strong> BT CALLING, HEALTH TRACKER
  </p><div class="price">₹1499 (Currently Not Available) </div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Smart Watch ',1499)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Smart Watch ',1499)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Smart Watch ',1499)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 28 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Compact" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260908_180001.jpg" alt="Compact)"></div>
  <div class="detail-info"><span class="company">Compact</span><h3>Compact </h3>
-<p class="detail-description"><strong>Model:</strong> CH-380 65W V-8 <br><strong>Type:</strong> 
-Charger <br><strong>Feature:</strong>  Multi protocol Supprt 
+<p class="detail-description"><strong>Model:</strong> CH-380 65W V-8 <br><strong>Type:</strong>
+Charger <br><strong>Feature:</strong>  Multi protocol Supprt
  </p><div class="price">₹449 </div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Compact Charger ',449)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Compact Charger ',449)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Compact Charger ',449)">🛍️ Buy</button></div></div>
 </div>
-<!-- ACCESSORY 29 -->
+
 <div class="product accessory-product accessory-detail-card" data-accessory-brand="Compact" data-category="Charger">
  <div class="detail-image"><img src="./image/Charger/IMG_20260908_180045.jpg" alt="Compact)"></div>
  <div class="detail-info"><span class="company">Compact</span><h3>Compact </h3>
-<p class="detail-description"><strong>Model:</strong> CH-390 100W Type-C <br><strong>Type:</strong> 
-Charger <br><strong>Feature:</strong>  Multi protocol Supprt 
+<p class="detail-description"><strong>Model:</strong> CH-390 100W Type-C <br><strong>Type:</strong>
+Charger <br><strong>Feature:</strong>  Multi protocol Supprt
  </p><div class="price">₹499 </div>
 <div class="product-actions">
 <button class="add-cart" onclick="addToCart('Compact Charger ',499)">🛒 Add</button>
 <button class="whatsapp-product-btn" type="button" onclick="whatsappProduct('Compact Charger ',499)" aria-label="WhatsApp order" title="WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ffffff" d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.32-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.14.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/><path fill="#ffffff" d="M16.03 3.2C9.02 3.2 3.32 8.9 3.32 15.91c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.68-1.75a12.65 12.65 0 0 0 6.15 1.58h.01c7.01 0 12.71-5.7 12.71-12.71S23.04 3.2 16.03 3.2zm0 23.28h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-3.96 1.04 1.06-3.86-.27-.42a10.55 10.55 0 0 1-1.62-5.53c0-5.81 4.73-10.54 10.55-10.54s10.54 4.73 10.54 10.54-4.72 10.57-10.21 10.57z"/></svg></button><button class="buy-now" onclick="buyNow('Compact Charger ',499)">🛍️ Buy</button></div></div>
 </div>
-
 
 </div></div></details><details class="uv-nav"><summary>📱 UV Glass</summary><div class="uv-dropdown">
 <button type="button" class="popup-close-btn" aria-label="Close" onclick="this.closest('details').removeAttribute('open'); event.stopPropagation();">×</button>
@@ -3180,9 +3071,7 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 </div>
 </div>
 </section>
-<!-- ================= FLIP COVER ================= -->
 
-<!-- ================= MOBILE MODELS ================= -->
 <section class="products" id="models">
 <div class="section-title">
 <h2>✨ Mobile Covers</h2>
@@ -3232,9 +3121,8 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
     <button type="button" class="main-mobile-brand"
             onclick="filterMainMobileBrand('Tecno', this)">Tecno</button>
 
-
     </div>
-<!-- BACK COVER 1 -->
+
     <div class="main-mobile-model-list" id="mainMobileModelList">
 <div class="product main-mobile-product-card" data-brand="Apple" data-name="iPhone 15">
 <div class="detail-image"><img src="./image/Back-Cover/IMG_20260908_184209.jpg" alt="iPhone 15 Back Cover"
@@ -3260,7 +3148,7 @@ Premium stylish mobile cover.
 </div>
 </div>
 </div>
-<!-- BACK COVER 2 -->
+
 <div class="product main-mobile-product-card" data-brand="Apple" data-name="iPhone 15">
 <div class="detail-image"><img src="./image/Back-Cover/IMG_20260908_184501.jpg" alt="iPhone 15 Back Cover"
 width="250"
@@ -3285,7 +3173,7 @@ Premium protective cover.
 </div>
 </div>
 </div>
-<!-- BACK COVER 3 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y21,Y56,T2x">
 <div class="detail-image"><img src="./image/Back-Cover/y21-4g-50kb.jpg" alt="Vivo Y21,Y56,T2x Back Cover"
 width="250"
@@ -3305,7 +3193,7 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 4 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y91,Y93,Y95">
 <div class="detail-image"><img src="./image/Back-Cover/y91.93.95-50kb.jpg" alt="Vivo Y91,Y93,Y95 Back Cover"
 width="250"
@@ -3325,7 +3213,7 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 5 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y300T/T4x/IQ Z10x">
 <div class="detail-image"><img src="./image/Back-Cover/Vivo-T4x-50kb.jpg" alt="Y300T/T4x/IQ Z10x Back Cover"
 width="250"
@@ -3345,10 +3233,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 6 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y03/Y18">
 <div class="product-img">
-<!-- <img src="images/vivo-v70.jpg" alt="Vivo Y03/Y18 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3364,10 +3252,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 7 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y28/Y17s">
 <div class="product-img">
-<!-- <img src="images/vivo-x300.jpg" alt="Vivo Y28/Y17s Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3383,10 +3271,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 8 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V60,V60e,T4 Pro">
 <div class="product-img">
-    <img 
+    <img
         src="./image/Back-Cover/Vivo-T4x-50kb.jpg"
         alt="Vivo V60,V60e,T4 Pro"
         style="width:100% !important; height:100% !important; object-fit:contain !important; display:block !important;">
@@ -3405,10 +3293,9 @@ class="Back-cover-image">
 </div>
 </div>
 
-<!-- BACK COVER 9 -->
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo T1 5g">
 <div class="product-img">
-<!-- <img src="images/vivo-x200.jpg" alt="Vivo T1 5g Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3424,10 +3311,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 10 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y19/Y19e">
 <div class="product-img">
-<!-- <img src="images/vivo-y19s.jpg" alt="Vivo Y19/Y19e Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3443,10 +3330,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 11 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y21 5G/Y11/Y05">
 <div class="product-img">
-<!-- <img src="images/vivo-y21-5g.jpg" alt="Vivo Y21 5G/Y11/Y05 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3462,10 +3349,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 11 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y200e">
 <div class="product-img">
-<!-- <img src="images/vivo-t4x.jpg" alt="Vivo Y200e Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3481,10 +3368,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 12 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y20/Y12s">
 <div class="product-img">
-<!-- <img src="images/vivo-y20.jpg" alt="Vivo Y20/Y12s Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3500,10 +3387,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 13 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y16">
 <div class="product-img">
-<!-- <img src="images/vivo-y16.jpg" alt="Vivo Y16 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3519,10 +3406,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 14 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y38/Y58">
 <div class="product-img">
-<!-- <img src="images/vivo-y91-y93-y95.jpg" alt="Vivo Y38/Y58 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3538,10 +3425,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 15 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y31">
 <div class="product-img">
-<!-- <img src="images/vivo-y31.jpg" alt="Vivo Y31 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3557,10 +3444,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 16 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y100">
 <div class="product-img">
-<!-- <img src="images/vivo-y21.jpg" alt="Vivo Vivo Y100 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3576,10 +3463,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 17 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y12 Y15 Y17">
 <div class="product-img">
-<!-- <img src="images/vivo-y12-y15-y17.jpg" alt="Vivo Y12 Y15 Y17 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3595,10 +3482,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 18 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y22">
 <div class="product-img">
-<!-- <img src="images/vivo-y22.jpg" alt="Vivo Y22 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3614,10 +3501,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 19 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y35 4g">
 <div class="product-img">
-<!-- <img src="images/vivo-s2.jpg" alt="Vivo Y35 4g Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3633,10 +3520,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 20 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y400">
 <div class="product-img">
-<!-- <img src="images/vivo-y400.jpg" alt="Vivo Y400 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3652,10 +3539,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 21 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y300 Pro,T4">
 <div class="product-img">
-<!-- <img src="images/vivo-t4.jpg" alt="Vivo Y300 Pro,T4 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3671,10 +3558,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 22 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y29 5g/Y19s 4g">
 <div class="product-img">
-<!-- <img src="images/vivo-v30.jpg" alt="Vivo Y29 5g/Y19s 4g Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3690,10 +3577,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 23 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y39 5g">
 <div class="product-img">
-<!-- <img src="images/vivo-v30.jpg" alt="Vivo Y39 5g Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3709,10 +3596,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 24 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V50/V50e">
 <div class="product-img">
-<!-- <img src="images/vivo-v30.jpg" alt="Vivo V50/V50e Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3728,10 +3615,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 25 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V29">
 <div class="product-img">
-<!-- <img src="images/vivo-v30.jpg" alt="Vivo V29 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3747,10 +3634,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 26 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V50 lite">
 <div class="product-img">
-<!-- <img src="images/vivo-v30.jpg" alt="Vivo V50 lite Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3766,10 +3653,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 27 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo V40e">
 <div class="product-img">
-<!-- <img src="images/vivo-v30.jpg" alt="Vivo V40e Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3787,7 +3674,7 @@ class="Back-cover-image">
 </div>
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi Note 13">
 <div class="product-img">
-<!-- <img src="images/redmi-note-13.jpg" alt="Redmi Note 13 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3803,10 +3690,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 28 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme C20">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme C20 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3822,10 +3709,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 29 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme C53">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme C53 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3841,10 +3728,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 30 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme C63 4G">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme C63 4G Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3860,10 +3747,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 31 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme C63 5G">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme C63 5G Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3879,10 +3766,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 32 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme C65">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme C65 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3898,10 +3785,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 33 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 8/9 5G">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 8/9 5G Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3917,10 +3804,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 34 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 12">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 12 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3936,10 +3823,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 35 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 12 Pro/P1">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 12 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3955,10 +3842,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 36 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 14x">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 14x Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3974,10 +3861,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 37 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 13 5G/13 Plus">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 13 5G/13 Plus Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -3993,10 +3880,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 38 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 15/15 Pro">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 13 5G/13 Plus Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4012,10 +3899,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 39 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 15x/C85">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 15x/C85 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4031,10 +3918,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 40 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme 16 5G">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 16 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4050,10 +3937,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 41 -->
+
 <div class="product main-mobile-product-card" data-brand="Realme" data-name="Realme P3x 5G">
 <div class="product-img">
-<!-- <img src="images/realme-12-pro.jpg" alt="Realme 16 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4069,10 +3956,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 42 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A57">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A57 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4088,10 +3975,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 43 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A78/A58">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A78/A58 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4107,10 +3994,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 44 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A16k">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A16k Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4126,10 +4013,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 45 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A55">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A55 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4145,10 +4032,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 46 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A15">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A15 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4164,10 +4051,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 47 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A38">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A38 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4183,10 +4070,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 48 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A3x">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A3x Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4202,10 +4089,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 49 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A3s">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A3s Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4221,10 +4108,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 50 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo F29/F29 Pro">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo F29/F29 Pro Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4240,10 +4127,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 51 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo F31">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo F31 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4259,10 +4146,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 52 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo F27">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo F27 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4278,10 +4165,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 53 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo Reno 10/10 Pro">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo Reno 10/10 Pro Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4297,10 +4184,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 54 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A6/A6x/K14x">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A6/A6x/K14x Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4316,10 +4203,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 55 -->
+
 <div class="product main-mobile-product-card" data-brand="OnePlus" data-name="OnePlus CE3 lite">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="OnePlus CE3 lite Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4335,10 +4222,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 56 -->
+
 <div class="product main-mobile-product-card" data-brand="OnePlus" data-name="OnePlus CE2 lite">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="OnePlus CE2 lite Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4355,10 +4242,9 @@ class="Back-cover-image">
 </div>
 </div>
 
-<!-- BACK COVER 57 -->
 <div class="product main-mobile-product-card" data-brand="Motorola" data-name="Motorola G85">
 <div class="product-img">
-<!-- <img src="images/motorola-g54.jpg" alt="Motorola G85 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4374,10 +4260,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 58 -->
+
 <div class="product main-mobile-product-card" data-brand="Motorola" data-name="Motorola G06 Power">
 <div class="product-img">
-<!-- <img src="images/motorola-g54.jpg" alt="Motorola G06 Power Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4393,10 +4279,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 59 -->
+
 <div class="product main-mobile-product-card" data-brand="Motorola" data-name="Motorola G57/G57 Power/G67 Power">
 <div class="product-img">
-<!-- <img src="images/motorola-g54.jpg" alt="Motorola G57/G57 Power/G67 Power Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4412,10 +4298,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 60 -->
+
 <div class="product main-mobile-product-card" data-brand="Motorola" data-name="Motorola Edge 50 Fusion/Edge 96">
 <div class="product-img">
-<!-- <img src="images/motorola-g54.jpg" alt="Motorola Edge 50 Fusion/Edge 96 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4431,10 +4317,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 61 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 13C 5G">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi 13C 5G Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4450,10 +4336,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 62 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A59">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A59 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4469,10 +4355,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 63 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 10c">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi 10c Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4488,10 +4374,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 64 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 8">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi 8 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4507,10 +4393,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 65 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 15c">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi 15c Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4526,10 +4412,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 66 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 9c">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi 9c Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4545,10 +4431,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 67 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 9A">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi 9A Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4564,10 +4450,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 68 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi Note 5 Pro">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi Note 5 Pro Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4583,10 +4469,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 69 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi A5">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi A5 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4602,10 +4488,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 70 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi A1 Plus/A2">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi A1 Plus/A2 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4621,10 +4507,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 71 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi 13 4G/5G">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi 13 4G/5G Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4640,10 +4526,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 72 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi A3">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi A3 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4659,10 +4545,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 73 -->
+
 <div class="product main-mobile-product-card" data-brand="Poco" data-name="Poco C61">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Poco C61 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4678,10 +4564,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 74 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi Note 9 Pro 4g">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi Note 9 Pro 4g Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4697,10 +4583,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 75 -->
+
 <div class="product main-mobile-product-card" data-brand="Redmi" data-name="Redmi Note 14 Pro">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Redmi Note 14 Pro Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4716,10 +4602,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 76 -->
+
 <div class="product main-mobile-product-card" data-brand="Poco" data-name="Poco X7">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Poco X7 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4735,10 +4621,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 77 -->
+
 <div class="product main-mobile-product-card" data-brand="Samsung" data-name="Samsung A15">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Samsung A15 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4754,10 +4640,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 78 -->
+
 <div class="product main-mobile-product-card" data-brand="Samsung" data-name="Samsung A16">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Samsung A16 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4773,10 +4659,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 79 -->
+
 <div class="product main-mobile-product-card" data-brand="Samsung" data-name="Samsung M14">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Samsung M14 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4792,10 +4678,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 80 -->
+
 <div class="product main-mobile-product-card" data-brand="Tecno" data-name="Tecno KE5/Spark Go 2020">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Tecno KE5/Spark Go 2020 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4811,10 +4697,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 81 -->
+
 <div class="product main-mobile-product-card" data-brand="Tecno" data-name="Tecno Spark Go 1">
 <div class="product-img">
-<!-- <img src="images/redmi-13c.jpg" alt="Tecno Spark Go 1 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4830,10 +4716,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 82 -->
+
 <div class="product main-mobile-product-card" data-brand="Vivo" data-name="Vivo Y01/Y15s">
 <div class="product-img">
-<!-- <img src="images/vivo-x300.jpg" alt="Vivo Y01/Y15s Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4849,10 +4735,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 83 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo F17 Pro">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo F17 Pro Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4868,10 +4754,10 @@ class="Back-cover-image">
 </div>
 </div>
 </div>
-<!-- BACK COVER 84 -->
+
 <div class="product main-mobile-product-card" data-brand="Oppo" data-name="Oppo A5 2020/A9 2020">
 <div class="product-img">
-<!-- <img src="images/oppo-a59.jpg" alt="Oppo A5 2020/A9 2020 Cover"> -->
+
 <div class="image-placeholder">📱</div>
 </div>
 <div class="product-info">
@@ -4891,9 +4777,7 @@ class="Back-cover-image">
 </div>
 </div>
 </section>
-<!-- ================= ACCESSORIES ================= -->
 
-<!-- ================= FEATURES ================= -->
 <section class="features">
 <div class="feature">
 <div class="feature-icon">🛡️</div>
@@ -4924,7 +4808,7 @@ Product purchase se pehle model aur item check karein.
 </p>
 </div>
 </section>
-<!-- ================= CONTACT ================= -->
+
 <section class="contact" id="contact">
 <h2>
 📱 MANOHAR MOBILE SHOP
@@ -4966,7 +4850,6 @@ Not Other Place.
 </a></div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer>
 
 © 2026 MANOHAR MOBILE SHOP
@@ -4983,7 +4866,6 @@ All Rights Reserved
 
 </footer>
 
-<!-- ================= PRIVACY POLICY + TERMS ================= -->
 <div class="legal-overlay" id="privacyPolicyOverlay" onclick="if(event.target===this) closeLegalModal('privacy')" aria-hidden="true">
   <div class="legal-box" role="dialog" aria-modal="true" aria-labelledby="privacyPolicyTitle">
     <div class="legal-header">
@@ -4991,21 +4873,21 @@ All Rights Reserved
       <button class="legal-close" type="button" onclick="closeLegalModal('privacy')" aria-label="Close Privacy Policy">×</button>
     </div>
     <div class="legal-content">
-      <p class="legal-note"><strong>Effective date: 30 September 2026.</strong> This Privacy Policy explains how MANOHAR MOBILE SHOP handles information when you use this website, create an account, place an order, contact us, or use WhatsApp / Google sign-in features.</p>
+      <p class="legal-note"><strong>Effective date: 30 September 2026.</strong> This Privacy Policy explains how MANOHAR MOBILE SHOP handles information when you use this website, create an account, place an order, contact us, or use WhatsApp ordering features.</p>
 
       <h3>1. Information We Collect</h3>
       <p>Depending on how you use the website, we may receive information that you provide directly, including:</p>
       <ul>
         <li>Your name and mobile number.</li>
-        <li>Email address, when you provide it or use Google sign-in.</li>
+        <li>Email address used for your customer account.</li>
         <li>Delivery address, city, PIN code and landmark.</li>
         <li>Order details, selected products, quantities and order totals.</li>
         <li>Payment method and, where you submit it for UPI verification, a UPI transaction / UTR reference.</li>
         <li>Messages or information you choose to send to us through WhatsApp or other contact channels.</li>
       </ul>
 
-      <h3>2. OTP and Google Sign-in</h3>
-      <p>For OTP login or account creation, your mobile number is used to send and verify the one-time password. When you choose Google sign-in, the authentication service may provide basic Google account information made available to the website, such as your name or email address.</p>
+      <h3>2. Customer Accounts</h3>
+      <p>Customer accounts use an email address and password. Your password is handled by the configured Supabase Auth service rather than being stored as plain text in the website database. Your mobile number is collected as a customer contact/delivery detail when you provide it.</p>
 
       <h3>3. How We Use Information</h3>
       <ul>
@@ -5029,7 +4911,7 @@ All Rights Reserved
       <p>The website may offer COD and UPI-based ordering depending on the store configuration. Customers should submit only the payment information requested by the checkout page. Do not send passwords, PINs, card CVV numbers or other sensitive banking credentials in WhatsApp messages.</p>
 
       <h3>8. Data Security</h3>
-      <p>We use reasonable technical and organizational measures available in the website and its configured services to protect stored information. Account authentication is handled through the configured Supabase Auth service, while database access should be protected with row-level security policies. The website also uses input validation, OTP resend cooldowns and limited client-side verification attempts to reduce accidental or automated abuse. No internet service can guarantee absolute security, so customers should also protect their account credentials and devices.</p>
+      <p>We use reasonable technical and organizational measures available in the website and its configured services to protect stored information. Account authentication is handled through the configured Supabase Auth service, while database access should be protected with row-level security policies. The website also uses input validation and account/session controls to reduce accidental or automated abuse. No internet service can guarantee absolute security, so customers should also protect their account credentials and devices.</p>
 
       <h3>9. Your Choices</h3>
       <p>You can contact the shop to ask about your customer information, request correction of inaccurate details, or ask about deletion where applicable. Some information may need to be retained when required for order records, security, dispute handling or other legitimate operational needs.</p>
@@ -5061,7 +4943,7 @@ All Rights Reserved
       <p>Product names, descriptions, images, prices and availability are displayed for ordering purposes and may be updated from time to time. A product or price shown on the website does not guarantee availability until the order is accepted by the shop.</p>
 
       <h3>3. Customer Account</h3>
-      <p>Customers are responsible for providing accurate information and for keeping access to their account and OTP / authentication methods secure. Account creation includes acceptance of these Terms &amp; Conditions and the Privacy Policy. You should immediately contact the shop if you believe your account has been used without permission.</p>
+      <p>Customers are responsible for providing accurate information and for keeping their account password secure. Account creation includes acceptance of these Terms &amp; Conditions and the Privacy Policy. You should immediately contact the shop if you believe your account has been used without permission.</p>
 
       <h3>4. Orders</h3>
       <ul>
@@ -5090,7 +4972,7 @@ All Rights Reserved
       <p>The website design, original text, branding, logos, product presentation and other site materials belong to MANOHAR MOBILE SHOP or their respective owners. They may not be copied, republished or commercially reused without permission, except where permitted by law.</p>
 
       <h3>11. Third-Party Services and Links</h3>
-      <p>The website may use third-party services such as Google sign-in, Supabase, WhatsApp and payment-related services. Their own terms and privacy policies may also apply to your use of those services.</p>
+      <p>The website may use third-party services such as Supabase, WhatsApp and payment-related services. Their own terms and privacy policies may also apply to your use of those services.</p>
 
       <h3>12. Limitation of Website Availability</h3>
       <p>We aim to keep the website available and accurate, but temporary interruptions, maintenance, network issues or third-party service problems can occur. The shop may update, suspend or change website features when necessary.</p>
@@ -5103,7 +4985,6 @@ All Rights Reserved
   </div>
 </div>
 
-<!-- ================= CART ================= -->
 <div class="cart-panel" id="cartPanel">
 <div class="cart-header">
 <h3>🛒 My Cart</h3>
@@ -5130,8 +5011,6 @@ Cart abhi empty hai.
 </div>
 </div>
 
-
-<!-- ================= CUSTOMER ACCOUNT ================= -->
 <div class="account-overlay" id="accountOverlay" onclick="if(event.target===this) closeAccount()">
   <div class="account-box">
     <div class="account-top">
@@ -5142,7 +5021,7 @@ Cart abhi empty hai.
     <div id="accountLoggedOut" class="account-grid">
       <div class="account-chooser">
         <h3>Sign in or create account</h3>
-        <p class="account-chooser-sub">Fast, secure access to your orders and saved delivery details.</p>
+        <p class="account-chooser-sub">Create your MANOHAR MOBILE SHOP account with your own email and password. No Google, OTP or other third-party account is required.</p>
         <div class="account-choice-tabs">
           <button type="button" class="account-choice-tab active" data-auth-tab="signin" onclick="switchAuthTab('signin')">Sign in</button>
           <button type="button" class="account-choice-tab" data-auth-tab="signup" onclick="switchAuthTab('signup')">Create account</button>
@@ -5150,42 +5029,30 @@ Cart abhi empty hai.
 
         <div id="authSigninPanel" class="account-auth-panel active">
           <h4 class="account-auth-title">Sign in</h4>
-          <button class="google-login-btn" type="button" onclick="signInWithGoogle()">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.35 12.23c0-.79-.07-1.54-.22-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42z"/><path fill="#34A853" d="M12 21.73c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.73 9.73 0 0 0 12 21.73z"/><path fill="#FBBC05" d="M6.54 13.81A5.84 5.84 0 0 1 6.23 12c0-.63.11-1.25.31-1.81V7.66H3.3A9.74 9.74 0 0 0 2.27 12c0 1.57.38 3.05 1.03 4.34l3.24-2.53z"/><path fill="#EA4335" d="M12 6.16c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.83 3.24 14.63 2.27 12 2.27a9.73 9.73 0 0 0-8.7 5.39l3.24 2.53C7.31 7.88 9.46 6.16 12 6.16z"/></svg>
-            Continue with Google
-          </button>
-          <div class="auth-divider"><span>or continue with mobile</span></div>
-          <div class="checkout-field"><label>Mobile Number *</label><div class="otp-row"><input id="loginPhone" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number"><button id="loginSendOtpBtn" class="otp-send-btn" type="button" onclick="sendLoginOtp()">Send OTP</button></div></div>
-          <div id="loginOtpStatus" class="otp-status"></div>
-          <div class="checkout-field"><label>OTP *</label><input id="loginOtp" type="text" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit OTP"></div>
-          <button class="place-order-btn otp-verify-btn" type="button" onclick="verifyLoginOtp()">Verify OTP & Sign in</button>
-          <div class="otp-security-hint">🔒 OTP ko kisi ke saath share na karein. MANOHAR MOBILE SHOP kabhi OTP nahi maangega.</div>
+          <div class="checkout-field"><label>Email *</label><input id="loginEmail" type="email" autocomplete="email" placeholder="your@email.com"></div>
+          <div class="checkout-field"><label>Password *</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password"></div>
+          <button class="place-order-btn" type="button" onclick="customerLogin()">🔐 Sign in</button>
           <div class="account-policy-links">By continuing, you acknowledge our <button type="button" onclick="openLegalModal('terms')">Terms &amp; Conditions</button> and <button type="button" onclick="openLegalModal('privacy')">Privacy Policy</button>.</div>
-          <div class="account-security-note">🛡️ Secure sign-in uses Google OAuth or one-time SMS OTP. Authentication and account data are handled through the configured Supabase Auth service.</div>
+          <div class="account-security-note">🛡️ Your password is handled by Supabase Auth. Never share your password with anyone.</div>
         </div>
 
         <div id="authSignupPanel" class="account-auth-panel">
           <h4 class="account-auth-title">Create account</h4>
-          <button class="google-login-btn" type="button" onclick="signInWithGoogle()">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.35 12.23c0-.79-.07-1.54-.22-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42z"/><path fill="#34A853" d="M12 21.73c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.73 9.73 0 0 0 12 21.73z"/><path fill="#FBBC05" d="M6.54 13.81A5.84 5.84 0 0 1 6.23 12c0-.63.11-1.25.31-1.81V7.66H3.3A9.74 9.74 0 0 0 2.27 12c0 1.57.38 3.05 1.03 4.34l3.24-2.53z"/><path fill="#EA4335" d="M12 6.16c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.83 3.24 14.63 2.27 12 2.27a9.73 9.73 0 0 0-8.7 5.39l3.24 2.53C7.31 7.88 9.46 6.16 12 6.16z"/></svg>
-            Continue with Google
-          </button>
-          <div class="auth-divider"><span>or create with mobile</span></div>
           <div class="checkout-field"><label>Full Name *</label><input id="signupName" type="text" autocomplete="name" placeholder="Full name"></div>
-          <div class="checkout-field"><label>Mobile *</label><div class="otp-row"><input id="signupPhone" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile"><button id="signupSendOtpBtn" class="otp-send-btn" type="button" onclick="sendSignupOtp()">Send OTP</button></div></div>
-          <div id="signupOtpStatus" class="otp-status"></div>
-          <div class="checkout-field"><label>OTP *</label><input id="signupOtp" type="text" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit OTP"></div>
-          <div class="checkout-field"><label>Email</label><input id="signupEmail" type="email" autocomplete="email" placeholder="your@email.com"></div>
+          <div class="checkout-field"><label>Email *</label><input id="signupEmail" type="email" autocomplete="email" placeholder="your@email.com"></div>
+          <div class="checkout-field"><label>Password *</label><input id="signupPassword" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters"></div>
+          <div class="checkout-field"><label>Mobile *</label><input id="signupPhone" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile"></div>
           <div class="checkout-field"><label>Full Address *</label><textarea id="signupAddress" rows="2" autocomplete="street-address" placeholder="House / Street / Area"></textarea></div>
           <div class="checkout-row"><div class="checkout-field"><label>City *</label><input id="signupCity" type="text" autocomplete="address-level2" placeholder="City"></div><div class="checkout-field"><label>PIN Code *</label><input id="signupPin" type="text" maxlength="6" inputmode="numeric" autocomplete="postal-code" placeholder="6-digit PIN"></div></div>
           <div class="checkout-field"><label>Landmark</label><input id="signupLandmark" type="text" placeholder="Nearby landmark (optional)"></div>
           <label class="account-consent"><input id="signupLegalConsent" type="checkbox"> <span>I agree to the <button type="button" onclick="openLegalModal('terms');event.preventDefault();event.stopPropagation();">Terms &amp; Conditions</button> and <button type="button" onclick="openLegalModal('privacy');event.preventDefault();event.stopPropagation();">Privacy Policy</button>, and confirm that the information I provide is accurate.</span></label>
-          <button class="place-order-btn otp-verify-btn" type="button" onclick="verifySignupOtp()">Verify OTP & Create Account</button>
-          <div class="account-policy-links">We use your submitted details to create the account, support ordering, delivery and account features. See <button type="button" onclick="openLegalModal('privacy')">Privacy Policy</button> for details.</div>
-          <div class="account-security-note">🛡️ Security best practice: use your own mobile number, keep your Google account secure, and never share OTPs or banking credentials in chat.</div>
+          <button class="place-order-btn" type="button" onclick="customerSignup()">✅ Create account</button>
+          <div class="account-policy-links">We use your submitted details to create the account and support ordering, delivery and account features. See <button type="button" onclick="openLegalModal('privacy')">Privacy Policy</button> for details.</div>
+          <div class="account-security-note">🛡️ Use your own email and mobile number. Never share your password or banking credentials.</div>
         </div>
       </div>
     </div>
+
     <div id="accountLoggedIn" style="display:none;padding:22px">
       <div class="account-profile">
         <div>
@@ -5233,7 +5100,6 @@ Cart abhi empty hai.
   </div>
 </div>
 
-<!-- ================= AMAZON-STYLE CHECKOUT ================= -->
 <div class="checkout-overlay" id="checkoutOverlay" onclick="if(event.target===this) closeCheckout()">
   <div class="checkout-box">
     <div class="checkout-top"><h2>🛍️ Checkout</h2><button class="checkout-close" onclick="closeCheckout()">×</button></div>
@@ -5250,7 +5116,8 @@ Cart abhi empty hai.
           <div class="checkout-field"><label for="customerCity">City *</label><input id="customerCity" type="text" placeholder="City"></div>
           <div class="checkout-field"><label for="customerLandmark">Landmark</label><input id="customerLandmark" type="text" placeholder="Nearby landmark"></div>
         </div>
-        <p class="checkout-note">Details isi browser/device me save hoti hain taaki next order me form dobara na bharna pade.</p>
+        <p class="checkout-note">Details isi browser/device me save hoti hain aur logged-in customer ke profile/order record me bhi update ho sakti hain.</p>
+        <div class="checkout-customer-saved">🔐 Customer details: Name, mobile, address, city, PIN aur landmark account/order ke saath save kiye ja sakte hain.</div>
       </div>
       <div class="checkout-card">
         <h3>🧾 Order Summary</h3>
@@ -5291,17 +5158,10 @@ Cart abhi empty hai.
 </div>
 
 <script>
-
-/* ================= CART ================= */
-
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem("manohar_cart") || "[]"); if(!Array.isArray(cart)) cart=[]; }
 catch(e){ cart=[]; }
 function saveCart(){ try{ localStorage.setItem("manohar_cart", JSON.stringify(cart)); }catch(e){} }
-
-
-/* ================= SEARCH PRODUCTS ================= */
-
 function searchProducts(){
 
     const search =
@@ -5331,10 +5191,6 @@ function searchProducts(){
     });
 
 }
-
-
-/* ================= BRAND FILTER ================= */
-
 function filterBrand(brand,button){
 
     document
@@ -5367,10 +5223,6 @@ function filterBrand(brand,button){
     });
 
 }
-
-
-/* ================= ACCESSORY CATEGORY ================= */
-
 function applyAccessoryFilters(){
     const activeCategory = (window.selectedAccessoryCategory || "All").trim().toLowerCase();
     const activeBrand = (window.selectedAccessoryBrand || "All").trim().toLowerCase();
@@ -5397,133 +5249,90 @@ function filterAccessoryBrand(brand,button){
     if(button) button.classList.add("active");
     applyAccessoryFilters();
 }
+function findProductMeta(name){
+    const target=String(name||"").trim().toLowerCase();
+    const nodes=Array.from(document.querySelectorAll('.product, .uv-product, .accessory-product, .main-mobile-product-card'));
+    let fallback={image:'',company:'',description:''};
+    for(const node of nodes){
+        const onclicks=Array.from(node.querySelectorAll('button[onclick]')).map(b=>b.getAttribute('onclick')||'').join(' ').toLowerCase();
+        const heading=(node.querySelector('h3')?.textContent||'').trim().toLowerCase();
+        const dataName=(node.getAttribute('data-name')||'').trim().toLowerCase();
+        const cleanTarget=target.replace(/\s*cover\b|\s*case\b/g,'').trim();
+        const looksLike=onclicks.includes(target) || (heading && (heading===cleanTarget || heading.includes(cleanTarget) || cleanTarget.includes(heading))) || dataName===target || (dataName && (dataName===cleanTarget || dataName.includes(cleanTarget)));
+        if(!looksLike) continue;
+        const img=node.querySelector('.detail-image img, .product-img img, .uv-product-image img, img.flip-cover-image');
+        const meta={
+            image:img?.getAttribute('src')||'',
+            company:(node.querySelector('.company')?.textContent||'').trim(),
+            description:(node.querySelector('.product-description, .detail-description')?.textContent||'').trim()
+        };
+        if(meta.image) return meta;
+        fallback={...fallback,...meta};
+    }
+    return fallback;
+}
 
-/* ================= ADD CART ================= */
+function hydrateCartItem(item){
+    if(!item || !item.name) return item;
+    const meta=findProductMeta(item.name);
+    if(item.type==="uv-glass" && typeof uvGlassImage !== "undefined" && !item.image){ item.image=uvGlassImage; }
+    if(!item.image && meta.image) item.image=meta.image;
+    if(!item.company && meta.company) item.company=meta.company;
+    if(!item.description && meta.description) item.description=meta.description;
+    return item;
+}
 
 function addToCart(name,price){
-
-    const existing =
-        cart.find(item =>
-            item.name === name
-        );
-
+    const meta=findProductMeta(name);
+    const existing=cart.find(item=>item.name===name);
     if(existing){
-
         existing.quantity++;
-
+        if(!existing.image&&meta.image)existing.image=meta.image;
+        if(!existing.company&&meta.company)existing.company=meta.company;
+        if(!existing.description&&meta.description)existing.description=meta.description;
     }else{
-
-        cart.push({
-            name:name,
-            price:price,
-            quantity:1
-        });
-
+        cart.push({name,price,quantity:1,type:'product',image:meta.image,company:meta.company,description:meta.description});
     }
-
     updateCart();
-
     showMessage("🛒 Product cart me add ho gaya!");
-
 }
-
-
-/* ================= UPDATE CART ================= */
 
 function updateCart(){
+    cart=cart.map(hydrateCartItem).filter(item=>item&&item.name);
     saveCart();
-
-    const cartItems =
-        document.getElementById("cartItems");
-
-    const cartCount =
-        document.getElementById("cartCount");
-
-    const cartTotal =
-        document.getElementById("cartTotal");
-
-    let totalItems = 0;
-
-    let totalPrice = 0;
-
-
-    if(cart.length === 0){
-
-        cartItems.innerHTML = `
-        <p style="text-align:center;color:#777;">
-        Cart abhi empty hai.
-        </p>`;
-
+    const cartItems=document.getElementById("cartItems");
+    const cartCount=document.getElementById("cartCount");
+    const cartTotal=document.getElementById("cartTotal");
+    let totalItems=0,totalPrice=0;
+    if(cart.length===0){
+        cartItems.innerHTML='<p style="text-align:center;color:#777;">Cart abhi empty hai.</p>';
     }else{
-
-        cartItems.innerHTML = "";
-
-        cart.forEach((item,index)=>{
-
-            totalItems += item.quantity;
-
-            if(item.price !== null){
-                totalPrice += item.price * item.quantity;
-            }
-
-
-            cartItems.innerHTML += `
-
-            <div class="cart-item">
-
-                <div>
-
-                    <strong>
-                    ${item.name}
-                    </strong>
-
-                    <br>
-
-                    ${item.price !== null ? "₹" + item.price : "Price not specified"}
-                    × ${item.quantity}
-
-                    <br>
-
-                    <button
-                    onclick="changeQuantity(${index},-1)"
-                    style="margin-top:6px;">
-                    ➖
-                    </button>
-
-                    <button
-                    onclick="changeQuantity(${index},1)">
-                    ➕
-                    </button>
-
+        cartItems.innerHTML=cart.map((item,index)=>{
+            const qty=Number(item.quantity||1), price=Number(item.price), subtotal=Number.isFinite(price)?price*qty:null;
+            totalItems+=qty;
+            if(subtotal!==null) totalPrice+=subtotal;
+            const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}">`:'<div class="cart-no-image">📱</div>';
+            return `<div class="cart-item">
+                <div class="cart-item-image">${image}</div>
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${escapeHtml(item.name)}</div>
+                    ${item.company?`<div class="cart-item-company">${escapeHtml(item.company)}</div>`:''}
+                    ${item.description?`<div class="cart-item-description">${escapeHtml(item.description)}</div>`:''}
+                    <div class="cart-item-price">Unit price: ${Number.isFinite(price)?'₹'+price:'Price not specified'}</div>
+                    <div class="cart-item-subtotal">Subtotal: ${subtotal!==null?'₹'+subtotal:'Price not specified'}</div>
+                    <div class="cart-item-actions">
+                        <button class="cart-qty-btn" onclick="changeQuantity(${index},-1)" aria-label="Decrease quantity">−</button>
+                        <span class="cart-qty-count">${qty}</span>
+                        <button class="cart-qty-btn" onclick="changeQuantity(${index},1)" aria-label="Increase quantity">+</button>
+                    </div>
                 </div>
-
-                <button
-                class="remove-btn"
-                onclick="removeItem(${index})">
-
-                Remove
-
-                </button>
-
-            </div>
-
-            `;
-
-        });
-
+                <button class="cart-item-remove" onclick="removeItem(${index})">Remove</button>
+            </div>`;
+        }).join('');
     }
-
-
-    cartCount.innerText = totalItems;
-
-    cartTotal.innerText =
-        "₹" + totalPrice;
-
+    if(cartCount)cartCount.innerText=totalItems;
+    if(cartTotal)cartTotal.innerText="₹"+totalPrice;
 }
-
-
-/* ================= QUANTITY ================= */
-
 function changeQuantity(index,value){
 
     cart[index].quantity += value;
@@ -5537,10 +5346,6 @@ function changeQuantity(index,value){
     updateCart();
 
 }
-
-
-/* ================= REMOVE ================= */
-
 function removeItem(index){
 
     cart.splice(index,1);
@@ -5548,10 +5353,6 @@ function removeItem(index){
     updateCart();
 
 }
-
-
-/* ================= OPEN CART ================= */
-
 function openCart(){
 
     document
@@ -5559,10 +5360,6 @@ function openCart(){
     .classList.add("open");
 
 }
-
-
-/* ================= CLOSE CART ================= */
-
 function closeCart(){
 
     document
@@ -5570,25 +5367,12 @@ function closeCart(){
     .classList.remove("open");
 
 }
-
-
-/* ================= PRODUCT WHATSAPP ================= */
 function whatsappProduct(name,price){const phone="919407017035";const message="Hello MANOHAR MOBILE SHOP,\n\nMujhe ye product order karna hai.\n\nProduct: "+name+"\nPrice: ₹"+price+"\n\nMobile Model / Address: ";window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");}
 function whatsappUVProduct(name){const phone="919407017035";const message="Hello MANOHAR MOBILE SHOP,\n\nMujhe ye UV Glass order karna hai.\n\nProduct: "+name+" UV Glass\n\nMobile Model / Address: ";window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");}
-
-/* ================= BUY NOW ================= */
-
 function buyNow(name,price){
     addToCart(name,price);
     openCheckout();
 }
-
-/* ================= CART CHECKOUT ================= */
-
-function checkoutWhatsApp(){ openCheckout(); }
-
-/* ================= CHECKOUT ================= */
-
 function getCartTotal(){
     return cart.reduce((sum,item)=>{
         const p=Number(item.price), q=Number(item.quantity||0);
@@ -5601,12 +5385,25 @@ function escapeHtml(value){
 }
 
 function renderCheckoutSummary(){
+    cart=cart.map(hydrateCartItem).filter(item=>item&&item.name);
+    saveCart();
     const box=document.getElementById("checkoutSummary"), total=document.getElementById("checkoutGrandTotal");
     if(!box||!total)return;
-    box.innerHTML=cart.length ? cart.map(item=>{
-        const q=Number(item.quantity||1), p=Number(item.price);
-        return `<div class="checkout-summary-item"><span><strong>${escapeHtml(item.name)}</strong><br>Qty: ${q}</span><strong>${Number.isFinite(p)?"₹"+(p*q):"Price not specified"}</strong></div>`;
-    }).join("") : '<p style="color:#777;">Cart empty hai.</p>';
+    box.innerHTML=cart.length?cart.map(item=>{
+        const q=Number(item.quantity||1),p=Number(item.price),subtotal=Number.isFinite(p)?p*q:null;
+        const image=item.image?escapeHtml(item.image):"";
+        const company=item.company?'<div class="checkout-product-company">'+escapeHtml(item.company)+'</div>':'';
+        const desc=item.description?'<div class="checkout-product-desc">'+escapeHtml(item.description)+'</div>':'';
+        return `<div class="checkout-summary-item">
+          <div class="checkout-product-thumb">${image?`<img src="${image}" alt="${escapeHtml(item.name)}">`:'<div class="checkout-no-image">📱</div>'}</div>
+          <div class="checkout-product-meta">
+            <div class="checkout-product-name">${escapeHtml(item.name)}</div>
+            ${company}${desc}
+            <div class="checkout-product-qty">Quantity: ${q}</div>
+          </div>
+          <div class="checkout-product-price">${subtotal!==null?"₹"+subtotal:"Price not specified"}</div>
+        </div>`;
+    }).join(""):'<p style="color:#777;">Cart empty hai.</p>';
     total.innerText="₹"+getCartTotal();
 }
 
@@ -5675,6 +5472,8 @@ async function placeOrder(){
         upi_transaction_id:paymentMethod==="upi"?(document.getElementById("upiUtr")?.value.trim()||""):""
     };
 
+    if(window.currentUser&&window.storeCloudReady){ await syncCustomerProfileToCloud(customer); }
+
     // Cloud mode
     if(window.storeCloudReady){
         try{
@@ -5704,18 +5503,6 @@ async function placeOrder(){
     finishSuccessfulOrder(orderId);
 }
 
-function prepareUpiPayment(total, orderId){
-    const cfg=window.APP_CONFIG||{};
-    const upi=cfg.UPI_ID||"YOUR-UPI-ID@BANK";
-    const name=cfg.UPI_NAME||"MANOHAR MOBILE SHOP";
-    const qr=cfg.UPI_QR_IMAGE||"qr/upi-qr.png";
-    const panel=document.getElementById("upiPaymentPanel");
-    if(panel) panel.style.display="block";
-    const id=document.getElementById("shopUpiId"); if(id) id.textContent=upi;
-    const img=document.getElementById("shopUpiQr"); if(img) img.src=qr;
-    const link=document.getElementById("upiPayLink");
-    if(link) link.href="upi://pay?pa="+encodeURIComponent(upi)+"&pn="+encodeURIComponent(name)+"&am="+encodeURIComponent(Number(total).toFixed(2))+"&cu=INR&tn="+encodeURIComponent("Order "+orderId);
-}
 async function copyShopUpi(){
     const upi=(window.APP_CONFIG||{}).UPI_ID||"YOUR-UPI-ID@BANK";
     try{await navigator.clipboard.writeText(upi);alert("UPI ID copied: "+upi)}catch(e){alert("UPI ID: "+upi)}
@@ -5734,9 +5521,6 @@ function continueShopping(){
     document.getElementById("orderSuccess").classList.remove("open");
     document.getElementById("checkoutFormArea").style.display="";
 }
-
-/* ================= MESSAGE ================= */
-
 function showMessage(text){
 
     const message =
@@ -5771,7 +5555,6 @@ function showMessage(text){
 
     document.body.appendChild(message);
 
-
     setTimeout(()=>{
 
         message.remove();
@@ -5779,10 +5562,6 @@ function showMessage(text){
     },2000);
 
 }
-
-
-/* ================= UV GLASS ================= */
-
 const uvGlassImage = "./image/UV-Glass/IMG2026090615222.jpeg";
 const uvGlassModels = [
 {brand:'Vivo',name:'Vivo X200 Pro'},
@@ -5845,36 +5624,24 @@ function searchUVGlass(){
 }
 
 function addUVToCart(name){
-    const existing = cart.find(item => item.name === name + " UV Glass");
-    if(existing){
-        existing.quantity++;
-    }else{
-        cart.push({name:name + " UV Glass",price:null,quantity:1,type:"uv-glass"});
-    }
+    const cartName=name + " UV Glass";
+    const existing=cart.find(item=>item.name===cartName);
+    if(existing){existing.quantity++;}
+    else{cart.push({name:cartName,price:null,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"});}
     updateCart();
     showMessage("🛒 UV Glass cart me add ho gaya!");
 }
 
 function buyUVNow(name){
-    const existing=cart.find(item=>item.name===name+" UV Glass");
-    if(existing){existing.quantity++;}else{cart.push({name:name+" UV Glass",price:null,quantity:1,type:"uv-glass"});}
+    const cartName=name+" UV Glass";
+    const existing=cart.find(item=>item.name===cartName);
+    if(existing){existing.quantity++;}
+    else{cart.push({name:cartName,price:null,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"});}
     updateCart(); openCheckout();
 }
 
 document.addEventListener("DOMContentLoaded",renderUVGlassProducts);
-
-/* ================= INITIAL CART ================= */
-
 updateCart();
-
-
-
-/* =========================================================
-   DROPDOWN BEHAVIOUR
-   - Menus open on click and stay open.
-   - Close only with X / Escape / the summary toggle.
-   - Fixed right-side panel keeps the popup inside the viewport.
-   ========================================================= */
 (function(){
     const flip = document.querySelector('.flip-nav');
     const acc = document.querySelector('.accessory-nav');
@@ -5921,13 +5688,6 @@ updateCart();
         });
     });
 })();
-
-
-/* =====================================================
-   MAIN PAGE MOBILE COMPANY / MODEL LIST
-   Independent cards — does NOT use #productList.
-   ===================================================== */
-
 (function(){
 
     let selectedMainMobileBrand = "All";
@@ -6050,7 +5810,6 @@ updateCart();
 </script>
 
 <script>
-/* ================= CLOUD ACCOUNT / ORDERS ================= */
 window.currentUser=null;
 window.storeCloudReady=false;
 
@@ -6117,90 +5876,54 @@ function ensureCloud(){
 }
 
 function switchAuthTab(tab){
-    document.querySelectorAll(".account-choice-tab").forEach(function(btn){btn.classList.toggle("active",btn.dataset.authTab===tab);});
+    document.querySelectorAll(".account-choice-tab").forEach(function(btn){
+        btn.classList.toggle("active",btn.dataset.authTab===tab);
+    });
     document.getElementById("authSigninPanel").classList.toggle("active",tab==="signin");
     document.getElementById("authSignupPanel").classList.toggle("active",tab==="signup");
 }
 
-async function signInWithGoogle(){
-    if(!ensureCloud()) return;
-    const redirectTo=window.location.origin+window.location.pathname;
-    const {error}=await window.supabaseClient.auth.signInWithOAuth({provider:"google",options:{redirectTo}});
-    if(error) alert("Google sign-in setup error: "+error.message);
-}
-
-const otpCooldowns = Object.create(null);
-const otpAttemptState = Object.create(null);
-function otpKey(phone){return "otp_"+phone;}
-function startOtpCooldown(buttonId,statusId,seconds=60){
-    const btn=document.getElementById(buttonId);
-    if(!btn)return;
-    let left=seconds; btn.disabled=true;
-    const original=btn.dataset.originalText||btn.textContent; btn.dataset.originalText=original;
-    btn.textContent="Wait "+left+"s";
-    const timer=setInterval(()=>{
-        left--;
-        if(left<=0){clearInterval(timer);btn.disabled=false;btn.textContent=original;}
-        else btn.textContent="Wait "+left+"s";
-    },1000);
-}
-async function sendOtp(phoneInputId,statusId,buttonId){
-    if(!ensureCloud())return false;
-    const raw=document.getElementById(phoneInputId).value.trim(),phone=raw.replace(/\D/g,"");
-    if(!/^[6-9]\d{9}$/.test(phone)){alert("Valid 10-digit Indian mobile number enter karein.");return false;}
-    const cooldownKey=phone+":"+buttonId;
-    if(otpCooldowns[cooldownKey] && Date.now()<otpCooldowns[cooldownKey]){return false;}
-    const btn=document.getElementById(buttonId);
-    if(btn)btn.disabled=true;
-    const {error}=await window.supabaseClient.auth.signInWithOtp({phone:"+91"+phone,options:{shouldCreateUser:true}});
-    if(error){if(btn)btn.disabled=false;alert(error.message);return false;}
-    otpCooldowns[cooldownKey]=Date.now()+60000;
-    startOtpCooldown(buttonId,statusId,60);
-    otpAttemptState[otpKey(phone)]={count:0,lockedUntil:0};
-    const st=document.getElementById(statusId);if(st){st.textContent="OTP +91 "+phone+" par bhej diya gaya hai. 60 seconds tak resend button protected rahega.";st.classList.add("show");}
-    return true;
-}
-function allowOtpVerify(phone){
-    const key=otpKey(phone), now=Date.now();
-    const state=otpAttemptState[key]||{count:0,lockedUntil:0};
-    if(state.lockedUntil && now<state.lockedUntil){
-        const mins=Math.ceil((state.lockedUntil-now)/60000);
-        alert("OTP verification temporarily locked. "+mins+" minute baad dobara try karein."); return false;
-    }
-    if(state.lockedUntil && now>=state.lockedUntil){state.count=0;state.lockedUntil=0;}
-    state.count++; otpAttemptState[key]=state;
-    if(state.count>5){state.lockedUntil=now+10*60000;state.count=0;alert("Bahut saare incorrect OTP attempts. 10 minute ke liye verification locked hai.");return false;}
-    return true;
-}
-
-async function sendLoginOtp(){await sendOtp("loginPhone","loginOtpStatus","loginSendOtpBtn");}
-async function sendSignupOtp(){const name=document.getElementById("signupName").value.trim(),address=document.getElementById("signupAddress").value.trim(),city=document.getElementById("signupCity").value.trim(),pin=document.getElementById("signupPin").value.trim();if(!name||!address||!city||!/^[0-9]{6}$/.test(pin)){alert("OTP bhejne se pehle Name, Address, City aur valid 6-digit PIN bhar dijiye.");return;}await sendOtp("signupPhone","signupOtpStatus","signupSendOtpBtn");}
-async function verifyLoginOtp(){
+async function customerLogin(){
     if(!ensureCloud())return;
-    const phone=document.getElementById("loginPhone").value.trim().replace(/\D/g,""),token=document.getElementById("loginOtp").value.trim();
-    if(!/^[6-9]\d{9}$/.test(phone)||!/^[0-9]{6}$/.test(token)){alert("Mobile aur 6-digit OTP sahi bhariye.");return;}
-    if(!allowOtpVerify(phone))return;
-    const {data,error}=await window.supabaseClient.auth.verifyOtp({phone:"+91"+phone,token,type:"sms"});
+    const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+    const password=document.getElementById("loginPassword").value;
+    if(!/^\S+@\S+\.\S+$/.test(email)||!password){alert("Valid email aur password enter karein.");return;}
+    const {data,error}=await window.supabaseClient.auth.signInWithPassword({email,password});
     if(error){alert(error.message);return;}
-    document.getElementById("loginOtp").value="";
-    window.currentUser=data.user;updateAccountButton();await loadProfileFromCloud();showLoggedInAccount();
+    window.currentUser=data.user;
+    await restorePendingProfile();
+    await loadProfileFromCloud();
+    updateAccountButton();
+    showLoggedInAccount();
 }
-async function verifySignupOtp(){
+
+async function customerSignup(){
     if(!ensureCloud())return;
     const consent=document.getElementById("signupLegalConsent");
-    if(consent && !consent.checked){alert("Account create karne ke liye Terms & Conditions aur Privacy Policy accept karein.");return;}
-    const name=document.getElementById("signupName").value.trim(),phone=document.getElementById("signupPhone").value.trim().replace(/\D/g,""),token=document.getElementById("signupOtp").value.trim(),email=document.getElementById("signupEmail").value.trim(),address=document.getElementById("signupAddress").value.trim(),city=document.getElementById("signupCity").value.trim(),pin=document.getElementById("signupPin").value.trim(),landmark=document.getElementById("signupLandmark").value.trim();
-    if(!name||!/^[6-9]\d{9}$/.test(phone)||!/^[0-9]{6}$/.test(token)||!address||!city||!/^[0-9]{6}$/.test(pin)){alert("Name, mobile, 6-digit OTP, address, city aur valid PIN zaroor bhariye.");return;}
-    if(!allowOtpVerify(phone))return;
-    const {data,error}=await window.supabaseClient.auth.verifyOtp({phone:"+91"+phone,token,type:"sms"});
+    if(consent&&!consent.checked){alert("Account create karne ke liye Terms & Conditions aur Privacy Policy accept karein.");return;}
+    const name=document.getElementById("signupName").value.trim();
+    const email=document.getElementById("signupEmail").value.trim().toLowerCase();
+    const password=document.getElementById("signupPassword").value;
+    const phone=document.getElementById("signupPhone").value.trim().replace(/\D/g,"");
+    const address=document.getElementById("signupAddress").value.trim();
+    const city=document.getElementById("signupCity").value.trim();
+    const pin=document.getElementById("signupPin").value.trim();
+    const landmark=document.getElementById("signupLandmark").value.trim();
+    if(!name||!/^\S+@\S+\.\S+$/.test(email)||password.length<6||!/^[6-9]\d{9}$/.test(phone)||!address||!city||!/^\d{6}$/.test(pin)){alert("Name, valid email, 6+ character password, valid 10-digit mobile, address, city aur valid 6-digit PIN zaroor bhariye.");return;}
+    const profile={customerName:name,customerPhone:phone,customerAddress:address,customerCity:city,customerPin:pin,customerLandmark:landmark,email};
+    const {data,error}=await window.supabaseClient.auth.signUp({email,password,options:{data:{full_name:name}}});
     if(error){alert(error.message);return;}
-    document.getElementById("signupOtp").value="";
-    window.currentUser=data.user;const {error:profileError}=await window.supabaseClient.from("profiles").upsert({id:data.user.id,full_name:name,phone,email,address,city,pin,landmark});
-    if(profileError){alert("OTP verify ho gaya, lekin details save nahi hui: "+profileError.message);return;}
-    localStorage.setItem("manohar_customer",JSON.stringify({customerName:name,customerPhone:phone,customerAddress:address,customerCity:city,customerPin:pin,customerLandmark:landmark}));updateAccountButton();showLoggedInAccount();
+    if(!data.user){alert("Account create nahi ho paya. Dobara try karein.");return;}
+    localStorage.setItem("manohar_pending_profile",JSON.stringify(profile));
+    if(!data.session){alert("Account create ho gaya hai. Supabase me Email Confirmation ON hai, isliye pehle email verify karke Sign in karein.");switchAuthTab("signin");return;}
+    window.currentUser=data.user;
+    const saved=await syncCustomerProfileToCloud(profile);
+    if(!saved){alert("Account create ho gaya, lekin profile details save nahi hui. Account → My Details me Save Details karein.");}
+    localStorage.setItem("manohar_customer",JSON.stringify({customerName:name,customerPhone:phone,customerAddress:address,customerCity:city,customerPin:pin,customerLandmark:landmark}));
+    localStorage.removeItem("manohar_pending_profile");
+    updateAccountButton();
+    showLoggedInAccount();
 }
-async function customerSignup(){return verifySignupOtp();}
-async function customerLogin(){return verifyLoginOtp();}
 
 function showLoggedInAccount(){
     document.getElementById("accountLoggedOut").style.display="none";
@@ -6221,17 +5944,37 @@ function showAccountTab(tab){
 }
 
 async function loadProfileFromCloud(){
-    if(!window.currentUser || !window.storeCloudReady)return;
-    const {data}=await window.supabaseClient.from("profiles").select("*").eq("id",window.currentUser.id).maybeSingle();
-    if(!data)return;
-    ["name","phone","address","city","pin","landmark"].forEach(k=>{
-        const el=document.getElementById("profile"+k.charAt(0).toUpperCase()+k.slice(1));
-        if(el)el.value=data[k]||"";
-    });
-    ["customerName","customerPhone","customerAddress","customerCity","customerPin","customerLandmark"].forEach((id,i)=>{
-        const src=["full_name","phone","address","city","pin","landmark"][i], el=document.getElementById(id);
-        if(el && data[src])el.value=data[src];
-    });
+    if(!window.currentUser||!window.storeCloudReady)return null;
+    const {data,error}=await window.supabaseClient.from("profiles").select("*").eq("id",window.currentUser.id).maybeSingle();
+    if(error){console.error("Profile load error",error);return null;}
+    if(!data)return null;
+    const profileMap={name:data.full_name||"",phone:data.phone||"",address:data.address||"",city:data.city||"",pin:data.pin||"",landmark:data.landmark||""};
+    Object.entries(profileMap).forEach(([k,v])=>{const el=document.getElementById("profile"+k.charAt(0).toUpperCase()+k.slice(1));if(el)el.value=v;});
+    const customerIds=["customerName","customerPhone","customerAddress","customerCity","customerPin","customerLandmark"];
+    const customerVals=[data.full_name,data.phone,data.address,data.city,data.pin,data.landmark];
+    customerIds.forEach((id,i)=>{const el=document.getElementById(id);if(el&&customerVals[i])el.value=customerVals[i];});
+    return data;
+}
+
+async function syncCustomerProfileToCloud(customer){
+    if(!window.currentUser||!window.storeCloudReady)return true;
+    const payload={id:window.currentUser.id,full_name:customer.customerName,phone:customer.customerPhone,email:window.currentUser.email||customer.email||"",address:customer.customerAddress,city:customer.customerCity,pin:customer.customerPin,landmark:customer.customerLandmark||""};
+    const {error}=await window.supabaseClient.from("profiles").upsert(payload);
+    if(error){console.error("Profile save error",error);return false;}
+    return true;
+}
+
+async function restorePendingProfile(){
+    if(!window.currentUser||!window.storeCloudReady)return;
+    try{
+        const raw=localStorage.getItem("manohar_pending_profile");
+        if(!raw)return;
+        const p=JSON.parse(raw);
+        if((p.email||"").toLowerCase()!==(window.currentUser.email||"").toLowerCase())return;
+        await syncCustomerProfileToCloud(p);
+        localStorage.removeItem("manohar_pending_profile");
+        await loadProfileFromCloud();
+    }catch(e){console.warn("Pending profile restore failed",e);}
 }
 
 async function saveProfile(){
@@ -6281,9 +6024,7 @@ function renderOrders(orders){
 document.addEventListener("DOMContentLoaded",()=>{initPaymentUi();initStoreCloud();});
 </script>
 
-
 <script>
-/* ================= PRIVACY / TERMS MODALS ================= */
 function openLegalModal(type){
     const privacy=document.getElementById("privacyPolicyOverlay");
     const terms=document.getElementById("termsOverlay");
@@ -6314,9 +6055,7 @@ document.addEventListener("keydown",function(event){
 });
 </script>
 
-
 <script id="basic-security-runtime">
-/* ================= BASIC FRONTEND SECURITY HARDENING ================= */
 (function(){
   try{
     if(window.top !== window.self){ window.top.location = window.self.location.href; }
