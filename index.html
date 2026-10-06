@@ -5355,6 +5355,7 @@ function updateCart(){
                         <button class="cart-qty-btn" onclick="changeQuantity(${index},-1)" aria-label="Decrease quantity">−</button>
                         <span class="cart-qty-count">${qty}</span>
                         <button class="cart-qty-btn" onclick="changeQuantity(${index},1)" aria-label="Increase quantity">+</button>
+                        <button class="cart-buy-btn" onclick="buyCartItem(${index})" type="button">🛍️ Buy</button>
                     </div>
                 </div>
                 <button class="cart-item-remove" onclick="removeItem(${index})">Remove</button>
@@ -6864,6 +6865,120 @@ document.addEventListener("keydown",function(event){
     try{if($("loginPassword"))$("loginPassword").setAttribute('autocomplete','current-password');}catch(e){}
     let tries=0;const bindRecovery=()=>{if(window.supabaseClient?.auth?.onAuthStateChange){try{window.supabaseClient.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY'&&session){setTimeout(()=>openForgotPassword(),0);}});return;}catch(e){}}if(tries++<20)setTimeout(bindRecovery,250)};bindRecovery();
   });
+})();
+</script>
+
+<style id="buy-now-single-order-fix">
+.cart-buy-btn{border:0;background:linear-gradient(135deg,#16a34a,#059669);color:#fff;padding:7px 10px;border-radius:8px;cursor:pointer;font-weight:800;font-size:11px;line-height:1.1;}
+.cart-buy-btn:hover{filter:brightness(.97);transform:translateY(-1px);}
+@media(max-width:520px){.cart-buy-btn{padding:7px 9px;font-size:10px;}}
+</style>
+<script id="buy-now-single-order-fix-script">
+(function(){
+  let singleBuyMode=false;
+  let originalCartBackup=null;
+  let originalFinishSuccessfulOrder=window.finishSuccessfulOrder;
+
+  function cloneItems(items){
+    try{return JSON.parse(JSON.stringify(items||[]));}catch(e){return (items||[]).map(item=>({...item}));}
+  }
+
+  function prepareSingleBuy(item){
+    if(!item||!item.name)return;
+    try{
+      originalCartBackup=cloneItems(cart);
+      singleBuyMode=true;
+      cart=[cloneItems([item])[0]];
+      window.pendingOrderId=null;
+      window.closeCart?.();
+      window.openCheckout();
+    }catch(e){
+      console.error('Single buy checkout error',e);
+      restoreOriginalCart();
+    }
+  }
+
+  function restoreOriginalCart(){
+    if(!singleBuyMode)return;
+    cart=cloneItems(originalCartBackup||[]);
+    saveCart();
+    updateCart();
+    originalCartBackup=null;
+    singleBuyMode=false;
+  }
+
+  window.buyNow=function(name,price){
+    const meta=typeof findProductMeta==='function'?findProductMeta(name):{};
+    const item={
+      name:name,
+      price:price,
+      quantity:1,
+      type:'product',
+      image:meta?.image||'',
+      company:meta?.company||'',
+      description:meta?.description||''
+    };
+    prepareSingleBuy(item);
+  };
+
+  window.buyCartItem=function(index){
+    const item=Array.isArray(cart)?cart[index]:null;
+    if(!item){return;}
+    prepareSingleBuy(item);
+  };
+
+  const originalOpenCheckout=window.openCheckout;
+  window.openCheckout=async function(){
+    // A single-buy checkout uses the temporary one-item cart prepared above.
+    if(!singleBuyMode){
+      return originalOpenCheckout.apply(this,arguments);
+    }
+    if(!cart.length){restoreOriginalCart();alert('Product available nahi hai.');return;}
+    try{
+      closeCart();
+      renderCheckoutSummary();
+      loadCustomerData();
+      window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:'',message:'Delivery charge background me calculate ho raha hai...'};
+      if(document.getElementById('upiUtr'))document.getElementById('upiUtr').value='';
+      if(document.getElementById('razorpayPaymentId'))document.getElementById('razorpayPaymentId').value='';
+      if(document.getElementById('razorpayOrderId'))document.getElementById('razorpayOrderId').value='';
+      if(typeof setDeliveryUi==='function')setDeliveryUi();
+      document.getElementById('checkoutOverlay')?.classList.add('open');
+      document.body.style.overflow='hidden';
+      if(typeof updateUpiPayLink==='function')updateUpiPayLink();
+      setTimeout(()=>{
+        try{if(typeof originalAutoCalculateForBuy==='function'){originalAutoCalculateForBuy().catch(()=>{});}}catch(e){}
+      },0);
+      return;
+    }catch(e){
+      console.error('Open single checkout error',e);
+      restoreOriginalCart();
+    }
+  };
+
+  // Capture the already-existing delivery calculator after page scripts have loaded.
+  let originalAutoCalculateForBuy=window.autoCalculateDeliveryCharge;
+
+  // Keep the selected Buy item in checkout, but restore the customer's real cart after a successful order.
+  window.finishSuccessfulOrder=function(orderId){
+    const wasSingle=singleBuyMode;
+    if(typeof originalFinishSuccessfulOrder==='function'){
+      originalFinishSuccessfulOrder.call(this,orderId);
+    }
+    if(wasSingle){
+      restoreOriginalCart();
+    }
+  };
+
+  const originalCloseCheckout=window.closeCheckout;
+  window.closeCheckout=function(){
+    if(typeof originalCloseCheckout==='function'){
+      originalCloseCheckout.apply(this,arguments);
+    }
+    if(singleBuyMode){
+      restoreOriginalCart();
+    }
+  };
 })();
 </script>
 
