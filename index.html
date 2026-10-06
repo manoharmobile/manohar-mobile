@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
-<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self)"/>
 <title>MANOHAR MOBILE SHOP | Mobile Covers &amp; Accessories</title>
 <style>
 *{
@@ -5118,33 +5118,60 @@ Cart abhi empty hai.
         </div>
         <p class="checkout-note">Details isi browser/device me save hoti hain aur logged-in customer ke profile/order record me bhi update ho sakti hain.</p>
         <div class="checkout-customer-saved">🔐 Customer details: Name, mobile, address, city, PIN aur landmark account/order ke saath save kiye ja sakte hain.</div>
+        <div id="deliveryChargeBox" class="delivery-charge-box">
+          <div class="delivery-charge-title">🚚 Automatic Delivery Charge</div>
+          <div class="delivery-charge-row"><span>Delivery distance</span><strong id="deliveryDistanceText">Calculating...</strong></div>
+          <div class="delivery-charge-row"><span>Delivery charge</span><strong id="deliveryChargeText">₹0</strong></div>
+          <button type="button" class="delivery-calc-btn" id="calcDeliveryBtn" onclick="autoCalculateDeliveryCharge()">📍 Calculate Automatically</button>
+          <div class="delivery-charge-help" id="deliveryHelpText">Address se distance automatically calculate hoga. Customer ko delivery charge manually enter nahi karna hai.</div>
+        </div>
       </div>
       <div class="checkout-card">
         <h3>🧾 Order Summary</h3>
         <div id="checkoutSummary"></div>
-        <div class="checkout-summary-total"><span>Total</span><span id="checkoutGrandTotal">₹0</span></div>
+        <div class="checkout-summary-line"><span>Products subtotal</span><strong id="checkoutProductSubtotal">₹0</strong></div>
+        <div class="checkout-summary-line"><span>Delivery charge</span><strong id="checkoutDeliveryCharge">₹0</strong></div>
+        <div class="checkout-summary-total"><span>Grand Total</span><span id="checkoutGrandTotal">₹0</span></div>
         <div class="payment-methods">
           <h4>💳 Payment Method</h4>
           <label class="payment-option">
-            <input type="radio" name="paymentMethod" value="cod" checked>
+            <input id="codPaymentOption" type="radio" name="paymentMethod" value="cod">
             <span><b>Cash on Delivery</b><small>Delivery ke time payment</small></span>
           </label>
           <label class="payment-option">
-            <input type="radio" name="paymentMethod" value="upi">
-            <span><b>GPay / UPI</b><small>UPI ID + QR se payment</small></span>
+            <input id="upiPaymentOption" type="radio" name="paymentMethod" value="upi" checked>
+            <span><b>📲 UPI / GPay / PhonePe</b><small>Exact Grand Total ke saath direct UPI app payment</small></span>
+          </label>
+          <label class="payment-option" id="cardPaymentOptionWrap">
+            <input id="cardPaymentOption" type="radio" name="paymentMethod" value="card">
+            <span><b>💳 Credit / Debit Card</b><small>Secure Razorpay Checkout (setup required)</small></span>
           </label>
         </div>
-        <div id="upiPaymentPanel" style="display:none;margin:12px 0;padding:14px;border:1px solid #ddd;border-radius:12px;background:#fafafa">
-          <h4>📲 GPay / UPI Payment</h4>
-          <p>UPI ID: <b id="shopUpiId">YOUR-UPI-ID@BANK</b> <button type="button" onclick="copyShopUpi()" style="padding:5px 9px">Copy</button></p>
-          <a id="upiPayLink" href="#" class="place-order-btn" style="display:inline-block;text-decoration:none;margin:8px 0">Open UPI App</a>
-          <div><img id="shopUpiQr" src="qr/upi-qr.png" alt="Shop UPI QR" style="width:210px;max-width:100%;border-radius:10px;border:1px solid #ddd"></div>
+        <div id="upiPaymentPanel" class="payment-panel-modern">
+          <div class="payment-panel-head"><div><h4>📲 UPI Payment</h4><p>Payable now: <strong id="upiPayAmount">₹0</strong></p></div><span class="payment-secure-pill">🔒 Secure UPI</span></div>
+          <p>UPI ID: <b id="shopUpiId">YOUR-UPI-ID@BANK</b> <button type="button" onclick="copyShopUpi()" class="mini-copy-btn">Copy</button></p>
+          <div class="upi-app-grid">
+            <button type="button" class="upi-app-btn upi-gpay" onclick="payWithUPIApp('gpay')">🟢 Google Pay</button>
+            <button type="button" class="upi-app-btn upi-phonepe" onclick="payWithUPIApp('phonepe')">🟣 PhonePe</button>
+            <button type="button" class="upi-app-btn upi-any" onclick="payWithUPIApp('generic')">📲 Any UPI App</button>
+          </div>
+          <div class="upi-qr-wrap">
+            <div><img id="shopUpiQr" src="qr/IMG_20261002_130455.png" alt="Shop UPI QR"></div>
+            <div class="upi-qr-info"><strong>Scan &amp; Pay</strong><p>Current payable amount: <b id="upiQrAmount">₹0</b></p><small>App buttons exact amount ke saath open honge. QR bhi current payment URI use karega; fail hone par aapka original shop QR wapas aayega.</small></div>
+          </div>
           <div class="checkout-field" style="margin-top:10px"><label>UTR / Transaction ID *</label><input id="upiUtr" type="text" placeholder="Payment ke baad UTR enter karein"></div>
-          <small>UPI payment pehle <b>Submitted</b> hoga; shop admin verify karne ke baad <b>Verified</b> hoga.</small>
+          <small>Payment ke baad UTR enter karke <b>Place Order</b> karein. Admin payment verify karega.</small>
         </div>
-
+        <div id="cardPaymentPanel" class="payment-panel-modern" style="display:none">
+          <div class="payment-panel-head"><div><h4>💳 Card Payment</h4><p>Payable now: <strong id="cardPayAmount">₹0</strong></p></div><span class="payment-secure-pill">🔐 Gateway</span></div>
+          <p class="checkout-note">Credit Card / Debit Card ke liye secure gateway checkout khulega. Amount automatically final total se jayega.</p>
+          <button type="button" class="place-order-btn" onclick="openCardPayment()">💳 Pay <span id="cardPayBtnAmount">₹0</span> Securely</button>
+          <div id="cardPaymentStatus" class="payment-card-status">Card payment setup abhi configure nahi hai.</div>
+          <input id="razorpayPaymentId" type="hidden" value="">
+          <input id="razorpayOrderId" type="hidden" value="">
+        </div>
         <button class="place-order-btn" onclick="placeOrder()">✅ Place Order</button>
-        <p class="checkout-note">Order website par save hoga. Payment yahin se hoga aur order status aapke Account me dikhega.</p>
+        <p class="checkout-note">UPI me exact product + delivery total automatically use hoga. Card payment ke liye secure gateway configuration required hai. Order status Account me dikhega.</p>
       </div>
     </div>
     <div id="orderSuccess" class="order-success">
@@ -6060,6 +6087,640 @@ document.addEventListener("keydown",function(event){
   try{
     if(window.top !== window.self){ window.top.location = window.self.location.href; }
   }catch(e){ /* Cross-origin framing: browser policy will block access. */ }
+})();
+</script>
+
+
+
+<!-- ==========================================================
+     COMBINED ADMIN PANEL — CUSTOMER MUST NEVER SEE THIS UI.
+     Access is enforced using Supabase profiles.role = 'admin'.
+     ========================================================== -->
+<div id="adminOverlay" class="admin-overlay" aria-hidden="true" onclick="if(event.target===this) closeAdminSection()">
+  <div class="admin-shell">
+    <div class="admin-header">
+      <div>
+        <div class="admin-kicker">MANOHAR MOBILE SHOP</div>
+        <h2>🛠️ Admin Dashboard</h2>
+        <p id="adminSignedInAs">Admin access</p>
+      </div>
+      <div class="admin-header-actions">
+        <button class="admin-secondary-btn" type="button" onclick="closeAdminSection()">🏪 Store</button>
+        <button class="admin-danger-btn" type="button" onclick="adminLogout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="admin-body">
+      <div class="admin-stats-grid" id="adminStats"></div>
+
+      <div class="admin-toolbar">
+        <div class="admin-search-wrap">
+          <input id="adminSearch" type="search" placeholder="Search order, customer, mobile, UTR, city..." oninput="renderAdminOrders()">
+        </div>
+        <select id="adminStatusFilter" onchange="renderAdminOrders()">
+          <option value="">All Order Status</option>
+          <option>New</option><option>Confirmed</option><option>Packed</option><option>Shipped</option><option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option>
+        </select>
+        <select id="adminPaymentFilter" onchange="renderAdminOrders()">
+          <option value="">All Payment Status</option>
+          <option>pending</option><option>submitted</option><option>verified</option><option>rejected</option>
+        </select>
+        <button class="admin-primary-btn" type="button" onclick="loadAdminOrders()">↻ Refresh</button>
+      </div>
+
+      <div class="admin-note-banner">
+        <strong>💳 Payment:</strong> UPI amount includes product + automatic delivery charge. &nbsp;
+        <strong>🚫 COD:</strong> Currently OFF. To enable later, change <code>ENABLE_COD</code> from <code>false</code> to <code>true</code> in this HTML file.
+      </div>
+
+      <div id="adminOrdersList" class="admin-orders-list">
+        <div class="admin-empty">Orders load ho rahe hain...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<style id="combined-admin-delivery-style">
+/* ===== Checkout delivery UI ===== */
+.checkout-summary-line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;color:#475569;font-size:14px;border-bottom:1px solid #eef2f7}
+.delivery-charge-box{margin-top:14px;padding:14px;border:1px solid #dbeafe;border-radius:14px;background:linear-gradient(180deg,#f8fbff,#fff)}
+.delivery-charge-title{font-weight:900;color:#1e3a8a;margin-bottom:8px}
+.delivery-charge-row{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:13px}
+.delivery-charge-help{font-size:11px;color:#64748b;line-height:1.5;margin-top:8px}
+.delivery-calc-btn{width:100%;margin-top:8px;border:0;border-radius:10px;padding:10px;background:#0ea5e9;color:#fff;font-weight:800;cursor:pointer}
+.delivery-calc-btn:disabled{opacity:.55;cursor:wait}
+.delivery-charge-box.success{border-color:#bbf7d0;background:#f0fdf4}
+.delivery-charge-box.error{border-color:#fecaca;background:#fff7f7}
+
+/* ===== Combined admin section ===== */
+.admin-overlay{position:fixed;inset:0;z-index:100005;background:rgba(2,6,23,.78);backdrop-filter:blur(6px);display:none;padding:0;}
+.admin-overlay.open{display:flex;align-items:stretch;justify-content:center}
+.admin-shell{width:100%;height:100%;background:#f6f8fc;overflow:auto}
+.admin-header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;gap:18px;align-items:center;padding:18px 4%;background:linear-gradient(135deg,#0f172a,#1e1b4b);color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.admin-kicker{font-size:10px;letter-spacing:3px;color:#93c5fd;font-weight:900}
+.admin-header h2{margin:3px 0 4px;font-size:25px}
+.admin-header p{margin:0;color:#cbd5e1;font-size:12px}
+.admin-header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.admin-header-actions button,.admin-primary-btn,.admin-save-btn,.admin-secondary-btn,.admin-danger-btn{border:0;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer}
+.admin-primary-btn{background:#4f46e5;color:#fff}.admin-save-btn{background:#059669;color:#fff}.admin-secondary-btn{background:#fff;color:#111827}.admin-danger-btn{background:#dc2626;color:#fff}
+.admin-body{padding:22px 4% 40px;max-width:1600px;margin:auto}
+.admin-stats-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.admin-stat{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:15px;box-shadow:0 5px 16px rgba(15,23,42,.05)}
+.admin-stat span{display:block;color:#64748b;font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:6px}.admin-stat strong{font-size:23px;color:#111827}
+.admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:12px;margin-bottom:14px}
+.admin-search-wrap{flex:1 1 320px}.admin-toolbar input,.admin-toolbar select{width:100%;box-sizing:border-box;padding:11px;border:1px solid #cbd5e1;border-radius:10px;background:#fff}
+.admin-toolbar select{width:auto;min-width:170px}
+.admin-note-banner{padding:12px 14px;border-radius:13px;background:#eef2ff;border:1px solid #c7d2fe;color:#312e81;font-size:12px;line-height:1.6;margin-bottom:14px}
+.admin-note-banner code{background:#e0e7ff;padding:2px 5px;border-radius:5px}
+.admin-orders-list{display:grid;gap:14px}
+.admin-empty{padding:40px;text-align:center;background:#fff;border:1px dashed #cbd5e1;border-radius:15px;color:#64748b}
+.admin-order-card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:17px;box-shadow:0 7px 22px rgba(15,23,42,.05)}
+.admin-order-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.admin-order-id{font-size:18px;font-weight:950;color:#111827}.admin-order-date{font-size:11px;color:#64748b;margin-top:3px}
+.admin-pill-row{display:flex;gap:7px;flex-wrap:wrap}.admin-pill{padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#eef2ff;color:#4338ca}.admin-pill.pay-verified{background:#dcfce7;color:#166534}.admin-pill.pay-submitted{background:#fef3c7;color:#92400e}.admin-pill.pay-rejected{background:#fee2e2;color:#991b1b}
+.admin-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:12px;margin-top:13px}
+.admin-info-box{border:1px solid #edf0f5;border-radius:13px;padding:13px;background:#fbfcfe}
+.admin-info-box h4{margin:0 0 8px;font-size:13px;color:#111827}.admin-info-line{font-size:12px;line-height:1.55;color:#334155;margin:3px 0;word-break:break-word}.admin-info-line b{color:#111827}
+.admin-items-list{display:grid;gap:7px}.admin-item-row{display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:9px;align-items:center}.admin-item-thumb{width:50px;height:50px;border-radius:9px;border:1px solid #e5e7eb;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}.admin-item-thumb img{width:100%;height:100%;object-fit:contain}.admin-item-name{font-size:12px;font-weight:800;color:#111827}.admin-item-meta{font-size:10px;color:#64748b}.admin-item-price{font-weight:900;font-size:12px}
+.admin-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:13px;padding-top:13px;border-top:1px solid #eef2f7}
+.admin-control label{display:block;font-size:10px;color:#64748b;font-weight:900;margin-bottom:5px;text-transform:uppercase}.admin-control input,.admin-control select,.admin-control textarea{width:100%;box-sizing:border-box;padding:9px;border:1px solid #cbd5e1;border-radius:9px;font:inherit;font-size:12px}.admin-control textarea{min-height:70px;resize:vertical}
+.admin-refund-box{margin-top:13px;border:1px solid #fecaca;border-radius:14px;padding:13px;background:#fffafa}.admin-refund-box h4{margin:0 0 9px;color:#991b1b}.admin-refund-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.admin-refund-grid .wide{grid-column:span 2}
+.admin-order-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:12px}
+.admin-mini{font-size:10px;color:#64748b;line-height:1.5}.admin-warning{color:#b45309;font-weight:800}.admin-success{color:#15803d;font-weight:800}
+@media(max-width:1200px){.admin-stats-grid{grid-template-columns:repeat(3,1fr)}.admin-grid{grid-template-columns:1fr 1fr}.admin-controls{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.admin-header{align-items:flex-start;flex-direction:column}.admin-body{padding:15px 12px 30px}.admin-stats-grid{grid-template-columns:repeat(2,1fr)}.admin-grid{grid-template-columns:1fr}.admin-controls{grid-template-columns:1fr}.admin-refund-grid{grid-template-columns:1fr}.admin-refund-grid .wide{grid-column:auto}.admin-order-card{padding:13px}.admin-toolbar select{flex:1 1 150px;width:auto}.admin-header-actions{width:100%}.admin-header-actions button{flex:1}}
+</style>
+
+<style id="fast-payment-ui-style">
+.payment-panel-modern{margin:12px 0;padding:14px;border:1px solid #dbe3ef;border-radius:14px;background:linear-gradient(180deg,#fbfdff,#fff)}
+.payment-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.payment-panel-head h4{margin:0 0 3px;font-size:16px}.payment-panel-head p{margin:0;color:#64748b;font-size:12px}.payment-secure-pill{font-size:10px;font-weight:800;padding:6px 9px;border-radius:999px;background:#ecfdf5;color:#047857;border:1px solid #bbf7d0;white-space:nowrap}.mini-copy-btn{padding:5px 9px;border:1px solid #cbd5e1;background:#fff;border-radius:7px;cursor:pointer;font-weight:700;font-size:11px;margin-left:5px}.upi-app-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}.upi-app-btn{border:0;border-radius:10px;padding:11px 8px;color:#fff;font-weight:800;cursor:pointer;min-height:44px;box-shadow:0 5px 12px rgba(15,23,42,.10)}.upi-gpay{background:linear-gradient(135deg,#16a34a,#0f9d58)}.upi-phonepe{background:linear-gradient(135deg,#6d28d9,#7c3aed)}.upi-any{background:linear-gradient(135deg,#0f172a,#334155)}.upi-qr-wrap{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center;padding:10px;border:1px dashed #cbd5e1;border-radius:12px;background:#fff}.upi-qr-wrap img{width:140px;height:140px;object-fit:contain;border:1px solid #e5e7eb;border-radius:10px;background:#fff}.upi-qr-info strong{font-size:14px}.upi-qr-info p{margin:4px 0;font-size:12px}.upi-qr-info small{color:#64748b;line-height:1.45}.payment-card-status{margin-top:9px;padding:9px;border-radius:9px;background:#f8fafc;border:1px solid #e2e8f0;color:#64748b;font-size:11px;line-height:1.45}.payment-card-status.ready{background:#ecfdf5;border-color:#bbf7d0;color:#166534}.payment-card-status.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}@media(max-width:600px){.upi-app-grid{grid-template-columns:1fr}.upi-qr-wrap{grid-template-columns:1fr;text-align:center}.upi-qr-wrap img{margin:auto}}
+</style>
+<script id="combined-admin-delivery-runtime">
+/* ==========================================================
+   MANOHAR MOBILE SHOP — Combined Admin + Delivery Runtime
+   ========================================================== */
+(function(){
+  "use strict";
+
+  /* CHANGE ONLY THIS ONE LINE WHEN YOU WANT COD ON. */
+  window.MMS_SETTINGS = window.MMS_SETTINGS || {
+    ENABLE_COD: false,
+    RAZORPAY: { KEY_ID: "", ORDER_ENDPOINT: "" },
+    SHOP_ADDRESS: "Near Mahakali Temple, Khurai, Madhya Pradesh, India",
+    /* 10–40 km was left out of the user's typed list; this is set to ₹60
+       to keep the distance slabs continuous and easy to edit here. */
+    DELIVERY_TIERS: [
+      {maxKm:2, charge:20},
+      {maxKm:5, charge:30},
+      {maxKm:10, charge:40},
+      {maxKm:40, charge:60},
+      {maxKm:60, charge:80}
+    ]
+  };
+
+  window.currentUserRole = "customer";
+  window.adminOrders = [];
+  window.deliveryQuote = {distanceKm:null, charge:0, ready:false, source:""};
+  window.pendingOrderId = null;
+
+  function $(id){return document.getElementById(id);}
+  function money(n){return "₹"+Number(n||0).toFixed(2).replace(/\.00$/,'');}
+
+  function parseMeta(note){
+    if(!note) return {};
+    try{
+      const v=JSON.parse(note);
+      if(v && typeof v === "object") return v;
+    }catch(e){}
+    return {legacy_note:String(note)};
+  }
+  function metaString(meta){return JSON.stringify(meta||{});}
+
+  function escapeForAttr(v){return String(v??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+  async function getCurrentRole(){
+    if(!window.currentUser || !window.storeCloudReady) return "customer";
+    try{
+      const {data,error}=await window.supabaseClient.from("profiles").select("role,full_name,email").eq("id",window.currentUser.id).maybeSingle();
+      if(error){console.warn("Role lookup failed",error);return "customer";}
+      return data?.role === "admin" ? "admin" : "customer";
+    }catch(e){return "customer";}
+  }
+
+  async function routeAfterAuth(){
+    window.currentUserRole = await getCurrentRole();
+    updateAccountButton();
+    if(window.currentUserRole === "admin"){
+      closeAccount();
+      await showAdminSection();
+      return true;
+    }
+    showLoggedInAccount();
+    return false;
+  }
+
+  /* ===================== ACCOUNT OVERRIDES ===================== */
+  window.openAccount = async function(){
+    if(window.currentUser && window.currentUserRole === "admin"){
+      await showAdminSection();
+      return;
+    }
+    const overlay=$("accountOverlay"); if(!overlay)return;
+    overlay.classList.add("open");
+    document.body.style.overflow="hidden";
+    if(window.currentUser) showLoggedInAccount();
+    else {
+      $("accountLoggedOut").style.display="";
+      $("accountLoggedIn").style.display="none";
+    }
+  };
+
+  window.customerLogin = async function(){
+    if(!ensureCloud())return;
+    const email=$("loginEmail")?.value.trim().toLowerCase()||"";
+    const password=$("loginPassword")?.value||"";
+    if(!/^\S+@\S+\.\S+$/.test(email)||!password){alert("Valid email aur password enter karein.");return;}
+    const {data,error}=await window.supabaseClient.auth.signInWithPassword({email,password});
+    if(error){alert(error.message);return;}
+    window.currentUser=data.user;
+    await restorePendingProfile();
+    window.currentUserRole=await getCurrentRole();
+    updateAccountButton();
+    if(window.currentUserRole === "admin"){
+      closeAccount();
+      await showAdminSection();
+      return;
+    }
+    await loadProfileFromCloud();
+    showLoggedInAccount();
+  };
+
+  window.customerSignup = async function(){
+    if(!ensureCloud())return;
+    const consent=$("signupLegalConsent");
+    if(consent&&!consent.checked){alert("Account create karne ke liye Terms & Conditions aur Privacy Policy accept karein.");return;}
+    const name=$("signupName")?.value.trim()||"";
+    const email=$("signupEmail")?.value.trim().toLowerCase()||"";
+    const password=$("signupPassword")?.value||"";
+    const phone=($("signupPhone")?.value||"").replace(/\D/g,"");
+    const address=$("signupAddress")?.value.trim()||"";
+    const city=$("signupCity")?.value.trim()||"";
+    const pin=$("signupPin")?.value.trim()||"";
+    const landmark=$("signupLandmark")?.value.trim()||"";
+    if(!name||!/^(\S+)@(\S+)\.(\S+)$/.test(email)||password.length<6||!/^[6-9]\d{9}$/.test(phone)||!address||!city||!/^\d{6}$/.test(pin)){
+      alert("Name, valid email, 6+ character password, valid 10-digit mobile, address, city aur valid 6-digit PIN zaroor bhariye.");return;
+    }
+    const profile={customerName:name,customerPhone:phone,customerAddress:address,customerCity:city,customerPin:pin,customerLandmark:landmark,email};
+    const {data,error}=await window.supabaseClient.auth.signUp({email,password,options:{data:{full_name:name}}});
+    if(error){alert(error.message);return;}
+    if(!data.user){alert("Account create nahi ho paya. Dobara try karein.");return;}
+    localStorage.setItem("manohar_pending_profile",JSON.stringify(profile));
+    if(!data.session){
+      alert("Account create ho gaya hai. Supabase me Email Confirmation ON hai, isliye pehle email verify karke Sign in karein.");
+      switchAuthTab("signin"); return;
+    }
+    window.currentUser=data.user;
+    window.currentUserRole="customer";
+    const saved=await syncCustomerProfileToCloud(profile);
+    if(!saved){alert("Account create ho gaya, lekin profile details save nahi hui. Account → My Details me Save Details karein.");}
+    localStorage.setItem("manohar_customer",JSON.stringify({customerName:name,customerPhone:phone,customerAddress:address,customerCity:city,customerPin:pin,customerLandmark:landmark}));
+    localStorage.removeItem("manohar_pending_profile");
+    updateAccountButton();
+    showLoggedInAccount();
+  };
+
+  window.customerLogout = function(){
+    const client=window.supabaseClient;
+    window.currentUser=null; window.currentUserRole="customer"; window.adminOrders=[]; window.adminRoleLoaded=false; window.pendingOrderId=null;
+    try{ localStorage.removeItem("manohar_pending_profile"); }catch(e){}
+    try{ const host=new URL(window.APP_CONFIG?.SUPABASE_URL||"").hostname; const ref=host.split(".")[0]; if(ref) localStorage.removeItem("sb-"+ref+"-auth-token"); }catch(e){}
+    closeAdminSection(); closeAccount(); updateAccountButton();
+    try{ if(client?.auth?.signOut){ Promise.race([client.auth.signOut({scope:"local"}),new Promise(resolve=>setTimeout(resolve,2500))]).catch(()=>{}); } }catch(e){}
+  };
+
+  /* ===================== CLOUD INIT OVERRIDE ===================== */
+  window.initStoreCloud = async function(){
+    if(!cloudConfigReady() || !window.supabase) return;
+    try{
+      window.supabaseClient=window.supabase.createClient(window.APP_CONFIG.SUPABASE_URL,window.APP_CONFIG.SUPABASE_ANON_KEY);
+      window.storeCloudReady=true;
+      const {data,error}=await window.supabaseClient.auth.getUser();
+      if(error) throw error;
+      window.currentUser=data.user||null;
+      if(window.currentUser){
+        window.currentUserRole=await getCurrentRole();
+        updateAccountButton();
+        if(window.currentUserRole === "admin") await showAdminSection();
+        else await loadProfileFromCloud();
+      }else{
+        window.currentUserRole="customer";
+        updateAccountButton();
+      }
+    }catch(e){console.error("Cloud init error",e);}
+  };
+
+  /* ===================== PAYMENT + DELIVERY ===================== */
+  window.initPaymentUi = function(){
+    const cfg=window.APP_CONFIG||{}, upi=cfg.UPI_ID||"YOUR-UPI-ID@BANK";
+    if($("shopUpiId"))$("shopUpiId").textContent=upi;
+    if($("shopUpiQr"))$("shopUpiQr").src=cfg.UPI_QR_IMAGE||"qr/upi-qr.png";
+    const cod=$("codPaymentOption"),upiRadio=$("upiPaymentOption"),codWrap=cod?.closest(".payment-option");
+    if(cod){cod.disabled=!window.MMS_SETTINGS.ENABLE_COD;if(!window.MMS_SETTINGS.ENABLE_COD)cod.checked=false;}
+    if(upiRadio)upiRadio.checked=true; if(codWrap)codWrap.style.display=window.MMS_SETTINGS.ENABLE_COD?"flex":"none";
+    document.querySelectorAll('input[name="paymentMethod"]').forEach(r=>{r.addEventListener("change",function(){const up=$("upiPaymentPanel"),card=$("cardPaymentPanel");if(up)up.style.display=this.value==="upi"&&this.checked?"block":"none";if(card)card.style.display=this.value==="card"&&this.checked?"block":"none";updateUpiPayLink();updateCardUi();});});
+    if($("upiPaymentPanel"))$("upiPaymentPanel").style.display="block"; updateUpiPayLink(); updateCardUi();
+  };
+
+  function getProductSubtotal(){return getCartTotal();}
+  function getGrandTotal(){return Number(getProductSubtotal())+Number(window.deliveryQuote.charge||0);}
+
+  function deliveryChargeFor(km){
+    const tier=window.MMS_SETTINGS.DELIVERY_TIERS.find(t=>km<=t.maxKm);
+    return tier ? tier.charge : null;
+  }
+
+  function setDeliveryUi(){
+    const box=$("deliveryChargeBox"), dist=$("deliveryDistanceText"), charge=$("deliveryChargeText"), sum=$("checkoutDeliveryCharge"), total=$("checkoutGrandTotal"), product=$("checkoutProductSubtotal"), help=$("deliveryHelpText");
+    if(product) product.textContent=money(getProductSubtotal());
+    if(sum) sum.textContent=money(window.deliveryQuote.charge||0);
+    if(total) total.textContent=money(getGrandTotal());
+    if(dist) dist.textContent=window.deliveryQuote.distanceKm==null?"Not calculated":(window.deliveryQuote.distanceKm.toFixed(1)+" km");
+    if(charge) charge.textContent=money(window.deliveryQuote.charge||0);
+    if(box){
+      box.classList.toggle("success",!!window.deliveryQuote.ready && window.deliveryQuote.charge!=null && window.deliveryQuote.distanceKm!=null && window.deliveryQuote.distanceKm<=60);
+      box.classList.toggle("error",!!window.deliveryQuote.error);
+    }
+    if(help && window.deliveryQuote.message) help.textContent=window.deliveryQuote.message;
+  }
+
+  function haversineKm(a,b){
+    const R=6371, rad=x=>x*Math.PI/180;
+    const dLat=rad(b.lat-a.lat), dLon=rad(b.lon-a.lon);
+    const x=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)**2;
+    return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  }
+
+  async function fetchJsonWithTimeout(url,options={},timeoutMs=8500){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);try{const res=await fetch(url,{...options,signal:controller.signal});if(!res.ok)throw new Error("HTTP "+res.status);return await res.json();}finally{clearTimeout(timer);}}
+  async function geocodeAddress(query){
+    const normalized=String(query||"").trim().toLowerCase(),key="mms_geo_"+btoa(unescape(encodeURIComponent(normalized))).slice(0,80),cacheKey="mms_geo_cache_v2_"+key;
+    try{const c=JSON.parse(localStorage.getItem(cacheKey)||"null");if(c&&c.expires>Date.now())return c.point;}catch(e){}
+    try{const c=JSON.parse(sessionStorage.getItem(key)||"null");if(c)return c;}catch(e){}
+    const url="https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=in&q="+encodeURIComponent(query),data=await fetchJsonWithTimeout(url,{headers:{"Accept":"application/json","Accept-Language":"en-IN,en;q=0.8"}},8500);
+    if(!data?.[0])throw new Error("Address not found"); const point={lat:Number(data[0].lat),lon:Number(data[0].lon),display:data[0].display_name||query};
+    try{sessionStorage.setItem(key,JSON.stringify(point));localStorage.setItem(cacheKey,JSON.stringify({expires:Date.now()+7*86400000,point}));}catch(e){} return point;
+  }
+  async function routeDistanceKm(a,b){
+    const cacheKey="mms_route_v2_"+[a.lat,a.lon,b.lat,b.lon].map(v=>Number(v).toFixed(5)).join("_");
+    try{const c=JSON.parse(sessionStorage.getItem(cacheKey)||"null");if(c&&Date.now()-c.ts<12*3600000)return Number(c.km);}catch(e){}
+    const url="https://router.project-osrm.org/route/v1/driving/"+a.lon+","+a.lat+";"+b.lon+","+b.lat+"?overview=false&alternatives=false&steps=false",data=await fetchJsonWithTimeout(url,{},7500);
+    if(!data.routes?.[0])throw new Error("No road route found"); const km=Number(data.routes[0].distance)/1000; try{sessionStorage.setItem(cacheKey,JSON.stringify({ts:Date.now(),km}));}catch(e){} return km;
+  }
+
+  function getCheckoutAddress(){
+    const address=$("customerAddress")?.value.trim()||"";
+    const city=$("customerCity")?.value.trim()||"";
+    const pin=$("customerPin")?.value.trim()||"";
+    return [address,city,pin,"Madhya Pradesh","India"].filter(Boolean).join(", ");
+  }
+
+  window.autoCalculateDeliveryCharge = async function(){
+    const btn=$("calcDeliveryBtn"), help=$("deliveryHelpText"), box=$("deliveryChargeBox");
+    if(btn) {btn.disabled=true;btn.textContent="⏳ Calculating...";}
+    const checkoutAddress=getCheckoutAddress();
+    try{const cached=JSON.parse(localStorage.getItem("mms_delivery_quote_v2")||"null");if(cached&&cached.key===checkoutAddress.toLowerCase()&&cached.expires>Date.now()){window.deliveryQuote=cached.quote;setDeliveryUi();updateUpiPayLink();return;}}catch(e){}
+    window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:false,message:"Delivery distance calculate ho raha hai..."};
+    setDeliveryUi();
+    try{
+      const address=getCheckoutAddress();
+      if(address.length<12) throw new Error("Pehle full delivery address, city aur PIN bhariye.");
+
+      const shop=await geocodeAddress(window.MMS_SETTINGS.SHOP_ADDRESS);
+      let customer=null, source="address";
+      try{
+        customer=await geocodeAddress(address);
+      }catch(e){
+        if(navigator.geolocation){
+          customer=await new Promise((resolve,reject)=>navigator.geolocation.getCurrentPosition(
+            p=>resolve({lat:p.coords.latitude,lon:p.coords.longitude,display:"Current location"}),
+            reject,{enableHighAccuracy:true,timeout:12000,maximumAge:60000}
+          ));
+          source="device-location";
+        }else throw e;
+      }
+
+      let km;
+      try{km=await routeDistanceKm(shop,customer);}catch(e){km=haversineKm(shop,customer);source+="-straight-line";}
+      const charge=deliveryChargeFor(km);
+      if(charge==null){
+        window.deliveryQuote={distanceKm:km,charge:0,ready:false,source,error:true,message:"Delivery currently 60 km tak available hai. Is address ke liye delivery charge auto-calculate nahi ho paya."};
+      }else{
+        window.deliveryQuote={distanceKm:km,charge,ready:true,source,error:false,message:"Delivery charge automatically calculated. Customer ko manual amount enter nahi karna hai."};
+        try{localStorage.setItem("mms_delivery_quote_v2",JSON.stringify({key:checkoutAddress.toLowerCase(),expires:Date.now()+6*3600000,quote:window.deliveryQuote}));}catch(e){}
+      }
+    }catch(err){
+      console.warn("Delivery calculation",err);
+      window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:true,message:"Distance auto-calculate nahi hua. Full address check karke Calculate Automatically dobara press karein."};
+    }finally{
+      setDeliveryUi();
+      if(btn){btn.disabled=false;btn.textContent="📍 Calculate Automatically";}
+      updateUpiPayLink();
+    }
+  };
+
+  window.openCheckout = async function(){
+    if(!cart.length){alert("Pehle cart me product add karein.");return;}
+    closeCart();
+    renderCheckoutSummary();
+    loadCustomerData();
+    window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:false,message:"Address se delivery charge calculate ho raha hai..."};
+    if($("upiUtr"))$("upiUtr").value=""; if($("razorpayPaymentId"))$("razorpayPaymentId").value=""; if($("razorpayOrderId"))$("razorpayOrderId").value="";
+    setDeliveryUi();
+    $("checkoutOverlay")?.classList.add("open");
+    document.body.style.overflow="hidden";
+    updateUpiPayLink();
+    // Auto attempt. If address geocoding fails, the customer gets the same one-click button.
+    await autoCalculateDeliveryCharge();
+  };
+
+  window.renderCheckoutSummary = function(){
+    cart=cart.map(hydrateCartItem).filter(item=>item&&item.name);
+    saveCart();
+    const box=$("checkoutSummary"); if(!box)return;
+    box.innerHTML=cart.length?cart.map(item=>{
+      const q=Number(item.quantity||1),p=Number(item.price),sub=Number.isFinite(p)?p*q:null;
+      const image=item.image?'<img src="'+escapeForAttr(item.image)+'" alt="'+escapeForAttr(item.name)+'">':'<div class="checkout-no-image">📱</div>';
+      return '<div class="checkout-summary-item">'+
+        '<div class="checkout-product-thumb">'+image+'</div>'+
+        '<div class="checkout-product-meta"><div class="checkout-product-name">'+escapeHtml(item.name)+'</div>'+
+        (item.company?'<div class="checkout-product-company">'+escapeHtml(item.company)+'</div>':'')+
+        (item.description?'<div class="checkout-product-desc">'+escapeHtml(item.description)+'</div>':'')+
+        '<div class="checkout-product-qty">Quantity: '+q+'</div></div>'+
+        '<div class="checkout-product-price">'+(sub!==null?money(sub):'Price not specified')+'</div></div>';
+    }).join(""):'<p style="color:#777;">Cart empty hai.</p>';
+    setDeliveryUi();
+  };
+
+  function buildUpiQuery(amount,orderId){const cfg=window.APP_CONFIG||{},pa=String(cfg.UPI_ID||"").trim(),pn=String(cfg.UPI_NAME||"MANOHAR MOBILE SHOP").trim(),q=new URLSearchParams();q.set("pa",pa);q.set("pn",pn);q.set("tr",orderId);q.set("tn","MANOHAR MOBILE SHOP Order "+orderId);q.set("am",Number(amount||0).toFixed(2));q.set("cu","INR");return{pa,query:q.toString(),plain:"upi://pay?"+q.toString()};}
+  function updateDynamicQr(upiUri,amount){const img=$("shopUpiQr");if(!img||!upiUri)return;const fallback=(window.APP_CONFIG||{}).UPI_QR_IMAGE||"qr/upi-qr.png";img.onerror=function(){this.onerror=null;this.src=fallback;};img.src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data="+encodeURIComponent(upiUri);if($("upiQrAmount"))$("upiQrAmount").textContent=money(amount);}
+  window.payWithUPIApp=function(app){const r=$("upiPaymentOption");if(r)r.checked=true;const amount=getGrandTotal();if(!(amount>0)){alert("Payment amount ready nahi hai. Delivery charge calculate hone dijiye.");return;}const orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId);if(!u.pa){alert("UPI ID configuration missing hai.");return;}const android=/Android/i.test(navigator.userAgent);let target=u.plain;if(app==="gpay")target=android?"intent://pay?"+u.query+"#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end":"gpay://upi/pay?"+u.query;if(app==="phonepe")target=android?"intent://pay?"+u.query+"#Intent;scheme=upi;package=com.phonepe.app;end":"phonepe://upi/pay?"+u.query;window.location.href=target;};
+  function updateUpiPayLink(){const amount=getGrandTotal(),orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId),link=$("upiPayLink");if(link){link.href=u.plain;link.textContent="📲 Pay "+money(amount)+" via UPI App";link.style.display="none";}if($("upiPayAmount"))$("upiPayAmount").textContent=money(amount);updateDynamicQr(u.plain,amount);updateCardUi();}
+  function updateCardUi(){const amount=getGrandTotal();[$("cardPayAmount"),$("cardPayBtnAmount")].forEach(el=>{if(el)el.textContent=money(amount);});const st=$("cardPaymentStatus"),cfg=window.MMS_SETTINGS?.RAZORPAY||{};if(!st)return;if(cfg.KEY_ID&&cfg.ORDER_ENDPOINT){st.textContent="Razorpay card checkout ready. Amount automatically final total se jayega.";st.className="payment-card-status ready";}else{st.textContent="Card payment ke liye secure Razorpay Key ID + order-creation endpoint configure karna zaroori hai. UPI abhi ready hai.";st.className="payment-card-status warn";}}
+  async function loadRazorpay(){if(window.Razorpay)return true;return await new Promise(resolve=>{const sc=document.createElement("script");sc.src="https://checkout.razorpay.com/v1/checkout.js";sc.onload=()=>resolve(true);sc.onerror=()=>resolve(false);document.head.appendChild(sc);});}
+  window.openCardPayment=async function(){const amount=getGrandTotal(),cfg=window.MMS_SETTINGS?.RAZORPAY||{};if(!(amount>0)){alert("Payment amount ready nahi hai.");return;}if(!cfg.KEY_ID||!cfg.ORDER_ENDPOINT){alert("Credit/Debit Card payment abhi configure nahi hai. Filhaal GPay / PhonePe / UPI use karein.");return;}const customer=saveCustomerData(),phone=customer.customerPhone.replace(/\D/g,"");try{if(!await loadRazorpay())throw new Error("Razorpay checkout load nahi hua.");const res=await fetch(cfg.ORDER_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:Math.round(amount*100),currency:"INR",receipt:window.pendingOrderId||("MMS"+Date.now().toString().slice(-8)),customer:{name:customer.customerName,email:window.currentUser?.email||"",contact:phone}})});if(!res.ok)throw new Error("Razorpay order create nahi hua.");const order=await res.json();if(!order?.id)throw new Error("Invalid Razorpay order response.");$("razorpayOrderId").value=order.id;const rz=new window.Razorpay({key:cfg.KEY_ID,amount:Math.round(amount*100),currency:"INR",name:"MANOHAR MOBILE SHOP",description:"Mobile Shop Order "+(window.pendingOrderId||""),order_id:order.id,prefill:{name:customer.customerName,email:window.currentUser?.email||"",contact:phone},theme:{color:"#4f46e5"},handler:function(resp){$("razorpayPaymentId").value=resp.razorpay_payment_id||"";const ss=$("cardPaymentStatus");if(ss){ss.textContent="Payment received. Payment ID: "+(resp.razorpay_payment_id||"")+". Ab Place Order karke record save karein.";ss.className="payment-card-status ready";}}});rz.open();}catch(err){console.error(err);alert(err.message||"Card payment start nahi ho paya.");}};
+
+  window.placeOrder = async function(){
+    const customer=saveCustomerData();
+    const cleanPhone=customer.customerPhone.replace(/\D/g,"");
+    if(!customer.customerName||!cleanPhone||!customer.customerAddress||!customer.customerCity||!customer.customerPin){alert("Kripya Name, Mobile, Address, City aur PIN code bhar dijiye.");return;}
+    if(!/^[6-9]\d{9}$/.test(cleanPhone)){alert("Valid 10-digit mobile number enter karein.");return;}
+    if(!/^\d{6}$/.test(customer.customerPin)){alert("Valid 6-digit PIN code enter karein.");return;}
+    if(!cart.length){alert("Cart empty hai.");return;}
+    if(!window.currentUser){alert("Order place karne ke liye pehle Customer Account me Login/Register karein.");openAccount();return;}
+    if(!window.deliveryQuote.ready){alert("Pehle automatic delivery charge calculate hone dijiye.");await autoCalculateDeliveryCharge();if(!window.deliveryQuote.ready)return;}
+
+    const paymentMethod=(document.querySelector('input[name="paymentMethod"]:checked')||{}).value||"upi";
+    if(paymentMethod==="cod" && !window.MMS_SETTINGS.ENABLE_COD){alert("Cash on Delivery abhi OFF hai. Filhaal UPI se payment karein.");return;}
+
+    if(paymentMethod==="upi"){
+      const utr=$("upiUtr")?.value.trim()||"";
+      if(!utr){alert("UPI payment complete karke UTR / Transaction ID enter karein.");return;}
+    }
+    if(paymentMethod==="card" && !($("razorpayPaymentId")?.value.trim())){alert("Pehle secure Card Payment complete karein, phir Place Order karein.");return;}
+
+    const orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));
+    const productSubtotal=getProductSubtotal();
+    const deliveryCharge=Number(window.deliveryQuote.charge||0);
+    const finalTotal=productSubtotal+deliveryCharge;
+    const meta={
+      __mms_version:"combined-admin-delivery-2-fast-payment",
+      delivery:{distance_km:Number(window.deliveryQuote.distanceKm||0),charge:deliveryCharge,source:window.deliveryQuote.source||""},
+      gateway:{provider:paymentMethod==="card"?"razorpay":"upi",razorpay_order_id:$("razorpayOrderId")?.value.trim()||"",razorpay_payment_id:$("razorpayPaymentId")?.value.trim()||""}
+    };
+
+    const order={
+      order_id:orderId,
+      customer_id:window.currentUser.id,
+      customer_name:customer.customerName,
+      customer_phone:cleanPhone,
+      address:customer.customerAddress,
+      city:customer.customerCity,
+      pin:customer.customerPin,
+      landmark:customer.customerLandmark||"",
+      items:JSON.parse(JSON.stringify(cart)),
+      total:finalTotal,
+      status:"New",
+      payment_method:paymentMethod,
+      payment_status:paymentMethod==="cod"?"pending":"submitted",
+      upi_transaction_id:paymentMethod==="upi"?($("upiUtr")?.value.trim()||""):($("razorpayPaymentId")?.value.trim()||""),
+      admin_note:metaString(meta)
+    };
+
+    if(window.currentUser&&window.storeCloudReady) await syncCustomerProfileToCloud(customer);
+
+    if(window.storeCloudReady){
+      try{
+        const {data,error}=await window.supabaseClient.from("orders").insert(order).select().single();
+        if(error) throw error;
+        window.currentOrderId=data.order_id;
+        finishSuccessfulOrder(data.order_id);
+        return;
+      }catch(err){
+        console.error(err);alert("Online order save nahi ho paya. Database configuration/RLS check karein.");return;
+      }
+    }
+
+    try{
+      const orders=JSON.parse(localStorage.getItem("manohar_orders")||"[]");
+      orders.unshift({...order,created_at:new Date().toISOString()});localStorage.setItem("manohar_orders",JSON.stringify(orders));
+    }catch(e){}
+    finishSuccessfulOrder(orderId);
+  };
+
+  /* ===================== CUSTOMER ORDER VIEW ===================== */
+  function customerRefundFormHtml(o){
+    const meta=parseMeta(o.admin_note), rf=meta.refund||{};
+    if(!(o.status==="Cancelled" || rf.requested)) return "";
+    return '<div style="margin-top:10px;padding:12px;border:1px solid #fecaca;border-radius:12px;background:#fffafa">'+
+      '<b style="color:#991b1b">💸 Refund / Cash Back Details</b>'+
+      '<div class="checkout-row" style="margin-top:8px"><div class="checkout-field"><label>Refund mode</label><select id="refundMode_'+escapeForAttr(o.order_id)+'"><option value="upi" '+(rf.mode==="upi"?'selected':'')+'>UPI</option><option value="bank" '+(rf.mode==="bank"?'selected':'')+'>Bank</option><option value="cash" '+(rf.mode==="cash"?'selected':'')+'>Cash</option></select></div><div class="checkout-field"><label>UPI ID</label><input id="refundUpi_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.upi_id||"")+'" placeholder="example@upi"></div></div>'+
+      '<div class="checkout-row"><div class="checkout-field"><label>Account holder</label><input id="refundHolder_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.account_holder||"")+'"></div><div class="checkout-field"><label>Account number</label><input id="refundAccount_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.account_number||"")+'"></div></div>'+
+      '<div class="checkout-row"><div class="checkout-field"><label>IFSC</label><input id="refundIfsc_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.ifsc||"")+'"></div><div class="checkout-field"><label>Refund note</label><input id="refundNote_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.customer_note||"")+'"></div></div>'+
+      '<button class="secondary-account-btn" type="button" onclick="submitRefundDetails(\''+String(o.order_id).replace(/'/g,"\\'")+'\')">💾 Send Refund Details</button></div>';
+  }
+
+  window.submitRefundDetails = async function(orderId){
+    if(!window.currentUser||!window.storeCloudReady)return;
+    const mode=$("refundMode_"+orderId)?.value||"upi";
+    const meta=window._customerOrderMeta?.[orderId]||{};
+    const existing=meta.refund||{};
+    const updated={...meta,refund:{...existing,requested:true,mode,upi_id:$("refundUpi_"+orderId)?.value.trim()||"",account_holder:$("refundHolder_"+orderId)?.value.trim()||"",account_number:$("refundAccount_"+orderId)?.value.trim()||"",ifsc:$("refundIfsc_"+orderId)?.value.trim()||"",customer_note:$("refundNote_"+orderId)?.value.trim()||"",status:existing.status||"Pending"}};
+    const {error}=await window.supabaseClient.from("orders").update({admin_note:metaString(updated),updated_at:new Date().toISOString()}).eq("order_id",orderId).eq("customer_id",window.currentUser.id);
+    if(error){alert("Refund details save nahi hui: "+error.message);return;}
+    alert("Refund details shop ko save ho gayi.");loadMyOrders();
+  };
+
+  window.renderOrders = function(orders){
+    const box=$("myOrdersList"); if(!box)return;
+    if(!orders.length){box.innerHTML='<p class="checkout-note">Abhi koi order nahi hai.</p>';return;}
+    window._customerOrderMeta={};
+    const steps=["New","Confirmed","Packed","Shipped","Out for Delivery","Delivered"];
+    box.innerHTML=orders.map(o=>{
+      const status=o.status||"New", idx=Math.max(0,steps.indexOf(status)),meta=parseMeta(o.admin_note);window._customerOrderMeta[o.order_id]=meta;
+      const delivery=meta.delivery?.charge!=null ? '<div class="checkout-note">Delivery: '+money(meta.delivery.charge)+(meta.delivery.distance_km?' • '+Number(meta.delivery.distance_km).toFixed(1)+' km':'')+'</div>' : '';
+      return '<div class="order-card"><div class="order-card-top"><div><b>'+escapeHtml(o.order_id)+'</b><div class="checkout-note">'+new Date(o.created_at||Date.now()).toLocaleString("en-IN")+'</div></div><span class="order-status">'+escapeHtml(status)+'</span></div>'+
+        '<div class="order-progress">'+steps.map((s,i)=>'<div class="order-step '+(i<=idx?'done':'')+'">'+escapeHtml(s)+'</div>').join('')+'</div>'+
+        '<div class="checkout-summary-total"><span>Total</span><span>'+money(o.total)+'</span></div>'+
+        delivery+
+        '<div class="checkout-note">Payment: '+escapeHtml(o.payment_method||"UPI")+' • '+escapeHtml(o.payment_status||"pending")+(o.upi_transaction_id?" • UTR: "+escapeHtml(o.upi_transaction_id):"")+'</div>'+
+        customerRefundFormHtml(o)+ '</div>';
+    }).join("");
+  };
+
+  /* ===================== ADMIN PANEL ===================== */
+  window.showAdminSection = async function(){
+    if(!window.currentUser || window.currentUserRole!=="admin"){
+      closeAdminSection();return;
+    }
+    const ov=$("adminOverlay"); if(!ov)return;
+    ov.classList.add("open");ov.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";
+    if($("adminSignedInAs")) $("adminSignedInAs").textContent="Signed in as "+(window.currentUser.email||"Admin");
+    await loadAdminOrders();
+  };
+  window.closeAdminSection = function(){
+    const ov=$("adminOverlay");if(ov){ov.classList.remove("open");ov.setAttribute("aria-hidden","true");}
+    if(!$("accountOverlay")?.classList.contains("open")) document.body.style.overflow="";
+  };
+  window.adminLogout = async function(){await customerLogout();};
+
+  window.loadAdminOrders = async function(){
+    if(window.currentUserRole!=="admin"||!window.storeCloudReady)return;
+    const box=$("adminOrdersList");if(box)box.innerHTML='<div class="admin-empty">Orders load ho rahe hain...</div>';
+    const {data,error}=await window.supabaseClient.from("orders").select("*").order("created_at",{ascending:false});
+    if(error){if(box)box.innerHTML='<div class="admin-empty" style="color:#b91c1c">'+escapeHtml(error.message)+'</div>';return;}
+    window.adminOrders=data||[];renderAdminOrders();
+  };
+
+  window.renderAdminOrders = function(){
+    const box=$("adminOrdersList");if(!box)return;
+    const q=($("adminSearch")?.value||"").trim().toLowerCase();
+    const sf=$("adminStatusFilter")?.value||"", pf=$("adminPaymentFilter")?.value||"";
+    const filtered=window.adminOrders.filter(o=>{
+      const meta=parseMeta(o.admin_note),rf=meta.refund||{};
+      const text=[o.order_id,o.customer_name,o.customer_phone,o.city,o.pin,o.address,o.upi_transaction_id,rf.upi_id,rf.account_holder,rf.account_number].join(" ").toLowerCase();
+      return (!sf||o.status===sf)&&(!pf||o.payment_status===pf)&&(!q||text.includes(q));
+    });
+    const totalSales=window.adminOrders.reduce((s,o)=>s+Number(o.total||0),0);
+    const verified=window.adminOrders.filter(o=>o.payment_status==="verified").reduce((s,o)=>s+Number(o.total||0),0);
+    const submitted=window.adminOrders.filter(o=>o.payment_status==="submitted").reduce((s,o)=>s+Number(o.total||0),0);
+    const refunds=window.adminOrders.reduce((s,o)=>s+Number(parseMeta(o.admin_note).refund?.amount||0),0);
+    if($("adminStats")) $("adminStats").innerHTML=[
+      ["Orders",window.adminOrders.length], ["Showing",filtered.length], ["Order Value",money(totalSales)],
+      ["UPI Verified",money(verified)], ["UPI Pending",money(submitted)], ["Refund Recorded",money(refunds)]
+    ].map(x=>'<div class="admin-stat"><span>'+x[0]+'</span><strong>'+x[1]+'</strong></div>').join('');
+    if(!filtered.length){box.innerHTML='<div class="admin-empty">Is filter/search ke liye koi order nahi mila.</div>';return;}
+    box.innerHTML=filtered.map(renderAdminOrderCard).join('');
+  };
+
+  function renderAdminOrderCard(o){
+    const meta=parseMeta(o.admin_note),rf=meta.refund||{},delivery=meta.delivery||{};
+    const items=Array.isArray(o.items)?o.items:[];
+    const statusOpts=["New","Confirmed","Packed","Shipped","Out for Delivery","Delivered","Cancelled"];
+    const payOpts=["pending","submitted","verified","rejected"];
+    const payClass=o.payment_status==="verified"?"pay-verified":(o.payment_status==="submitted"?"pay-submitted":(o.payment_status==="rejected"?"pay-rejected":""));
+    const itemHtml=items.map(it=>'<div class="admin-item-row"><div class="admin-item-thumb">'+(it.image?'<img src="'+escapeForAttr(it.image)+'" alt="'+escapeForAttr(it.name)+'">':'📱')+'</div><div><div class="admin-item-name">'+escapeHtml(it.name)+'</div><div class="admin-item-meta">'+escapeHtml(it.company||"")+ ' • Qty '+Number(it.quantity||1)+'</div></div><div class="admin-item-price">'+money(Number(it.price||0)*Number(it.quantity||1))+'</div></div>').join('');
+    return '<article class="admin-order-card" data-order-id="'+escapeForAttr(o.order_id)+'">'+
+      '<div class="admin-order-top"><div><div class="admin-order-id">'+escapeHtml(o.order_id)+'</div><div class="admin-order-date">'+new Date(o.created_at||Date.now()).toLocaleString("en-IN")+'</div></div><div class="admin-pill-row"><span class="admin-pill">'+escapeHtml(o.status||"New")+'</span><span class="admin-pill '+payClass+'">Payment: '+escapeHtml(o.payment_status||"pending")+'</span></div></div>'+
+      '<div class="admin-grid">'+
+      '<div class="admin-info-box"><h4>👤 Customer</h4><div class="admin-info-line"><b>Name:</b> '+escapeHtml(o.customer_name)+'</div><div class="admin-info-line"><b>Mobile:</b> '+escapeHtml(o.customer_phone)+'</div><div class="admin-info-line"><b>Address:</b> '+escapeHtml(o.address)+'</div><div class="admin-info-line"><b>City/PIN:</b> '+escapeHtml(o.city)+' / '+escapeHtml(o.pin)+'</div><div class="admin-info-line"><b>Landmark:</b> '+escapeHtml(o.landmark||"-")+'</div></div>'+
+      '<div class="admin-info-box"><h4>🛍️ Products & Amount</h4><div class="admin-items-list">'+itemHtml+'</div><div class="admin-info-line" style="margin-top:8px"><b>Order Total:</b> '+money(o.total)+'</div><div class="admin-info-line"><b>Delivery:</b> '+(delivery.charge!=null?money(delivery.charge)+' • '+Number(delivery.distance_km||0).toFixed(1)+' km':'Not recorded')+'</div></div>'+
+      '<div class="admin-info-box"><h4>💳 Payment</h4><div class="admin-info-line"><b>Method:</b> '+escapeHtml(o.payment_method||"UPI")+'</div><div class="admin-info-line"><b>Status:</b> '+escapeHtml(o.payment_status||"pending")+'</div><div class="admin-info-line"><b>UTR:</b> '+escapeHtml(o.upi_transaction_id||"-")+'</div><div class="admin-info-line"><b>Amount:</b> '+money(o.total)+'</div></div>'+
+      '</div>'+
+      '<div class="admin-controls">'+
+      '<div class="admin-control"><label>Order Status</label><select id="a_status_'+escapeForAttr(o.order_id)+'">'+statusOpts.map(s=>'<option value="'+escapeForAttr(s)+'" '+(s===o.status?'selected':'')+'>'+escapeHtml(s)+'</option>').join('')+'</select></div>'+
+      '<div class="admin-control"><label>Payment Status</label><select id="a_pay_'+escapeForAttr(o.order_id)+'">'+payOpts.map(s=>'<option value="'+s+'" '+(s===o.payment_status?'selected':'')+'>'+s+'</option>').join('')+'</select></div>'+
+      '<div class="admin-control"><label>UPI / Transaction ID</label><input id="a_utr_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(o.upi_transaction_id||"")+'"></div>'+
+      '<div class="admin-control"><label>Tracking Number</label><input id="a_trk_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(o.tracking_number||"")+'" placeholder="Courier tracking"></div>'+
+      '</div>'+
+      '<div class="admin-refund-box"><h4>💸 Refund / Cash Back</h4><div class="admin-refund-grid">'+
+      '<div class="admin-control"><label>Refund Status</label><select id="r_status_'+escapeForAttr(o.order_id)+'"><option value="">Not recorded</option><option '+(rf.status==="Pending"?'selected':'')+'>Pending</option><option '+(rf.status==="Processed"?'selected':'')+'>Processed</option><option '+(rf.status==="Rejected"?'selected':'')+'>Rejected</option></select></div>'+
+      '<div class="admin-control"><label>Refund Mode</label><select id="r_mode_'+escapeForAttr(o.order_id)+'"><option value="">Select</option><option '+(rf.mode==="upi"?'selected':'')+'>UPI</option><option '+(rf.mode==="bank"?'selected':'')+'>Bank</option><option '+(rf.mode==="cash"?'selected':'')+'>Cash</option></select></div>'+
+      '<div class="admin-control"><label>Refund Amount</label><input type="number" step="0.01" min="0" id="r_amount_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.amount||"")+'"></div>'+
+      '<div class="admin-control"><label>UPI ID</label><input id="r_upi_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.upi_id||"")+'" placeholder="customer@upi"></div>'+
+      '<div class="admin-control"><label>Account Holder</label><input id="r_holder_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.account_holder||"")+'"></div>'+
+      '<div class="admin-control"><label>Account Number</label><input id="r_account_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.account_number||"")+'"></div>'+
+      '<div class="admin-control"><label>IFSC</label><input id="r_ifsc_'+escapeForAttr(o.order_id)+'" value="'+escapeForAttr(rf.ifsc||"")+'"></div>'+
+      '<div class="admin-control wide"><label>Refund / Admin Note</label><textarea id="r_note_'+escapeForAttr(o.order_id)+'">'+escapeHtml(rf.admin_note||meta.legacy_note||"")+'</textarea></div>'+
+      '</div><div class="admin-mini">Customer-provided refund details can be saved here. Bank / UPI details stay inside this order record and are visible to the admin dashboard.</div></div>'+
+      '<div class="admin-order-actions"><button class="admin-save-btn" type="button" onclick="saveAdminOrder(\''+String(o.order_id).replace(/'/g,"\\'")+'\')">💾 Save Order & Payment</button></div>'+
+      '</article>';
+  }
+
+  window.saveAdminOrder = async function(orderId){
+    if(window.currentUserRole!=="admin"||!window.storeCloudReady)return;
+    const o=window.adminOrders.find(x=>x.order_id===orderId);if(!o)return;
+    const meta=parseMeta(o.admin_note);const rf=meta.refund||{};
+    const refundStatus=$("r_status_"+orderId)?.value||"";
+    const refundMode=$("r_mode_"+orderId)?.value||"";
+    const refund={...rf,status:refundStatus,mode:refundMode,amount:Number($("r_amount_"+orderId)?.value||0)||0,upi_id:$("r_upi_"+orderId)?.value.trim()||"",account_holder:$("r_holder_"+orderId)?.value.trim()||"",account_number:$("r_account_"+orderId)?.value.trim()||"",ifsc:$("r_ifsc_"+orderId)?.value.trim()||"",admin_note:$("r_note_"+orderId)?.value.trim()||""};
+    const nextMeta={...meta,refund};
+    const payload={status:$("a_status_"+orderId)?.value||o.status,payment_status:$("a_pay_"+orderId)?.value||o.payment_status,upi_transaction_id:$("a_utr_"+orderId)?.value.trim()||"",tracking_number:$("a_trk_"+orderId)?.value.trim()||"",admin_note:metaString(nextMeta),updated_at:new Date().toISOString()};
+    const {error}=await window.supabaseClient.from("orders").update(payload).eq("order_id",orderId);
+    if(error){alert("Order save nahi hua: "+error.message);return;}
+    alert("Order, payment aur refund details save ho gayi.");
+    await loadAdminOrders();
+  };
+
+  /* Keyboard escape for admin overlay. */
+  document.addEventListener("keydown",function(e){if(e.key==="Escape" && $("adminOverlay")?.classList.contains("open")) closeAdminSection();});
+
+  /* Re-run our initialization after all existing scripts/functions have loaded. */
+  document.addEventListener("DOMContentLoaded",function(){
+    try{initPaymentUi();}catch(e){}
+    // Existing listener calls the original function name dynamically; this makes sure the override is used.
+    setTimeout(function(){try{initStoreCloud();}catch(e){console.error(e);}},0);
+  });
 })();
 </script>
 
