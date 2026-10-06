@@ -5030,8 +5030,9 @@ Cart abhi empty hai.
         <div id="authSigninPanel" class="account-auth-panel active">
           <h4 class="account-auth-title">Sign in</h4>
           <div class="checkout-field"><label>Email *</label><input id="loginEmail" type="email" autocomplete="email" placeholder="your@email.com"></div>
-          <div class="checkout-field"><label>Password *</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password"></div>
+          <div class="checkout-field"><label>Password *</label><div class="password-field-wrap"><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password"><button type="button" class="password-toggle" onclick="togglePasswordField('loginPassword',this)" aria-label="Show password">👁️</button></div></div>
           <button class="place-order-btn" type="button" onclick="customerLogin()">🔐 Sign in</button>
+          <button type="button" class="forgot-password-link" onclick="openForgotPassword()">Forgot password?</button>
           <div class="account-policy-links">By continuing, you acknowledge our <button type="button" onclick="openLegalModal('terms')">Terms &amp; Conditions</button> and <button type="button" onclick="openLegalModal('privacy')">Privacy Policy</button>.</div>
           <div class="account-security-note">🛡️ Your password is handled by Supabase Auth. Never share your password with anyone.</div>
         </div>
@@ -5040,7 +5041,7 @@ Cart abhi empty hai.
           <h4 class="account-auth-title">Create account</h4>
           <div class="checkout-field"><label>Full Name *</label><input id="signupName" type="text" autocomplete="name" placeholder="Full name"></div>
           <div class="checkout-field"><label>Email *</label><input id="signupEmail" type="email" autocomplete="email" placeholder="your@email.com"></div>
-          <div class="checkout-field"><label>Password *</label><input id="signupPassword" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters"></div>
+          <div class="checkout-field"><label>Password *</label><div class="password-field-wrap"><input id="signupPassword" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters"><button type="button" class="password-toggle" onclick="togglePasswordField('signupPassword',this)" aria-label="Show password">👁️</button></div></div>
           <div class="checkout-field"><label>Mobile *</label><input id="signupPhone" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile"></div>
           <div class="checkout-field"><label>Full Address *</label><textarea id="signupAddress" rows="2" autocomplete="street-address" placeholder="House / Street / Area"></textarea></div>
           <div class="checkout-row"><div class="checkout-field"><label>City *</label><input id="signupCity" type="text" autocomplete="address-level2" placeholder="City"></div><div class="checkout-field"><label>PIN Code *</label><input id="signupPin" type="text" maxlength="6" inputmode="numeric" autocomplete="postal-code" placeholder="6-digit PIN"></div></div>
@@ -5068,7 +5069,11 @@ Cart abhi empty hai.
       </div>
 
       <div id="accountOrdersTab">
-        <h3>📦 My Orders & Tracking</h3>
+        <div class="customer-order-subtabs">
+          <button id="customerActiveOrdersBtn" class="customer-order-subtab active" type="button" onclick="showCustomerOrderSubtab('active')">Active Orders</button>
+          <button id="customerHistoryOrdersBtn" class="customer-order-subtab" type="button" onclick="showCustomerOrderSubtab('history')">History</button>
+        </div>
+        <h3 id="customerOrderHeading">📦 My Orders & Tracking</h3>
         <div id="myOrdersList" class="orders-list">
           <p class="checkout-note">Orders load ho rahe hain...</p>
         </div>
@@ -5159,8 +5164,7 @@ Cart abhi empty hai.
             <div><img id="shopUpiQr" src="qr/IMG_20261002_130455.png" alt="Shop UPI QR"></div>
             <div class="upi-qr-info"><strong>Scan &amp; Pay</strong><p>Current payable amount: <b id="upiQrAmount">₹0</b></p><small>App buttons exact amount ke saath open honge. QR bhi current payment URI use karega; fail hone par aapka original shop QR wapas aayega.</small></div>
           </div>
-          <div class="checkout-field" style="margin-top:10px"><label>UTR / Transaction ID *</label><input id="upiUtr" type="text" placeholder="Payment ke baad UTR enter karein"></div>
-          <small>Payment ke baad UTR enter karke <b>Place Order</b> karein. Admin payment verify karega.</small>
+          <div class="payment-card-status ready" style="margin-top:10px">✅ Payment app/QR se payment karein. UTR manually enter karne ki zarurat nahi hai. Admin payment ko dashboard/bank record se verify kar sakta hai.</div>
         </div>
         <div id="cardPaymentPanel" class="payment-panel-modern" style="display:none">
           <div class="payment-panel-head"><div><h4>💳 Card Payment</h4><p>Payable now: <strong id="cardPayAmount">₹0</strong></p></div><span class="payment-secure-pill">🔐 Gateway</span></div>
@@ -6109,38 +6113,30 @@ document.addEventListener("keydown",function(event){
         <button class="admin-danger-btn" type="button" onclick="adminLogout()">Logout</button>
       </div>
     </div>
-
     <div class="admin-body">
       <div class="admin-stats-grid" id="adminStats"></div>
-
-      <div class="admin-toolbar">
-        <div class="admin-search-wrap">
-          <input id="adminSearch" type="search" placeholder="Search order, customer, mobile, UTR, city..." oninput="renderAdminOrders()">
-        </div>
-        <select id="adminStatusFilter" onchange="renderAdminOrders()">
-          <option value="">All Order Status</option>
-          <option>New</option><option>Confirmed</option><option>Packed</option><option>Shipped</option><option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option>
-        </select>
-        <select id="adminPaymentFilter" onchange="renderAdminOrders()">
-          <option value="">All Payment Status</option>
-          <option>pending</option><option>submitted</option><option>verified</option><option>rejected</option>
-        </select>
+      <div class="admin-main-tabs">
+        <button id="adminTabNew" class="admin-main-tab active" type="button" onclick="setAdminView('new')">🆕 New Orders <span id="adminNewCount">0</span></button>
+        <button id="adminTabConfirmed" class="admin-main-tab" type="button" onclick="setAdminView('confirmed')">✅ Confirmed / Processing <span id="adminConfirmedCount">0</span></button>
+        <button id="adminTabHistory" class="admin-main-tab" type="button" onclick="setAdminView('history')">🗂️ History <span id="adminHistoryCount">0</span></button>
+      </div>
+      <div class="admin-section-head">
+        <div><h3 id="adminSectionTitle">New Orders</h3><p id="adminSectionHelp">New orders ko open karke verify karein aur clear hone par Confirm karein.</p></div>
         <button class="admin-primary-btn" type="button" onclick="loadAdminOrders()">↻ Refresh</button>
       </div>
-
-      <div class="admin-note-banner">
-        <strong>💳 Payment:</strong> UPI amount includes product + automatic delivery charge. &nbsp;
-        <strong>🚫 COD:</strong> Currently OFF. To enable later, change <code>ENABLE_COD</code> from <code>false</code> to <code>true</code> in this HTML file.
+      <div class="admin-toolbar">
+        <div class="admin-search-wrap"><input id="adminSearch" type="search" placeholder="Search name, order ID, mobile, city..." oninput="renderAdminOrders()"></div>
+        <select id="adminStatusFilter" onchange="renderAdminOrders()"></select>
+        <select id="adminPaymentFilter" onchange="renderAdminOrders()">
+          <option value="">All Payment</option><option value="pending">Pending</option><option value="submitted">Submitted</option><option value="verified">Verified</option><option value="rejected">Rejected</option>
+        </select>
+        <button class="admin-secondary-btn" type="button" onclick="clearAdminFilters()">Clear Filters</button>
       </div>
-
-      <div id="adminOrdersList" class="admin-orders-list">
-        <div class="admin-empty">Orders load ho rahe hain...</div>
-      </div>
+      <div class="admin-note-banner"><strong>💳 Payment:</strong> Product + automatic delivery charge ka final amount customer se liya jata hai. <strong>🚫 COD:</strong> OFF. UPI/QR/Card configured options hi use honge.</div>
+      <div id="adminOrdersList" class="admin-orders-list"><div class="admin-empty">Orders load ho rahe hain...</div></div>
     </div>
   </div>
 </div>
-
-
 
 <style id="combined-admin-delivery-style">
 /* ===== Checkout delivery UI ===== */
@@ -6720,6 +6716,153 @@ document.addEventListener("keydown",function(event){
     try{initPaymentUi();}catch(e){}
     // Existing listener calls the original function name dynamically; this makes sure the override is used.
     setTimeout(function(){try{initStoreCloud();}catch(e){console.error(e);}},0);
+  });
+})();
+</script>
+
+
+<style id="final-fast-admin-history-styles">
+.password-field-wrap{position:relative;display:flex;align-items:center}.password-field-wrap input{padding-right:44px!important}.password-toggle{position:absolute;right:7px;top:50%;transform:translateY(-50%);border:0;background:#f1f5f9;border-radius:8px;padding:7px 9px;cursor:pointer;font-size:14px}
+.forgot-password-link{display:block;margin:9px auto 0;border:0;background:none;color:#4f46e5;font-weight:800;text-decoration:underline;cursor:pointer}
+.customer-order-subtabs{display:flex;gap:8px;margin:12px 0 14px;flex-wrap:wrap}.customer-order-subtab{border:1px solid #cbd5e1;background:#fff;padding:9px 13px;border-radius:10px;font-weight:800;color:#475569;cursor:pointer}.customer-order-subtab.active{background:#4f46e5;border-color:#4f46e5;color:#fff}
+.customer-order-action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.customer-cancel-btn{border:0;background:#fee2e2;color:#991b1b;padding:9px 12px;border-radius:9px;font-weight:800;cursor:pointer}.customer-detail-btn{border:1px solid #cbd5e1;background:#fff;color:#111827;padding:9px 12px;border-radius:9px;font-weight:800;cursor:pointer}
+.admin-main-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:4px 0 14px}.admin-main-tab{border:1px solid #dbe3ef;background:#fff;border-radius:13px;padding:13px 12px;font-weight:900;cursor:pointer;color:#334155;box-shadow:0 3px 12px rgba(15,23,42,.04)}.admin-main-tab span{display:inline-flex;min-width:24px;height:24px;align-items:center;justify-content:center;margin-left:6px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:11px}.admin-main-tab.active{background:#111827;color:#fff;border-color:#111827}.admin-main-tab.active span{background:#fff;color:#111827}
+.admin-section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}.admin-section-head h3{margin:0;color:#111827;font-size:20px}.admin-section-head p{margin:3px 0 0;color:#64748b;font-size:12px}.admin-compact-row{background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 5px 18px rgba(15,23,42,.04);overflow:hidden}.admin-compact-head{width:100%;display:grid;grid-template-columns:minmax(180px,1fr) 150px 140px 110px 100px;gap:10px;align-items:center;border:0;background:#fff;padding:14px 15px;text-align:left;cursor:pointer}.admin-compact-head:hover{background:#f8fafc}.admin-compact-primary{font-weight:900;color:#111827;line-height:1.3}.admin-compact-secondary{font-size:11px;color:#64748b;margin-top:3px}.admin-detail-panel{display:none;padding:14px 15px 16px;border-top:1px solid #eef2f7;background:#fbfcfe}.admin-compact-row.open .admin-detail-panel{display:block}.admin-chevron{font-size:16px;color:#64748b;transition:.15s}.admin-compact-row.open .admin-chevron{transform:rotate(180deg)}.admin-detail-grid{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:12px}.admin-detail-box{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px}.admin-detail-box h4{margin:0 0 8px;font-size:13px;color:#111827}.admin-detail-box .admin-info-line{font-size:12px}.admin-inline-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.admin-confirm-btn{border:0;background:#059669;color:#fff;padding:10px 13px;border-radius:9px;font-weight:900;cursor:pointer}.admin-history-btn{border:0;background:#64748b;color:#fff;padding:10px 13px;border-radius:9px;font-weight:900;cursor:pointer}.admin-save-btn{padding:10px 13px}.admin-order-items{display:grid;gap:7px}.admin-filter-note{font-size:11px;color:#64748b;margin-top:5px}.admin-refund-box{margin-top:12px}.forgot-modal-overlay{position:fixed;inset:0;z-index:100020;background:rgba(15,23,42,.72);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px}.forgot-modal-overlay.open{display:flex}.forgot-modal{width:min(520px,100%);background:#fff;border-radius:20px;box-shadow:0 25px 80px rgba(0,0,0,.35);padding:20px}.forgot-modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.forgot-modal-head button{border:0;background:#f1f5f9;width:36px;height:36px;border-radius:50%;font-size:22px;cursor:pointer}.forgot-otp-status{margin-top:8px;font-size:12px;color:#64748b;line-height:1.5}.forgot-otp-status.ok{color:#166534}.forgot-otp-status.err{color:#b91c1c}
+@media(max-width:900px){.admin-detail-grid{grid-template-columns:1fr 1fr}.admin-compact-head{grid-template-columns:minmax(160px,1fr) 120px 110px 100px 34px}}
+@media(max-width:700px){.admin-main-tabs{grid-template-columns:1fr}.admin-section-head{flex-direction:column}.admin-detail-grid{grid-template-columns:1fr}.admin-compact-head{grid-template-columns:1fr 34px}.admin-compact-head>.admin-compact-meta{display:none}.admin-compact-head .admin-compact-total{display:none}.admin-compact-head .admin-status-pill-wrap{display:block}.admin-compact-head{padding:12px}.admin-body{padding-left:10px!important;padding-right:10px!important}}
+</style>
+
+<script id="final-admin-history-auth-runtime">
+(function(){
+  "use strict";
+  function $(id){return document.getElementById(id);}
+  function money2(n){return "₹"+Number(n||0).toFixed(2).replace(/\.00$/,'');}
+  function esc(v){return String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':'&quot;',"'":"&#039;"}[ch]));}
+  function attr(v){return esc(v);}
+  function parseM(note){if(!note)return {};try{const v=JSON.parse(note);return v&&typeof v==="object"?v:{legacy_note:String(note)};}catch(e){return {legacy_note:String(note)};}}
+  function metaStr(v){return JSON.stringify(v||{});}
+  window.adminView=window.adminView||"new";
+  window.customerOrderView=window.customerOrderView||"active";
+
+  window.togglePasswordField=function(id,btn){const input=$(id);if(!input)return;const show=input.type==="password";input.type=show?"text":"password";if(btn){btn.textContent=show?"🙈":"👁️";btn.setAttribute("aria-label",show?"Hide password":"Show password");}};
+
+  function siteUrl(){return location.origin+location.pathname;}
+  window.openForgotPassword=function(){
+    let ov=$("forgotPasswordOverlay");
+    if(!ov){
+      ov=document.createElement("div");ov.id="forgotPasswordOverlay";ov.className="forgot-modal-overlay";ov.innerHTML=`<div class="forgot-modal" role="dialog" aria-modal="true"><div class="forgot-modal-head"><div><h3>🔐 Reset Password</h3><p class="checkout-note">Registered email par recovery code bhejne ki koshish hogi.</p></div><button type="button" onclick="closeForgotPassword()">×</button></div><div class="checkout-field" style="margin-top:14px"><label>Registered Email</label><input id="forgotEmail" type="email" autocomplete="email" placeholder="your@gmail.com"></div><button id="forgotSendBtn" class="place-order-btn" type="button" onclick="sendForgotPasswordOtp()">📧 Send OTP</button><div id="forgotOtpArea" style="display:none"><div class="checkout-field" style="margin-top:12px"><label>Email OTP</label><input id="forgotOtp" type="text" inputmode="numeric" maxlength="8" placeholder="Enter code from email"></div><button class="secondary-account-btn" type="button" onclick="verifyForgotPasswordOtp()">✅ Verify OTP</button><div class="checkout-field" style="margin-top:12px"><label>New Password</label><div class="password-field-wrap"><input id="forgotNewPassword" type="password" minlength="6" placeholder="At least 6 characters"><button type="button" class="password-toggle" onclick="togglePasswordField('forgotNewPassword',this)">👁️</button></div></div><button class="place-order-btn" type="button" onclick="saveForgottenPassword()">🔑 Save New Password</button></div><div id="forgotStatus" class="forgot-otp-status"></div><div class="account-security-note" style="margin-top:12px">For true OTP entry, the Supabase Recovery email template must include <code>{{ .Token }}</code>. The default email may send a secure reset link instead.</div></div>`;document.body.appendChild(ov);
+    }
+    ov.classList.add("open");
+    const pre=$("loginEmail")?.value.trim().toLowerCase()||"";if(pre&&$("forgotEmail"))$("forgotEmail").value=pre;
+  };
+  window.closeForgotPassword=function(){$("forgotPasswordOverlay")?.classList.remove("open");};
+  function forgotStatus(msg,kind){const el=$("forgotStatus");if(el){el.textContent=msg;el.className="forgot-otp-status "+(kind||"");}}
+  window.sendForgotPasswordOtp=async function(){
+    if(!ensureCloud())return;
+    const email=$("forgotEmail")?.value.trim().toLowerCase()||"";if(!/^\S+@\S+\.\S+$/.test(email)){forgotStatus("Valid registered email enter karein.","err");return;}
+    const btn=$("forgotSendBtn");if(btn){btn.disabled=true;btn.textContent="⏳ Sending...";}
+    try{
+      const {error}=await window.supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:siteUrl()});
+      if(error)throw error;
+      if($("forgotOtpArea"))$("forgotOtpArea").style.display="block";
+      forgotStatus("Recovery email bhej di gayi. Email me code ho to yahan enter karein. Agar email secure reset link bheje, us link se wapas aane par new password set kar sakte hain.","ok");
+    }catch(e){forgotStatus(e.message||"Recovery email send nahi hui.","err");}
+    finally{if(btn){btn.disabled=false;btn.textContent="📧 Send OTP";}}
+  };
+  window.verifyForgotPasswordOtp=async function(){
+    if(!ensureCloud())return;
+    const email=$("forgotEmail")?.value.trim().toLowerCase()||"",token=$("forgotOtp")?.value.trim()||"";if(!email||!token){forgotStatus("Email aur OTP dono enter karein.","err");return;}
+    const {data,error}=await window.supabaseClient.auth.verifyOtp({email,token,type:"recovery"});
+    if(error){forgotStatus("OTP verify nahi hua: "+error.message,"err");return;}
+    window.currentUser=data.user||window.currentUser;forgotStatus("OTP verified. Ab new password save karein.","ok");
+  };
+  window.saveForgottenPassword=async function(){
+    if(!ensureCloud())return;const p=$("forgotNewPassword")?.value||"";if(p.length<6){forgotStatus("New password kam se kam 6 characters ka ho.","err");return;}
+    const {error}=await window.supabaseClient.auth.updateUser({password:p});if(error){forgotStatus(error.message,"err");return;}
+    forgotStatus("Password successfully change ho gaya. Ab aap Sign in kar sakte hain.","ok");setTimeout(closeForgotPassword,900);
+  };
+  function handleRecoveryEvent(){try{const ev=performance.getEntriesByType("navigation")[0]?.type||"";}catch(e){} }
+
+  /* ---- Remove UTR dependency completely ---- */
+  window.placeOrder=async function(){
+    const customer=saveCustomerData(),phone=customer.customerPhone.replace(/\D/g,"");
+    if(!customer.customerName||!phone||!customer.customerAddress||!customer.customerCity||!customer.customerPin){alert("Kripya Name, Mobile, Address, City aur PIN code bhar dijiye.");return;}
+    if(!/^[6-9]\d{9}$/.test(phone)){alert("Valid 10-digit mobile number enter karein.");return;}
+    if(!/^\d{6}$/.test(customer.customerPin)){alert("Valid 6-digit PIN code enter karein.");return;}
+    if(!cart.length){alert("Cart empty hai.");return;}
+    if(!window.currentUser){alert("Order place karne ke liye pehle Customer Account me Login/Register karein.");openAccount();return;}
+    if(!window.deliveryQuote.ready){alert("Delivery charge calculate hone dijiye.");autoCalculateDeliveryCharge().then(()=>window.placeOrder());return;}
+    const method=(document.querySelector('input[name="paymentMethod"]:checked')||{}).value||"upi";
+    if(method==="cod"&&!window.MMS_SETTINGS.ENABLE_COD){alert("Cash on Delivery abhi OFF hai.");return;}
+    if(method==="card"&&!($("razorpayPaymentId")?.value.trim())){alert("Pehle secure Card Payment complete karein.");return;}
+    const orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));window.pendingOrderId=orderId;
+    const deliveryCharge=Number(window.deliveryQuote.charge||0),productSubtotal=Number(getCartTotal()||0),finalTotal=productSubtotal+deliveryCharge;
+    const baseMeta=parseM(window._currentCheckoutMeta||"");
+    const meta={...baseMeta,__mms_version:"combined-admin-history-fast-v4",delivery:{distance_km:Number(window.deliveryQuote.distanceKm||0),charge:deliveryCharge,source:window.deliveryQuote.source||""},gateway:{provider:method==="card"?"razorpay":"upi",razorpay_order_id:$('razorpayOrderId')?.value.trim()||"",razorpay_payment_id:$('razorpayPaymentId')?.value.trim()||""}};
+    const order={order_id:orderId,customer_id:window.currentUser.id,customer_name:customer.customerName,customer_phone:phone,address:customer.customerAddress,city:customer.customerCity,pin:customer.customerPin,landmark:customer.customerLandmark||"",items:JSON.parse(JSON.stringify(cart)),total:finalTotal,status:"New",payment_method:method,payment_status:method==="cod"?"pending":"submitted",upi_transaction_id:method==="card"?($('razorpayPaymentId')?.value.trim()||""):"",admin_note:metaStr(meta)};
+    await syncCustomerProfileToCloud(customer);
+    try{
+      const {data,error}=await window.supabaseClient.from("orders").insert(order).select().single();if(error)throw error;window.currentOrderId=data.order_id;finishSuccessfulOrder(data.order_id);window.pendingOrderId=null;
+    }catch(e){console.error(e);alert("Online order save nahi ho paya: "+(e.message||"Database error"));}
+  };
+
+  /* ---- Faster checkout: open immediately, calculate in background ---- */
+  const originalAuto=window.autoCalculateDeliveryCharge;
+  window.openCheckout=async function(){
+    if(!cart.length){alert("Pehle cart me product add karein.");return;}closeCart();renderCheckoutSummary();loadCustomerData();window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",message:"Delivery charge background me calculate ho raha hai..."};setDeliveryUi();$("checkoutOverlay")?.classList.add("open");document.body.style.overflow="hidden";updateUpiPayLink();setTimeout(()=>{if(typeof originalAuto==='function'){originalAuto().catch(()=>{});}},0);
+  };
+
+  /* ---- Customer active/history order tabs + cancellation ---- */
+  window.showCustomerOrderSubtab=function(tab){window.customerOrderView=tab;$("customerActiveOrdersBtn")?.classList.toggle("active",tab==='active');$("customerHistoryOrdersBtn")?.classList.toggle("active",tab==='history');$("customerOrderHeading")&&( $("customerOrderHeading").textContent=tab==='history'?"🗂️ Order History":"📦 My Orders & Tracking");window.loadMyOrders();};
+  window.cancelCustomerOrder=async function(orderId){
+    if(!window.currentUser||!window.storeCloudReady)return;const o=(window._allCustomerOrders||[]).find(x=>x.order_id===orderId);if(!o)return;
+    if(["Shipped","Out for Delivery","Delivered","Cancelled"].includes(o.status)){alert("Is order ko ab customer cancel nahi kar sakta.");return;}
+    if(!confirm("Kya aap is order ko cancel karna chahte hain?"))return;
+    const meta=parseM(o.admin_note);
+    if(meta.shipped_locked===true || ['Shipped','Out for Delivery','Delivered'].includes(o.status)){alert("Admin ne order Ship kar diya hai; ab customer cancellation allowed nahi hai.");return;}
+    meta.history=true;meta.cancelled_by="customer";meta.cancelled_at=new Date().toISOString();
+    const {error}=await window.supabaseClient.from("orders").update({status:"Cancelled",admin_note:metaStr(meta),updated_at:new Date().toISOString()}).eq("order_id",orderId).eq("customer_id",window.currentUser.id);
+    if(error){alert("Order cancel nahi hua: "+error.message);return;}alert("Order cancel ho gaya aur History me chala gaya.");await loadMyOrders();
+  };
+  function customerCanCancel(o){const m=parseM(o.admin_note);return m.shipped_locked!==true && !["Shipped","Out for Delivery","Delivered","Cancelled"].includes(o.status||"");}
+  window.renderOrders=function(orders){
+    const box=$("myOrdersList");if(!box)return;window._allCustomerOrders=orders||[];const active=(orders||[]).filter(o=>{const m=parseM(o.admin_note);return !m.history&&!m.archived&&o.status!=="Cancelled";});const history=(orders||[]).filter(o=>{const m=parseM(o.admin_note);return !!m.history||!!m.archived||o.status==="Cancelled";});const list=window.customerOrderView==='history'?history:active;
+    if(!list.length){box.innerHTML='<div class="admin-empty">'+(window.customerOrderView==='history'?"History empty hai.":"Abhi koi active order nahi hai.")+'</div>';return;}
+    const steps=["New","Confirmed","Packed","Shipped","Out for Delivery","Delivered"];
+    box.innerHTML=list.map(o=>{const status=o.status||"New",idx=Math.max(0,steps.indexOf(status)),meta=parseM(o.admin_note),delivery=meta.delivery?.charge!=null?'<div class="checkout-note">Delivery: '+money2(meta.delivery.charge)+(meta.delivery.distance_km?' • '+Number(meta.delivery.distance_km).toFixed(1)+' km':'')+'</div>':'';const cancel=window.customerOrderView==='active'&&customerCanCancel(o)?'<button class="customer-cancel-btn" type="button" onclick="event.stopPropagation();cancelCustomerOrder(\''+String(o.order_id).replace(/'/g,"\\'")+'\')">✖ Cancel Order</button>':'';const details=Array.isArray(o.items)?o.items.map(it=>'<div class="checkout-summary-item"><span><b>'+esc(it.name)+'</b><br>Qty: '+Number(it.quantity||1)+'</span><strong>'+money2(Number(it.price||0)*Number(it.quantity||1))+'</strong></div>').join(''):'';return '<div class="order-card"><div class="order-card-top"><div><b>'+esc(o.order_id)+'</b><div class="checkout-note">'+new Date(o.created_at||Date.now()).toLocaleString("en-IN")+'</div></div><span class="order-status">'+esc(status)+'</span></div>'+(!historyOrCanceled(status)?'<div class="order-progress">'+steps.map((s,i)=>'<div class="order-step '+(i<=idx?'done':'')+'">'+esc(s)+'</div>').join('')+'</div>':'')+'<div class="checkout-summary-total"><span>Total</span><span>'+money2(o.total)+'</span></div>'+delivery+'<div class="checkout-note">Payment: '+esc(o.payment_method||"UPI")+' • '+esc(o.payment_status||"pending")+'</div><div class="customer-order-action-row">'+cancel+'</div><details style="margin-top:10px"><summary class="customer-detail-btn" style="display:inline-block;cursor:pointer">View full order details</summary><div style="margin-top:10px">'+details+'</div></details></div>';}).join('');
+    function historyOrCanceled(s){return window.customerOrderView==='history'||s==='Cancelled';}
+  };
+
+  /* ---- Admin dashboard: compact rows, tabs, filters, archive history ---- */
+  window.setAdminView=function(view){window.adminView=view;["new","confirmed","history"].forEach(v=>$("adminTab"+(v==='new'?'New':v==='confirmed'?'Confirmed':'History'))?.classList.toggle('active',view===v));const title={new:"New Orders",confirmed:"Confirmed / Processing",history:"Order History"}[view];const help={new:"New orders ko open karke verify karein aur clear hone par Confirm karein.",confirmed:"Confirmed orders ko Packed → Shipped → Out for Delivery → Delivered track karein.",history:"Cancelled ya manually archived orders yahan safe history ke roop me rakhe jate hain."};if($("adminSectionTitle"))$("adminSectionTitle").textContent=title;if($("adminSectionHelp"))$("adminSectionHelp").textContent=help;setupAdminStatusFilter();renderAdminOrders();};
+  function setupAdminStatusFilter(){const s=$("adminStatusFilter");if(!s)return;const sets={new:["","New"],confirmed:["","Confirmed","Packed","Shipped","Out for Delivery","Delivered"],history:["","Cancelled","Archived"]};s.innerHTML=sets[window.adminView||'new'].map(x=>'<option value="'+esc(x)+'">'+(x||'All Status')+'</option>').join('');}
+  window.clearAdminFilters=function(){if($("adminSearch"))$("adminSearch").value="";if($("adminPaymentFilter"))$("adminPaymentFilter").value="";setupAdminStatusFilter();if($("adminStatusFilter"))$("adminStatusFilter").value="";renderAdminOrders();};
+  function adminMatchesView(o){const m=parseM(o.admin_note);if(window.adminView==='history')return !!m.archived||o.status==='Cancelled';if(m.archived||o.status==='Cancelled')return false;if(window.adminView==='new')return o.status==='New';return ["Confirmed","Packed","Shipped","Out for Delivery","Delivered"].includes(o.status);}
+  function countViews(){const arr=window.adminOrders||[];const counts={new:0,confirmed:0,history:0};arr.forEach(o=>{const m=parseM(o.admin_note);if(m.archived||o.status==='Cancelled')counts.history++;else if(o.status==='New')counts.new++;else counts.confirmed++;});if($("adminNewCount"))$("adminNewCount").textContent=counts.new;if($("adminConfirmedCount"))$("adminConfirmedCount").textContent=counts.confirmed;if($("adminHistoryCount"))$("adminHistoryCount").textContent=counts.history;}
+  window.renderAdminOrders=function(){
+    const box=$("adminOrdersList");if(!box)return;setupAdminStatusFilter();const q=($("adminSearch")?.value||"").trim().toLowerCase(),sf=$("adminStatusFilter")?.value||"",pf=$("adminPaymentFilter")?.value||"";const list=(window.adminOrders||[]).filter(o=>{if(!adminMatchesView(o))return false;const text=[o.order_id,o.customer_name,o.customer_phone,o.city,o.pin].join(' ').toLowerCase();return(!sf||(sf==='Archived'?parseM(o.admin_note).archived===true:o.status===sf))&&(!pf||o.payment_status===pf)&&(!q||text.includes(q));});const total=list.reduce((s,o)=>s+Number(o.total||0),0);if($("adminStats"))$("adminStats").innerHTML=[['Visible Orders',list.length],['Visible Value',money2(total)],['New',countStatus('New')],['Confirmed',countStatus('Confirmed')],['Shipped',countStatus('Shipped')],['History',countHistory()]].map(x=>'<div class="admin-stat"><span>'+x[0]+'</span><strong>'+x[1]+'</strong></div>').join('');countViews();if(!list.length){box.innerHTML='<div class="admin-empty">Is section/filter me koi order nahi mila.</div>';return;}box.innerHTML=list.map(adminCompactRow).join('');
+    function countStatus(s){return (window.adminOrders||[]).filter(o=>!parseM(o.admin_note).archived&&o.status===s).length;}function countHistory(){return (window.adminOrders||[]).filter(o=>parseM(o.admin_note).archived||o.status==='Cancelled').length;}
+  };
+  function adminCompactRow(o){
+    const status=o.status||'New',meta=parseM(o.admin_note),delivery=meta.delivery||{},items=Array.isArray(o.items)?o.items:[],payment=o.payment_status||'pending',payClass=payment==='verified'?'pay-verified':payment==='submitted'?'pay-submitted':payment==='rejected'?'pay-rejected':'';const actions=status==='New'?'<button class="admin-confirm-btn" type="button" onclick="event.stopPropagation();confirmAdminOrder(\''+String(o.order_id).replace(/'/g,"\\'")+'\')">✅ Confirm Order</button>':'';return '<article class="admin-compact-row" data-admin-order="'+attr(o.order_id)+'"><button type="button" class="admin-compact-head" onclick="toggleAdminOrder(\''+String(o.order_id).replace(/'/g,"\\'")+'\')"><div><div class="admin-compact-primary">'+esc(o.customer_name)+' <span style="font-size:11px;color:#64748b">• '+esc(o.order_id)+'</span></div><div class="admin-compact-secondary">'+esc(o.customer_phone)+' • '+new Date(o.created_at||Date.now()).toLocaleString('en-IN')+'</div></div><div class="admin-compact-meta"><span class="admin-pill">'+esc(status)+'</span></div><div class="admin-compact-meta"><span class="admin-pill '+payClass+'">'+esc(payment)+'</span></div><div class="admin-compact-total"><b>'+money2(o.total)+'</b></div><div><span class="admin-chevron">⌄</span></div></button><div class="admin-detail-panel"><div class="admin-detail-grid">'+adminCustomerBox(o)+adminProductBox(o,items,delivery)+adminPaymentBox(o,payment)+'</div>'+adminControls(o)+'<div class="admin-inline-actions">'+actions+'<button class="admin-save-btn" type="button" onclick="saveAdminOrder(\''+String(o.order_id).replace(/'/g,"\\'")+'\')">💾 Save</button><button class="admin-history-btn" type="button" onclick="archiveAdminOrder(\''+String(o.order_id).replace(/'/g,"\\'")+'\')">🗂️ Move to History</button></div>'+adminRefundBox(o,meta)+'</div></article>';}
+  function adminCustomerBox(o){return '<div class="admin-detail-box"><h4>👤 Customer Details</h4><div class="admin-info-line"><b>Name:</b> '+esc(o.customer_name)+'</div><div class="admin-info-line"><b>Customer ID:</b> '+esc(o.customer_id)+'</div><div class="admin-info-line"><b>Mobile:</b> '+esc(o.customer_phone)+'</div><div class="admin-info-line"><b>Address:</b> '+esc(o.address)+'</div><div class="admin-info-line"><b>City / PIN:</b> '+esc(o.city)+' / '+esc(o.pin)+'</div><div class="admin-info-line"><b>Landmark:</b> '+esc(o.landmark||'-')+'</div></div>';}
+  function adminProductBox(o,items,delivery){const ih=items.map(it=>'<div class="admin-item-row"><div class="admin-item-thumb">'+(it.image?'<img src="'+attr(it.image)+'" alt="'+attr(it.name)+'">':'📱')+'</div><div><div class="admin-item-name">'+esc(it.name)+'</div><div class="admin-item-meta">'+esc(it.company||'')+' • Qty '+Number(it.quantity||1)+'</div></div><div class="admin-item-price">'+money2(Number(it.price||0)*Number(it.quantity||1))+'</div></div>').join('');return '<div class="admin-detail-box"><h4>🛍️ Products & Amount</h4><div class="admin-order-items">'+ih+'</div><div class="admin-info-line" style="margin-top:8px"><b>Products:</b> '+money2(items.reduce((s,it)=>s+Number(it.price||0)*Number(it.quantity||1),0))+'</div><div class="admin-info-line"><b>Delivery:</b> '+(delivery.charge!=null?money2(delivery.charge)+' • '+Number(delivery.distance_km||0).toFixed(1)+' km':'-')+'</div><div class="admin-info-line"><b>Grand Total:</b> '+money2(o.total)+'</div></div>';}
+  function adminPaymentBox(o,payment){const meta=parseM(o.admin_note),g=meta.gateway||{};return '<div class="admin-detail-box"><h4>💳 Payment Details</h4><div class="admin-info-line"><b>Method:</b> '+esc(o.payment_method||'UPI')+'</div><div class="admin-info-line"><b>Status:</b> '+esc(payment)+'</div><div class="admin-info-line"><b>Amount:</b> '+money2(o.total)+'</div><div class="admin-info-line"><b>Gateway Payment ID:</b> '+esc(g.razorpay_payment_id||'-')+'</div><div class="admin-filter-note">UTR input has been removed from customer checkout.</div></div>';}
+  function adminControls(o){const statuses=['New','Confirmed','Packed','Shipped','Out for Delivery','Delivered','Cancelled'];const pays=['pending','submitted','verified','rejected'];return '<div class="admin-controls"><div class="admin-control"><label>Order Status</label><select id="a_status_'+attr(o.order_id)+'">'+statuses.map(s=>'<option value="'+attr(s)+'" '+(s===o.status?'selected':'')+'>'+esc(s)+'</option>').join('')+'</select></div><div class="admin-control"><label>Payment Status</label><select id="a_pay_'+attr(o.order_id)+'">'+pays.map(s=>'<option value="'+s+'" '+(s===o.payment_status?'selected':'')+'>'+s+'</option>').join('')+'</select></div><div class="admin-control"><label>Tracking Number</label><input id="a_trk_'+attr(o.order_id)+'" value="'+attr(o.tracking_number||'')+'" placeholder="Courier tracking"></div><div class="admin-control"><label>Admin Note</label><input id="a_note_'+attr(o.order_id)+'" placeholder="Optional note"></div></div>';}
+  function adminRefundBox(o,meta){const rf=meta.refund||{};return '<div class="admin-refund-box"><h4>💸 Refund / Cash Back</h4><div class="admin-refund-grid"><div class="admin-control"><label>Refund Status</label><select id="r_status_'+attr(o.order_id)+'"><option value="">Not recorded</option><option '+(rf.status==='Pending'?'selected':'')+'>Pending</option><option '+(rf.status==='Processed'?'selected':'')+'>Processed</option><option '+(rf.status==='Rejected'?'selected':'')+'>Rejected</option></select></div><div class="admin-control"><label>Refund Mode</label><select id="r_mode_'+attr(o.order_id)+'"><option value="">Select</option><option value="upi" '+(rf.mode==='upi'?'selected':'')+'>UPI</option><option value="bank" '+(rf.mode==='bank'?'selected':'')+'>Bank</option><option value="cash" '+(rf.mode==='cash'?'selected':'')+'>Cash</option></select></div><div class="admin-control"><label>Refund Amount</label><input id="r_amount_'+attr(o.order_id)+'" type="number" step="0.01" value="'+attr(rf.amount||'')+'"></div><div class="admin-control"><label>Customer UPI</label><input id="r_upi_'+attr(o.order_id)+'" value="'+attr(rf.upi_id||'')+'" placeholder="customer@upi"></div><div class="admin-control"><label>Account Holder</label><input id="r_holder_'+attr(o.order_id)+'" value="'+attr(rf.account_holder||'')+'"></div><div class="admin-control"><label>Account Number</label><input id="r_account_'+attr(o.order_id)+'" value="'+attr(rf.account_number||'')+'"></div><div class="admin-control"><label>IFSC</label><input id="r_ifsc_'+attr(o.order_id)+'" value="'+attr(rf.ifsc||'')+'"></div><div class="admin-control wide"><label>Refund Note</label><input id="r_note_'+attr(o.order_id)+'" value="'+attr(rf.admin_note||'')+'"></div></div></div>';}
+  window.toggleAdminOrder=function(id){document.querySelectorAll('.admin-compact-row').forEach(el=>{if(el.dataset.adminOrder===id)el.classList.toggle('open');});};
+  window.confirmAdminOrder=async function(id){const o=(window.adminOrders||[]).find(x=>x.order_id===id);if(!o)return;if(o.status!=="New"){alert("Ye order New section me nahi hai.");return;}await updateAdminOrderFields(id,{status:"Confirmed"});};
+  window.archiveAdminOrder=async function(id){if(window.currentUserRole!=="admin")return;const o=(window.adminOrders||[]).find(x=>x.order_id===id);if(!o)return;if(!confirm("Order ko History me move karna hai? Order delete nahi hoga."))return;const meta=parseM(o.admin_note);meta.archived=true;meta.archived_at=new Date().toISOString();meta.archived_by="admin";const {error}=await window.supabaseClient.from('orders').update({admin_note:metaStr(meta),updated_at:new Date().toISOString()}).eq('order_id',id);if(error){alert(error.message);return;}await loadAdminOrders();};
+  async function updateAdminOrderFields(id,extra){if(window.currentUserRole!=="admin"||!window.storeCloudReady)return;const o=(window.adminOrders||[]).find(x=>x.order_id===id);if(!o)return;const meta=parseM(o.admin_note);const payload={status:extra.status||o.status,payment_status:extra.payment_status||o.payment_status,tracking_number:$("a_trk_"+id)?.value.trim()||o.tracking_number||"",updated_at:new Date().toISOString()};if(extra.status)payload.status=extra.status;if($("a_note_"+id)?.value.trim())meta.admin_note=$("a_note_"+id).value.trim();payload.admin_note=metaStr(meta);const {error}=await window.supabaseClient.from('orders').update(payload).eq('order_id',id);if(error){alert('Order save nahi hua: '+error.message);return;}await loadAdminOrders();};
+  window.saveAdminOrder=async function(id){if(window.currentUserRole!=="admin"||!window.storeCloudReady)return;const o=(window.adminOrders||[]).find(x=>x.order_id===id);if(!o)return;const meta=parseM(o.admin_note),rf=meta.refund||{};const nextStatus=$("a_status_"+id)?.value||o.status;if(nextStatus==='Shipped' || nextStatus==='Out for Delivery' || nextStatus==='Delivered'){meta.shipped_locked=true;meta.shipped_at=meta.shipped_at||new Date().toISOString();}const refund={...rf,status:$("r_status_"+id)?.value||"",mode:$("r_mode_"+id)?.value||"",amount:Number($("r_amount_"+id)?.value||0)||0,upi_id:$("r_upi_"+id)?.value.trim()||"",account_holder:$("r_holder_"+id)?.value.trim()||"",account_number:$("r_account_"+id)?.value.trim()||"",ifsc:$("r_ifsc_"+id)?.value.trim()||"",admin_note:$("r_note_"+id)?.value.trim()||""};const nextMeta={...meta,refund};if($("a_note_"+id)?.value.trim())nextMeta.admin_note=$("a_note_"+id).value.trim();if(nextStatus==='Cancelled'){nextMeta.history=true;nextMeta.cancelled_by="admin";nextMeta.cancelled_at=new Date().toISOString();}const payload={status:nextStatus,payment_status:$("a_pay_"+id)?.value||o.payment_status,tracking_number:$("a_trk_"+id)?.value.trim()||o.tracking_number||"",admin_note:metaStr(nextMeta),updated_at:new Date().toISOString()};const {error}=await window.supabaseClient.from('orders').update(payload).eq('order_id',id);if(error){alert('Order save nahi hua: '+error.message);return;}alert('Order details save ho gayi.');await loadAdminOrders();};
+  window.loadAdminOrders=async function(){if(window.currentUserRole!=="admin"||!window.storeCloudReady)return;const box=$("adminOrdersList");if(box)box.innerHTML='<div class="admin-empty">Orders load ho rahe hain...</div>';const {data,error}=await window.supabaseClient.from('orders').select('*').order('created_at',{ascending:false});if(error){if(box)box.innerHTML='<div class="admin-empty" style="color:#b91c1c">'+esc(error.message)+'</div>';return;}window.adminOrders=data||[];setupAdminStatusFilter();renderAdminOrders();};
+  window.showAdminSection=async function(){if(!window.currentUser||window.currentUserRole!=="admin"){closeAdminSection();return;}const ov=$("adminOverlay");if(!ov)return;ov.classList.add('open');ov.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';if($("adminSignedInAs"))$("adminSignedInAs").textContent='Signed in as '+(window.currentUser.email||'Admin');setAdminView(window.adminView||'new');await loadAdminOrders();};
+  window.adminLogout=async function(){window.currentUser=null;window.currentUserRole='customer';window.adminOrders=[];closeAdminSection();closeAccount();updateAccountButton();try{localStorage.removeItem('manohar_pending_profile');}catch(e){}try{await window.supabaseClient?.auth?.signOut({scope:'local'});}catch(e){}};
+
+  document.addEventListener('DOMContentLoaded',function(){
+    try{setupAdminStatusFilter();}catch(e){}
+    try{if($("loginPassword"))$("loginPassword").setAttribute('autocomplete','current-password');}catch(e){}
+    let tries=0;const bindRecovery=()=>{if(window.supabaseClient?.auth?.onAuthStateChange){try{window.supabaseClient.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY'&&session){setTimeout(()=>openForgotPassword(),0);}});return;}catch(e){}}if(tries++<20)setTimeout(bindRecovery,250)};bindRecovery();
   });
 })();
 </script>
