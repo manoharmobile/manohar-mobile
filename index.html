@@ -5666,10 +5666,14 @@ function addUVToCart(name){
 
 function buyUVNow(name){
     const cartName=name+" UV Glass";
-    const existing=cart.find(item=>item.name===cartName);
-    if(existing){existing.quantity++;}
-    else{cart.push({name:cartName,price:null,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"});}
-    updateCart(); openCheckout();
+    if(typeof window.buyNow==="function"){
+        window.buyNow(cartName,null);
+        return;
+    }
+    const item={name:cartName,price:null,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"};
+    cart=[item];
+    updateCart();
+    openCheckout();
 }
 
 document.addEventListener("DOMContentLoaded",renderUVGlassProducts);
@@ -6423,42 +6427,59 @@ document.addEventListener("keydown",function(event){
   }
 
   window.autoCalculateDeliveryCharge = async function(){
-    const btn=$("calcDeliveryBtn"), help=$("deliveryHelpText"), box=$("deliveryChargeBox");
-    if(btn) {btn.disabled=true;btn.textContent="⏳ Calculating...";}
+    const btn=$("calcDeliveryBtn"), help=$("deliveryHelpText");
+    if(btn){btn.disabled=true;btn.textContent="⏳ Calculating...";}
     const checkoutAddress=getCheckoutAddress();
-    try{const cached=JSON.parse(localStorage.getItem("mms_delivery_quote_v2")||"null");if(cached&&cached.key===checkoutAddress.toLowerCase()&&cached.expires>Date.now()){window.deliveryQuote=cached.quote;setDeliveryUi();updateUpiPayLink();return;}}catch(e){}
-    window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:false,message:"Delivery distance calculate ho raha hai..."};
+    try{
+      const cached=JSON.parse(localStorage.getItem("mms_delivery_quote_v2")||"null");
+      if(cached&&cached.key===checkoutAddress.toLowerCase()&&cached.expires>Date.now()){
+        window.deliveryQuote=cached.quote;
+        setDeliveryUi();
+        updateUpiPayLink();
+        return;
+      }
+    }catch(e){}
+
+    window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:false,message:"Delivery charge calculate ho raha hai..."};
     setDeliveryUi();
     try{
       const address=getCheckoutAddress();
+      const city=$("customerCity")?.value.trim()||"";
+      const pin=$("customerPin")?.value.trim()||"";
       if(address.length<12) throw new Error("Pehle full delivery address, city aur PIN bhariye.");
 
       const shop=await geocodeAddress(window.MMS_SETTINGS.SHOP_ADDRESS);
       let customer=null, source="address";
-      try{
-        customer=await geocodeAddress(address);
-      }catch(e){
-        if(navigator.geolocation){
-          customer=await new Promise((resolve,reject)=>navigator.geolocation.getCurrentPosition(
-            p=>resolve({lat:p.coords.latitude,lon:p.coords.longitude,display:"Current location"}),
-            reject,{enableHighAccuracy:true,timeout:12000,maximumAge:60000}
-          ));
-          source="device-location";
-        }else throw e;
+      const candidates=[
+        address,
+        [pin,city,"Madhya Pradesh","India"].filter(Boolean).join(", "),
+        [city,"Madhya Pradesh","India"].filter(Boolean).join(", ")
+      ];
+      for(const candidate of candidates){
+        if(!candidate) continue;
+        try{ customer=await geocodeAddress(candidate); if(customer) break; }catch(e){}
       }
+      if(!customer) throw new Error("Delivery location not found");
 
       let km;
-      try{km=await routeDistanceKm(shop,customer);}catch(e){km=haversineKm(shop,customer);source+="-straight-line";}
+      try{
+        km=await routeDistanceKm(shop,customer);
+      }catch(e){
+        km=haversineKm(shop,customer);
+        source="straight-line-fallback";
+      }
       const charge=deliveryChargeFor(km);
       if(charge==null){
-        window.deliveryQuote={distanceKm:km,charge:0,ready:false,source,error:true,message:"Delivery currently 60 km tak available hai. Is address ke liye delivery charge auto-calculate nahi ho paya."};
+        window.deliveryQuote={distanceKm:km,charge:0,ready:false,source,error:true,message:"Delivery currently 60 km tak available hai."};
       }else{
-        window.deliveryQuote={distanceKm:km,charge,ready:true,source,error:false,message:"Delivery charge automatically calculated. Customer ko manual amount enter nahi karna hai."};
-        try{localStorage.setItem("mms_delivery_quote_v2",JSON.stringify({key:checkoutAddress.toLowerCase(),expires:Date.now()+6*3600000,quote:window.deliveryQuote}));}catch(e){}
+        window.deliveryQuote={distanceKm:km,charge,ready:true,source,error:false,message:""};
+        try{
+          localStorage.setItem("mms_delivery_quote_v2",JSON.stringify({key:checkoutAddress.toLowerCase(),expires:Date.now()+6*3600000,quote:window.deliveryQuote}));
+        }catch(e){}
       }
     }catch(err){
       console.warn("Delivery calculation",err);
-      window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:true,message:"Distance auto-calculate nahi hua. Full address check karke Calculate Automatically dobara press karein."};
+      window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:true,message:"Delivery charge calculate nahi ho saka. Address/PIN check karein."};
     }finally{
       setDeliveryUi();
       if(btn){btn.disabled=false;btn.textContent="📍 Calculate Automatically";}
@@ -6501,7 +6522,37 @@ document.addEventListener("keydown",function(event){
 
   function buildUpiQuery(amount,orderId){const cfg=window.APP_CONFIG||{},pa=String(cfg.UPI_ID||"").trim(),pn=String(cfg.UPI_NAME||"MANOHAR MOBILE SHOP").trim(),q=new URLSearchParams();q.set("pa",pa);q.set("pn",pn);q.set("tr",orderId);q.set("tn","MANOHAR MOBILE SHOP Order "+orderId);q.set("am",Number(amount||0).toFixed(2));q.set("cu","INR");return{pa,query:q.toString(),plain:"upi://pay?"+q.toString()};}
   function updateDynamicQr(upiUri,amount){const img=$("shopUpiQr");if(!img||!upiUri)return;const fallback=(window.APP_CONFIG||{}).UPI_QR_IMAGE||"qr/upi-qr.png";img.onerror=function(){this.onerror=null;this.src=fallback;};img.src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data="+encodeURIComponent(upiUri);if($("upiQrAmount"))$("upiQrAmount").textContent=money(amount);}
-  window.payWithUPIApp=function(app){const r=$("upiPaymentOption");if(r)r.checked=true;const amount=getGrandTotal();if(!(amount>0)){alert("Payment amount ready nahi hai. Delivery charge calculate hone dijiye.");return;}const orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId);if(!u.pa){alert("UPI ID configuration missing hai.");return;}const android=/Android/i.test(navigator.userAgent);let target=u.plain;if(app==="gpay")target=android?"intent://pay?"+u.query+"#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end":"gpay://upi/pay?"+u.query;if(app==="phonepe")target=android?"intent://pay?"+u.query+"#Intent;scheme=upi;package=com.phonepe.app;end":"phonepe://upi/pay?"+u.query;window.location.href=target;};
+  window.payWithUPIApp=function(app){
+    const r=$("upiPaymentOption");if(r)r.checked=true;
+    const amount=getGrandTotal();
+    if(!(amount>0)){alert("Payment amount ready nahi hai. Delivery charge calculate hone dijiye.");return;}
+    const orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));
+    window.pendingOrderId=orderId;
+    const u=buildUpiQuery(amount,orderId);
+    if(!u.pa){alert("UPI ID configuration missing hai.");return;}
+    const android=/Android/i.test(navigator.userAgent);
+    const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+    let target=u.plain;
+    if(android&&app==="gpay"){
+        target="intent://pay?"+u.query+"#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url="+encodeURIComponent(u.plain)+";end";
+    }else if(android&&app==="phonepe"){
+        target="intent://pay?"+u.query+"#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url="+encodeURIComponent(u.plain)+";end";
+    }else if(ios&&app==="gpay"){
+        target="gpay://upi/pay?"+u.query;
+    }else if(ios&&app==="phonepe"){
+        target="phonepe://upi/pay?"+u.query;
+    }
+    if(!android&&!ios){
+        window.location.href=u.plain;
+        return;
+    }
+    let leftPage=false;
+    const onVis=()=>{if(document.visibilityState==="hidden"){leftPage=true;cleanup();}};
+    const cleanup=()=>{document.removeEventListener("visibilitychange",onVis);if(timer)clearTimeout(timer);};
+    document.addEventListener("visibilitychange",onVis);
+    let timer=setTimeout(()=>{cleanup();if(!leftPage)window.location.href=u.plain;},1800);
+    try{window.location.href=target;}catch(e){cleanup();window.location.href=u.plain;}
+  };
   function updateUpiPayLink(){const amount=getGrandTotal(),orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId),link=$("upiPayLink");if(link){link.href=u.plain;link.textContent="📲 Pay "+money(amount)+" via UPI App";link.style.display="none";}if($("upiPayAmount"))$("upiPayAmount").textContent=money(amount);updateDynamicQr(u.plain,amount);updateCardUi();}
   function updateCardUi(){const amount=getGrandTotal();[$("cardPayAmount"),$("cardPayBtnAmount")].forEach(el=>{if(el)el.textContent=money(amount);});const st=$("cardPaymentStatus"),cfg=window.MMS_SETTINGS?.RAZORPAY||{};if(!st)return;if(cfg.KEY_ID&&cfg.ORDER_ENDPOINT){st.textContent="Razorpay card checkout ready. Amount automatically final total se jayega.";st.className="payment-card-status ready";}else{st.textContent="Card payment ke liye secure Razorpay Key ID + order-creation endpoint configure karna zaroori hai. UPI abhi ready hai.";st.className="payment-card-status warn";}}
   async function loadRazorpay(){if(window.Razorpay)return true;return await new Promise(resolve=>{const sc=document.createElement("script");sc.src="https://checkout.razorpay.com/v1/checkout.js";sc.onload=()=>resolve(true);sc.onerror=()=>resolve(false);document.head.appendChild(sc);});}
@@ -6982,250 +7033,12 @@ document.addEventListener("keydown",function(event){
 })();
 </script>
 
-
-<style id="mms-final-problem-fix-style">
-/* Final targeted fixes: checkout action, UV Buy visibility, silent delivery auto-calc */
+<style id="mms-delivery-auto-only">
 #deliveryChargeBox{display:none !important;}
 .uv-dropdown .uv-product-info{overflow:visible !important;min-width:0;padding-bottom:22px !important;}
 .uv-dropdown .product-actions{position:relative !important;z-index:20 !important;display:flex !important;align-items:stretch !important;gap:7px !important;overflow:visible !important;margin-top:14px !important;min-height:46px !important;}
 .uv-dropdown .product-actions > button{position:relative !important;z-index:21 !important;overflow:visible !important;min-height:44px !important;visibility:visible !important;opacity:1 !important;}
-.uv-dropdown .buy-now{margin-bottom:3px !important;transform:none !important;}
-.checkout-panel-open-fallback{display:block !important;}
 </style>
-<script id="mms-final-problem-fix">
-(function(){
-  'use strict';
-
-  function byId(id){return document.getElementById(id);}
-  function safeMoney(v){return '₹'+Number(v||0).toFixed(2).replace(/\.00$/,'');}
-  function copyItems(items){try{return JSON.parse(JSON.stringify(items||[]));}catch(e){return (items||[]).map(x=>({...x}));}}
-
-  /* ---------------------------------------------------------
-     1) Reliable cart -> checkout button.
-     Open the checkout immediately. Delivery calculation runs
-     silently in the background instead of blocking the UI.
-  --------------------------------------------------------- */
-  window.openCheckout = function(){
-    try{
-      if(!Array.isArray(window.cart) || !window.cart.length){alert('Pehle cart me product add karein.');return;}
-      if(typeof closeCart==='function') closeCart();
-      if(typeof renderCheckoutSummary==='function') renderCheckoutSummary();
-      if(typeof loadCustomerData==='function') loadCustomerData();
-      window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:'',error:false,message:''};
-      try{const el=byId('upiUtr');if(el)el.value='';}catch(e){}
-      try{const a=byId('razorpayPaymentId'),b=byId('razorpayOrderId');if(a)a.value='';if(b)b.value='';}catch(e){}
-      if(typeof setDeliveryUi==='function') setDeliveryUi();
-      const overlay=byId('checkoutOverlay');
-      if(!overlay) throw new Error('Checkout section not found.');
-      overlay.classList.add('open');
-      document.body.style.overflow='hidden';
-      if(typeof updateUpiPayLink==='function') updateUpiPayLink();
-      /* Silent background calculation. The delivery box is hidden, but
-         the result still updates the delivery line and grand total. */
-      setTimeout(function(){
-        if(typeof window.autoCalculateDeliveryCharge==='function'){
-          Promise.resolve(window.autoCalculateDeliveryCharge()).catch(function(err){console.warn('Silent delivery calculation:',err);});
-        }
-      },0);
-    }catch(err){
-      console.error('Checkout open error:',err);
-      const overlay=byId('checkoutOverlay');
-      if(overlay){overlay.classList.add('open');document.body.style.overflow='hidden';}
-      alert('Checkout open nahi ho paya. Please dobara try karein.');
-    }
-  };
-
-  /* ---------------------------------------------------------
-     2) UV Glass Buy = direct checkout, not cart checkout.
-     The existing cart remains untouched until the UV order is
-     finished/cancelled.
-  --------------------------------------------------------- */
-  let uvSingleBuy=false, uvCartBackup=[];
-  const previousFinish=window.finishSuccessfulOrder;
-  const previousClose=window.closeCheckout;
-
-  window.buyUVNow=function(name){
-    try{
-      uvCartBackup=copyItems(window.cart||[]);
-      uvSingleBuy=true;
-      const uvName=String(name)+' UV Glass';
-      const existing=(window.cart||[]).find(i=>i.name===uvName);
-      /* Preserve the current UV product data. It has no price in the
-         source catalog, so do not invent or silently change a price. */
-      window.cart=[existing?copyItems([existing])[0]:{
-        name:uvName,price:null,quantity:1,type:'uv-glass',image:window.uvGlassImage||'./image/UV-Glass/IMG2026090615222.jpeg',company:'UV Glass',description:'UV Glass - Full Glue Curved'
-      }];
-      if(typeof saveCart==='function') saveCart();
-      window.pendingOrderId=null;
-      window.openCheckout();
-    }catch(err){
-      console.error('UV Buy error:',err);
-      uvSingleBuy=false;window.cart=copyItems(uvCartBackup||[]);if(typeof saveCart==='function')saveCart();if(typeof updateCart==='function')updateCart();
-      alert('UV Glass checkout open nahi ho paya.');
-    }
-  };
-
-  window.finishSuccessfulOrder=function(orderId){
-    let result;
-    try{ if(typeof previousFinish==='function') result=previousFinish.call(this,orderId); }
-    finally{
-      if(uvSingleBuy){
-        window.cart=copyItems(uvCartBackup||[]);
-        if(typeof saveCart==='function')saveCart();
-        if(typeof updateCart==='function')updateCart();
-        uvCartBackup=[];uvSingleBuy=false;
-      }
-    }
-    return result;
-  };
-
-  window.closeCheckout=function(){
-    try{if(typeof previousClose==='function') previousClose.call(this);}finally{
-      if(uvSingleBuy){
-        window.cart=copyItems(uvCartBackup||[]);
-        if(typeof saveCart==='function')saveCart();
-        if(typeof updateCart==='function')updateCart();
-        uvCartBackup=[];uvSingleBuy=false;
-      }
-    }
-  };
-
-  /* ---------------------------------------------------------
-     3) Delivery: calculate silently and reliably.
-     Try exact address -> PIN/city -> city. This avoids the
-     previous zero-charge result when a detailed address could
-     not be geocoded.
-  --------------------------------------------------------- */
-  async function mmsGeocodeFirst(candidates){
-    for(const q of candidates){
-      if(!q) continue;
-      try{
-        if(typeof geocodeAddress==='function') return await geocodeAddress(q);
-      }catch(e){ console.warn('Geocode fallback failed:',q,e); }
-    }
-    return null;
-  }
-
-  window.autoCalculateDeliveryCharge = async function(){
-    const btn=byId('calcDeliveryBtn');
-    if(btn){btn.disabled=true;btn.style.display='none';}
-    const address=byId('customerAddress')?.value.trim()||'';
-    const city=byId('customerCity')?.value.trim()||'';
-    const pin=byId('customerPin')?.value.trim()||'';
-    const full=[address,city,pin,'Madhya Pradesh','India'].filter(Boolean).join(', ');
-    window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:'',error:false,message:''};
-    try{
-      if(address.length<3 || city.length<2 || !/^\d{6}$/.test(pin)) throw new Error('Incomplete delivery address');
-
-      let shop=null, customer=null, source='address';
-      if(typeof geocodeAddress==='function'){
-        shop=await mmsGeocodeFirst([
-          window.MMS_SETTINGS?.SHOP_ADDRESS||'Near Mahakali Temple, Khurai, Madhya Pradesh, India',
-          'Khurai, Madhya Pradesh, India'
-        ]);
-        customer=await mmsGeocodeFirst([
-          full,
-          [pin,city,'Madhya Pradesh','India'].join(', '),
-          [city,'Madhya Pradesh','India'].join(', ')
-        ]);
-      }
-
-      if(!shop || !customer) throw new Error('Delivery locations could not be resolved');
-      let km=null;
-      try{if(typeof routeDistanceKm==='function') km=await routeDistanceKm(shop,customer);}catch(e){console.warn('Road route fallback:',e);}
-      if(!(Number.isFinite(km)&&km>=0)){
-        if(typeof haversineKm==='function') km=haversineKm(shop,customer);
-      }
-      if(!(Number.isFinite(km)&&km>=0)) throw new Error('Distance unavailable');
-
-      const tiers=(window.MMS_SETTINGS?.DELIVERY_TIERS||[]);
-      const tier=tiers.find(t=>km<=Number(t.maxKm));
-      if(!tier) throw new Error('Outside delivery range');
-      window.deliveryQuote={distanceKm:km,charge:Number(tier.charge),ready:true,source:source,error:false,message:''};
-    }catch(err){
-      /* The shop advertises Khurai-city delivery. When a Khurai
-         address is valid but exact geocoding fails, keep checkout
-         usable with the first delivery slab rather than silently
-         charging ₹0. No manual customer input is shown. */
-      const lowCity=city.toLowerCase();
-      if(lowCity.includes('khurai')){
-        window.deliveryQuote={distanceKm:1,charge:20,ready:true,source:'khurai-fallback',error:false,message:''};
-      }else{
-        window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:'',error:true,message:''};
-      }
-    }finally{
-      if(btn) btn.style.display='none';
-      if(typeof setDeliveryUi==='function') setDeliveryUi();
-      if(typeof updateUpiPayLink==='function') updateUpiPayLink();
-      if(typeof updateCardUi==='function') updateCardUi();
-    }
-  };
-
-  /* Recalculate silently when delivery fields change. */
-  document.addEventListener('input',function(e){
-    if(['customerAddress','customerCity','customerPin'].includes(e.target?.id)){
-      clearTimeout(window._mmsDeliveryTimer);
-      window._mmsDeliveryTimer=setTimeout(function(){
-        const ov=byId('checkoutOverlay');
-        if(ov?.classList.contains('open')) window.autoCalculateDeliveryCharge().catch(()=>{});
-      },500);
-    }
-  });
-
-  /* ---------------------------------------------------------
-     4) UPI deep links: use a numeric transaction reference and
-     reliable fallback to the generic UPI chooser. NPCI's UPI
-     intent flow is designed to let the user select a certified
-     UPI app on the device; app-specific intent handling is not
-     uniform across all PSP apps/devices.
-  --------------------------------------------------------- */
-  window.mmsBuildUpiQuery=function(amount,orderId){
-    const cfg=window.APP_CONFIG||{};
-    const pa=String(cfg.UPI_ID||'').trim();
-    const pn=String(cfg.UPI_NAME||'MANOHAR MOBILE SHOP').trim();
-    /* Numeric TR improves compatibility with UPI intent validators. */
-    const tr=String(Date.now()).slice(-15);
-    const q=new URLSearchParams();
-    q.set('pa',pa);q.set('pn',pn);q.set('tr',tr);q.set('tn','MANOHAR MOBILE SHOP '+String(orderId||'Order'));q.set('am',Number(amount||0).toFixed(2));q.set('cu','INR');
-    return {pa,query:q.toString(),plain:'upi://pay?'+q.toString(),tr};
-  };
-
-  window.payWithUPIApp=function(app){
-    const amount=typeof getGrandTotal==='function'?getGrandTotal():Number(window.deliveryQuote?.charge||0);
-    if(!(amount>0)){alert('Payment amount ready nahi hai. Thoda wait karke dobara try karein.');return;}
-    const orderId=window.pendingOrderId||('MMS'+Date.now().toString().slice(-8));window.pendingOrderId=orderId;
-    const u=window.mmsBuildUpiQuery(amount,orderId);
-    if(!u.pa){alert('UPI ID configuration missing hai.');return;}
-    const android=/Android/i.test(navigator.userAgent);
-    const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if(!android && !ios){
-      alert('Google Pay / PhonePe direct app payment mobile phone par open hoga. Desktop par “Any UPI App”/QR use karein.');
-      return;
-    }
-    let target=u.plain;
-    if(android && app==='gpay') target='intent://pay?'+u.query+'#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url='+encodeURIComponent(u.plain)+';end';
-    else if(android && app==='phonepe') target='intent://pay?'+u.query+'#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url='+encodeURIComponent(u.plain)+';end';
-    let fallbackTimer=null,hidden=false;
-    const onVis=function(){if(document.visibilityState==='hidden'){hidden=true;clearTimeout(fallbackTimer);document.removeEventListener('visibilitychange',onVis);}};
-    document.addEventListener('visibilitychange',onVis);
-    try{window.location.href=target;}catch(e){window.location.href=u.plain;}
-    fallbackTimer=setTimeout(function(){
-      document.removeEventListener('visibilitychange',onVis);
-      if(!hidden) window.location.href=u.plain;
-    },1600);
-  };
-
-  /* Keep dynamic total/payment URI synced after delivery changes. */
-  const oldSetDeliveryUi=window.setDeliveryUi;
-  if(typeof oldSetDeliveryUi==='function'){
-    window.setDeliveryUi=function(){
-      oldSetDeliveryUi.apply(this,arguments);
-      try{const amt=typeof getGrandTotal==='function'?getGrandTotal():0;if(byId('upiPayAmount'))byId('upiPayAmount').textContent=safeMoney(amt);if(byId('cardPayAmount'))byId('cardPayAmount').textContent=safeMoney(amt);if(byId('cardPayBtnAmount'))byId('cardPayBtnAmount').textContent=safeMoney(amt);if(byId('upiQrAmount'))byId('upiQrAmount').textContent=safeMoney(amt);}catch(e){}
-    };
-  }
-
-})();
-</script>
 
 </body>
 </html>
