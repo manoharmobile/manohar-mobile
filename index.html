@@ -5003,7 +5003,7 @@ Cart abhi empty hai.
 <span>Total</span>
 <span id="cartTotal">₹0</span>
 </div>
-<button class="checkout" onclick="openCheckout()">
+<button class="checkout" onclick="openCartCheckout()">
 
 🧾 Proceed to Checkout
 
@@ -5628,6 +5628,7 @@ function renderUVGlassProducts(){
                 <span class="company">${item.brand}</span>
                 <h3>${item.name}</h3>
                 <p class="product-description">UV Glass - Full Glue Curved</p>
+                <div class="price">₹200</div>
                 <div class="product-actions">
                     <button class="add-cart" onclick="addUVToCart('${safeName}')">🛒 Add</button>
                     <button class="whatsapp-product-btn" type="button" onclick="whatsappUVProduct('${safeName}')" aria-label="WhatsApp order" title="WhatsApp">
@@ -5659,21 +5660,17 @@ function addUVToCart(name){
     const cartName=name + " UV Glass";
     const existing=cart.find(item=>item.name===cartName);
     if(existing){existing.quantity++;}
-    else{cart.push({name:cartName,price:null,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"});}
+    else{cart.push({name:cartName,price:200,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"});}
     updateCart();
     showMessage("🛒 UV Glass cart me add ho gaya!");
 }
 
 function buyUVNow(name){
     const cartName=name+" UV Glass";
-    if(typeof window.buyNow==="function"){
-        window.buyNow(cartName,null);
-        return;
-    }
-    const item={name:cartName,price:null,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"};
-    cart=[item];
-    updateCart();
-    openCheckout();
+    const existing=cart.find(item=>item.name===cartName);
+    if(existing){existing.quantity++;}
+    else{cart.push({name:cartName,price:200,quantity:1,type:"uv-glass",image:uvGlassImage,company:"UV Glass",description:"UV Glass - Full Glue Curved"});}
+    updateCart(); openCheckout();
 }
 
 document.addEventListener("DOMContentLoaded",renderUVGlassProducts);
@@ -6427,59 +6424,42 @@ document.addEventListener("keydown",function(event){
   }
 
   window.autoCalculateDeliveryCharge = async function(){
-    const btn=$("calcDeliveryBtn"), help=$("deliveryHelpText");
-    if(btn){btn.disabled=true;btn.textContent="⏳ Calculating...";}
+    const btn=$("calcDeliveryBtn"), help=$("deliveryHelpText"), box=$("deliveryChargeBox");
+    if(btn) {btn.disabled=true;btn.textContent="⏳ Calculating...";}
     const checkoutAddress=getCheckoutAddress();
-    try{
-      const cached=JSON.parse(localStorage.getItem("mms_delivery_quote_v2")||"null");
-      if(cached&&cached.key===checkoutAddress.toLowerCase()&&cached.expires>Date.now()){
-        window.deliveryQuote=cached.quote;
-        setDeliveryUi();
-        updateUpiPayLink();
-        return;
-      }
-    }catch(e){}
-
-    window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:false,message:"Delivery charge calculate ho raha hai..."};
+    try{const cached=JSON.parse(localStorage.getItem("mms_delivery_quote_v2")||"null");if(cached&&cached.key===checkoutAddress.toLowerCase()&&cached.expires>Date.now()){window.deliveryQuote=cached.quote;setDeliveryUi();updateUpiPayLink();return;}}catch(e){}
+    window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:false,message:"Delivery distance calculate ho raha hai..."};
     setDeliveryUi();
     try{
       const address=getCheckoutAddress();
-      const city=$("customerCity")?.value.trim()||"";
-      const pin=$("customerPin")?.value.trim()||"";
       if(address.length<12) throw new Error("Pehle full delivery address, city aur PIN bhariye.");
 
       const shop=await geocodeAddress(window.MMS_SETTINGS.SHOP_ADDRESS);
       let customer=null, source="address";
-      const candidates=[
-        address,
-        [pin,city,"Madhya Pradesh","India"].filter(Boolean).join(", "),
-        [city,"Madhya Pradesh","India"].filter(Boolean).join(", ")
-      ];
-      for(const candidate of candidates){
-        if(!candidate) continue;
-        try{ customer=await geocodeAddress(candidate); if(customer) break; }catch(e){}
+      try{
+        customer=await geocodeAddress(address);
+      }catch(e){
+        if(navigator.geolocation){
+          customer=await new Promise((resolve,reject)=>navigator.geolocation.getCurrentPosition(
+            p=>resolve({lat:p.coords.latitude,lon:p.coords.longitude,display:"Current location"}),
+            reject,{enableHighAccuracy:true,timeout:12000,maximumAge:60000}
+          ));
+          source="device-location";
+        }else throw e;
       }
-      if(!customer) throw new Error("Delivery location not found");
 
       let km;
-      try{
-        km=await routeDistanceKm(shop,customer);
-      }catch(e){
-        km=haversineKm(shop,customer);
-        source="straight-line-fallback";
-      }
+      try{km=await routeDistanceKm(shop,customer);}catch(e){km=haversineKm(shop,customer);source+="-straight-line";}
       const charge=deliveryChargeFor(km);
       if(charge==null){
-        window.deliveryQuote={distanceKm:km,charge:0,ready:false,source,error:true,message:"Delivery currently 60 km tak available hai."};
+        window.deliveryQuote={distanceKm:km,charge:0,ready:false,source,error:true,message:"Delivery currently 60 km tak available hai. Is address ke liye delivery charge auto-calculate nahi ho paya."};
       }else{
-        window.deliveryQuote={distanceKm:km,charge,ready:true,source,error:false,message:""};
-        try{
-          localStorage.setItem("mms_delivery_quote_v2",JSON.stringify({key:checkoutAddress.toLowerCase(),expires:Date.now()+6*3600000,quote:window.deliveryQuote}));
-        }catch(e){}
+        window.deliveryQuote={distanceKm:km,charge,ready:true,source,error:false,message:"Delivery charge automatically calculated. Customer ko manual amount enter nahi karna hai."};
+        try{localStorage.setItem("mms_delivery_quote_v2",JSON.stringify({key:checkoutAddress.toLowerCase(),expires:Date.now()+6*3600000,quote:window.deliveryQuote}));}catch(e){}
       }
     }catch(err){
       console.warn("Delivery calculation",err);
-      window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:true,message:"Delivery charge calculate nahi ho saka. Address/PIN check karein."};
+      window.deliveryQuote={distanceKm:null,charge:0,ready:false,source:"",error:true,message:"Distance auto-calculate nahi hua. Full address check karke Calculate Automatically dobara press karein."};
     }finally{
       setDeliveryUi();
       if(btn){btn.disabled=false;btn.textContent="📍 Calculate Automatically";}
@@ -6522,37 +6502,7 @@ document.addEventListener("keydown",function(event){
 
   function buildUpiQuery(amount,orderId){const cfg=window.APP_CONFIG||{},pa=String(cfg.UPI_ID||"").trim(),pn=String(cfg.UPI_NAME||"MANOHAR MOBILE SHOP").trim(),q=new URLSearchParams();q.set("pa",pa);q.set("pn",pn);q.set("tr",orderId);q.set("tn","MANOHAR MOBILE SHOP Order "+orderId);q.set("am",Number(amount||0).toFixed(2));q.set("cu","INR");return{pa,query:q.toString(),plain:"upi://pay?"+q.toString()};}
   function updateDynamicQr(upiUri,amount){const img=$("shopUpiQr");if(!img||!upiUri)return;const fallback=(window.APP_CONFIG||{}).UPI_QR_IMAGE||"qr/upi-qr.png";img.onerror=function(){this.onerror=null;this.src=fallback;};img.src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data="+encodeURIComponent(upiUri);if($("upiQrAmount"))$("upiQrAmount").textContent=money(amount);}
-  window.payWithUPIApp=function(app){
-    const r=$("upiPaymentOption");if(r)r.checked=true;
-    const amount=getGrandTotal();
-    if(!(amount>0)){alert("Payment amount ready nahi hai. Delivery charge calculate hone dijiye.");return;}
-    const orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));
-    window.pendingOrderId=orderId;
-    const u=buildUpiQuery(amount,orderId);
-    if(!u.pa){alert("UPI ID configuration missing hai.");return;}
-    const android=/Android/i.test(navigator.userAgent);
-    const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
-    let target=u.plain;
-    if(android&&app==="gpay"){
-        target="intent://pay?"+u.query+"#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url="+encodeURIComponent(u.plain)+";end";
-    }else if(android&&app==="phonepe"){
-        target="intent://pay?"+u.query+"#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url="+encodeURIComponent(u.plain)+";end";
-    }else if(ios&&app==="gpay"){
-        target="gpay://upi/pay?"+u.query;
-    }else if(ios&&app==="phonepe"){
-        target="phonepe://upi/pay?"+u.query;
-    }
-    if(!android&&!ios){
-        window.location.href=u.plain;
-        return;
-    }
-    let leftPage=false;
-    const onVis=()=>{if(document.visibilityState==="hidden"){leftPage=true;cleanup();}};
-    const cleanup=()=>{document.removeEventListener("visibilitychange",onVis);if(timer)clearTimeout(timer);};
-    document.addEventListener("visibilitychange",onVis);
-    let timer=setTimeout(()=>{cleanup();if(!leftPage)window.location.href=u.plain;},1800);
-    try{window.location.href=target;}catch(e){cleanup();window.location.href=u.plain;}
-  };
+  window.payWithUPIApp=function(app){const r=$("upiPaymentOption");if(r)r.checked=true;const amount=getGrandTotal();if(!(amount>0)){alert("Payment amount ready nahi hai. Delivery charge calculate hone dijiye.");return;}const orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId);if(!u.pa){alert("UPI ID configuration missing hai.");return;}const android=/Android/i.test(navigator.userAgent);let target=u.plain;if(app==="gpay")target=android?"intent://pay?"+u.query+"#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end":"gpay://upi/pay?"+u.query;if(app==="phonepe")target=android?"intent://pay?"+u.query+"#Intent;scheme=upi;package=com.phonepe.app;end":"phonepe://upi/pay?"+u.query;window.location.href=target;};
   function updateUpiPayLink(){const amount=getGrandTotal(),orderId=window.pendingOrderId||("MMS"+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId),link=$("upiPayLink");if(link){link.href=u.plain;link.textContent="📲 Pay "+money(amount)+" via UPI App";link.style.display="none";}if($("upiPayAmount"))$("upiPayAmount").textContent=money(amount);updateDynamicQr(u.plain,amount);updateCardUi();}
   function updateCardUi(){const amount=getGrandTotal();[$("cardPayAmount"),$("cardPayBtnAmount")].forEach(el=>{if(el)el.textContent=money(amount);});const st=$("cardPaymentStatus"),cfg=window.MMS_SETTINGS?.RAZORPAY||{};if(!st)return;if(cfg.KEY_ID&&cfg.ORDER_ENDPOINT){st.textContent="Razorpay card checkout ready. Amount automatically final total se jayega.";st.className="payment-card-status ready";}else{st.textContent="Card payment ke liye secure Razorpay Key ID + order-creation endpoint configure karna zaroori hai. UPI abhi ready hai.";st.className="payment-card-status warn";}}
   async function loadRazorpay(){if(window.Razorpay)return true;return await new Promise(resolve=>{const sc=document.createElement("script");sc.src="https://checkout.razorpay.com/v1/checkout.js";sc.onload=()=>resolve(true);sc.onerror=()=>resolve(false);document.head.appendChild(sc);});}
@@ -7033,12 +6983,278 @@ document.addEventListener("keydown",function(event){
 })();
 </script>
 
-<style id="mms-delivery-auto-only">
+
+
+<style id="mms-final-stable-fix-style">
+/* Stable final fixes: no visible delivery-error box, UV price/button visibility. */
 #deliveryChargeBox{display:none !important;}
-.uv-dropdown .uv-product-info{overflow:visible !important;min-width:0;padding-bottom:22px !important;}
-.uv-dropdown .product-actions{position:relative !important;z-index:20 !important;display:flex !important;align-items:stretch !important;gap:7px !important;overflow:visible !important;margin-top:14px !important;min-height:46px !important;}
+.uv-dropdown .uv-product-info{overflow:visible !important;min-width:0;padding-bottom:24px !important;}
+.uv-dropdown .product-actions{position:relative !important;z-index:20 !important;display:flex !important;align-items:stretch !important;gap:7px !important;overflow:visible !important;margin-top:10px !important;min-height:46px !important;}
 .uv-dropdown .product-actions > button{position:relative !important;z-index:21 !important;overflow:visible !important;min-height:44px !important;visibility:visible !important;opacity:1 !important;}
+.uv-dropdown .buy-now{margin-bottom:2px !important;transform:none !important;}
 </style>
+<script id="mms-final-stable-fix-script">
+(function(){
+  'use strict';
+
+  const FALLBACK_DELIVERY_CHARGE = 20;
+  let checkoutMode = 'cart';
+  let checkoutBackup = null;
+  let checkoutOpen = false;
+  let deliveryRun = 0;
+  let deliveryAddressKey = '';
+  let deliveryLocked = false;
+
+  function cloneItems(items){
+    try{return JSON.parse(JSON.stringify(items || []));}
+    catch(e){return (items || []).map(x => ({...x}));}
+  }
+  function byId(id){return document.getElementById(id);}
+  function currentItems(){return Array.isArray(cart) ? cart : [];} // use the real global lexical cart
+  function restoreBackup(){
+    if(!checkoutBackup) return;
+    cart = cloneItems(checkoutBackup);
+    if(typeof saveCart === 'function') saveCart();
+    if(typeof updateCart === 'function') updateCart();
+    checkoutBackup = null;
+    checkoutMode = 'cart';
+    checkoutOpen = false;
+    deliveryLocked = false;
+  }
+
+  function showCheckout(){
+    const ov = byId('checkoutOverlay');
+    if(!ov) return false;
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    checkoutOpen = true;
+    return true;
+  }
+  function hideCheckout(){
+    const ov = byId('checkoutOverlay');
+    if(ov) ov.classList.remove('open');
+    document.body.style.overflow = '';
+    checkoutOpen = false;
+  }
+
+  function deliveryKey(){
+    const a = byId('customerAddress')?.value.trim() || '';
+    const c = byId('customerCity')?.value.trim() || '';
+    const p = byId('customerPin')?.value.trim() || '';
+    return [a,c,p].join('|').toLowerCase();
+  }
+
+  function setFallbackDelivery(){
+    const city = (byId('customerCity')?.value.trim() || '').toLowerCase();
+    const charge = FALLBACK_DELIVERY_CHARGE;
+    window.deliveryQuote = {
+      distanceKm: city.includes('khurai') ? 1 : null,
+      charge,
+      ready: true,
+      source: 'automatic-fallback',
+      error: false,
+      message: ''
+    };
+    if(typeof setDeliveryUi === 'function') setDeliveryUi();
+    if(typeof updateUpiPayLink === 'function') updateUpiPayLink();
+    if(typeof updateCardUi === 'function') updateCardUi();
+  }
+
+  // Never expose a delivery calculation error to the customer.
+  window.autoCalculateDeliveryCharge = async function(){
+    const myRun = ++deliveryRun;
+    const key = deliveryKey();
+    deliveryAddressKey = key;
+    setFallbackDelivery();
+
+    const address = byId('customerAddress')?.value.trim() || '';
+    const city = byId('customerCity')?.value.trim() || '';
+    const pin = byId('customerPin')?.value.trim() || '';
+    if(deliveryLocked || !address || !city || !/^\d{6}$/.test(pin)) return window.deliveryQuote;
+
+    // Resolve exact route silently in the background. Failure keeps the safe fallback.
+    try{
+      let shop = null, customer = null;
+      const shopQ = window.MMS_SETTINGS?.SHOP_ADDRESS || 'Near Mahakali Temple, Khurai, Madhya Pradesh, India';
+      if(typeof geocodeAddress === 'function'){
+        try{ shop = await geocodeAddress(shopQ); }catch(e){}
+        if(!shop){try{ shop = await geocodeAddress('Khurai, Madhya Pradesh, India'); }catch(e){}}
+
+        const exact = [address,city,pin,'Madhya Pradesh','India'].filter(Boolean).join(', ');
+        try{ customer = await geocodeAddress(exact); }catch(e){}
+        if(!customer){try{ customer = await geocodeAddress([pin,city,'Madhya Pradesh','India'].join(', ')); }catch(e){}}
+        if(!customer){try{ customer = await geocodeAddress([city,'Madhya Pradesh','India'].join(', ')); }catch(e){}}
+      }
+      if(!shop || !customer) return window.deliveryQuote;
+
+      let km = null;
+      try{ if(typeof routeDistanceKm === 'function') km = await routeDistanceKm(shop,customer); }catch(e){}
+      if(!(Number.isFinite(km) && km >= 0) && typeof haversineKm === 'function'){
+        try{ km = haversineKm(shop,customer); }catch(e){}
+      }
+      if(!(Number.isFinite(km) && km >= 0)) return window.deliveryQuote;
+
+      // Ignore stale background results or results after an order is locked.
+      if(myRun !== deliveryRun || deliveryLocked || key !== deliveryAddressKey) return window.deliveryQuote;
+      const tiers = window.MMS_SETTINGS?.DELIVERY_TIERS || [];
+      const tier = tiers.find(t => km <= Number(t.maxKm));
+      if(tier){
+        window.deliveryQuote = {distanceKm:km,charge:Number(tier.charge),ready:true,source:'automatic',error:false,message:''};
+        if(typeof setDeliveryUi === 'function') setDeliveryUi();
+        if(typeof updateUpiPayLink === 'function') updateUpiPayLink();
+        if(typeof updateCardUi === 'function') updateCardUi();
+      }
+    }catch(e){ /* stay on silent fallback */ }
+    return window.deliveryQuote;
+  };
+
+  // Full-cart checkout: always uses ALL items currently in My Cart.
+  window.openCartCheckout = function(){
+    if(!currentItems().length){ alert('Pehle cart me product add karein.'); return; }
+    if(checkoutMode !== 'cart' && checkoutBackup) restoreBackup();
+    checkoutMode = 'cart';
+    checkoutBackup = null;
+    deliveryLocked = false;
+    if(typeof closeCart === 'function') closeCart();
+    if(typeof renderCheckoutSummary === 'function') renderCheckoutSummary();
+    if(typeof loadCustomerData === 'function') loadCustomerData();
+    window.deliveryQuote = {distanceKm:null,charge:0,ready:false,source:'',error:false,message:''};
+    if(byId('upiUtr')) byId('upiUtr').value='';
+    if(byId('razorpayPaymentId')) byId('razorpayPaymentId').value='';
+    if(byId('razorpayOrderId')) byId('razorpayOrderId').value='';
+    setFallbackDelivery();
+    showCheckout();
+    window.autoCalculateDeliveryCharge();
+  };
+
+  // Keep the standard name too, but make it mean the current cart.
+  window.openCheckout = window.openCartCheckout;
+
+  // Product Buy: order ONLY the clicked product and do not permanently alter the cart.
+  window.buyNow = function(name, price){
+    if(checkoutMode !== 'cart' && checkoutBackup) restoreBackup();
+    checkoutBackup = cloneItems(currentItems());
+    checkoutMode = 'single';
+    deliveryLocked = false;
+    const meta = typeof findProductMeta === 'function' ? findProductMeta(name) : {};
+    cart = [{
+      name:String(name),
+      price:Number(price),
+      quantity:1,
+      type:'product',
+      image:meta?.image || '',
+      company:meta?.company || '',
+      description:meta?.description || ''
+    }];
+    if(typeof closeCart === 'function') closeCart();
+    if(typeof renderCheckoutSummary === 'function') renderCheckoutSummary();
+    if(typeof loadCustomerData === 'function') loadCustomerData();
+    window.deliveryQuote = {distanceKm:null,charge:0,ready:false,source:'',error:false,message:''};
+    setFallbackDelivery();
+    showCheckout();
+    window.autoCalculateDeliveryCharge();
+  };
+
+  // UV Glass Buy: ₹200, order ONLY clicked UV Glass, keep the real cart untouched.
+  window.buyUVNow = function(name){
+    if(checkoutMode !== 'cart' && checkoutBackup) restoreBackup();
+    checkoutBackup = cloneItems(currentItems());
+    checkoutMode = 'single';
+    deliveryLocked = false;
+    cart = [{
+      name:String(name)+' UV Glass',
+      price:200,
+      quantity:1,
+      type:'uv-glass',
+      image:window.uvGlassImage || './image/UV-Glass/IMG2026090615222.jpeg',
+      company:'UV Glass',
+      description:'UV Glass - Full Glue Curved'
+    }];
+    if(typeof closeCart === 'function') closeCart();
+    if(typeof renderCheckoutSummary === 'function') renderCheckoutSummary();
+    if(typeof loadCustomerData === 'function') loadCustomerData();
+    window.deliveryQuote = {distanceKm:null,charge:0,ready:false,source:'',error:false,message:''};
+    setFallbackDelivery();
+    showCheckout();
+    window.autoCalculateDeliveryCharge();
+  };
+
+  // Place Order: never show the old "calculate delivery first" error.
+  const basePlaceOrder = window.placeOrder;
+  window.placeOrder = async function(){
+    if(!window.deliveryQuote?.ready){
+      setFallbackDelivery();
+    }
+    deliveryLocked = true;
+    try{
+      if(typeof basePlaceOrder === 'function') return await basePlaceOrder.apply(this,arguments);
+    }finally{
+      // basePlaceOrder will call finishSuccessfulOrder on success. If it failed
+      // before that, keep the checkout session intact and let the user retry.
+      if(checkoutOpen && !byId('orderSuccess')?.classList.contains('open')) deliveryLocked = false;
+    }
+  };
+
+  // Successful cart order clears the entire cart; single Buy restores the old cart.
+  window.finishSuccessfulOrder = function(orderId){
+    hideCheckout();
+    const success = byId('orderSuccess');
+    if(success) success.classList.add('open');
+    const sid = byId('successOrderId');
+    if(sid) sid.innerText = orderId || '';
+
+    if(checkoutMode === 'single' && checkoutBackup){
+      cart = cloneItems(checkoutBackup);
+      if(typeof saveCart === 'function') saveCart();
+      if(typeof updateCart === 'function') updateCart();
+    }else{
+      cart = [];
+      if(typeof saveCart === 'function') saveCart();
+      if(typeof updateCart === 'function') updateCart();
+    }
+    checkoutBackup = null;
+    checkoutMode = 'cart';
+    checkoutOpen = false;
+    deliveryLocked = false;
+    if(window.currentUser && typeof loadMyOrders === 'function') loadMyOrders();
+  };
+
+  // Closing/cancelling single checkout restores the customer's existing cart.
+  window.closeCheckout = function(){
+    hideCheckout();
+    if(checkoutMode === 'single' && checkoutBackup){
+      restoreBackup();
+    }else{
+      checkoutMode = 'cart';
+      checkoutBackup = null;
+      deliveryLocked = false;
+    }
+    const success = byId('orderSuccess');
+    if(success) success.classList.remove('open');
+    const form = byId('checkoutFormArea');
+    if(form) form.style.display='';
+  };
+
+  // When delivery fields change, reset to a safe automatic fallback immediately,
+  // then refresh exact distance silently.
+  document.addEventListener('input',function(e){
+    if(!['customerAddress','customerCity','customerPin'].includes(e.target?.id)) return;
+    if(!checkoutOpen) return;
+    deliveryLocked = false;
+    clearTimeout(window._mmsStableDeliveryTimer);
+    setFallbackDelivery();
+    window._mmsStableDeliveryTimer = setTimeout(function(){ window.autoCalculateDeliveryCharge(); },350);
+  });
+
+  // Ensure checkout button is wired to full-cart checkout even if older markup survives.
+  document.addEventListener('DOMContentLoaded',function(){
+    const btn = document.querySelector('#cartPanel button.checkout');
+    if(btn) btn.setAttribute('onclick','openCartCheckout()');
+  });
+
+})();
+</script>
+
 
 </body>
 </html>
