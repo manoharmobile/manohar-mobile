@@ -7256,3 +7256,201 @@ document.addEventListener("keydown",function(event){
 
 </body>
 </html>
+
+<!-- FINAL TARGETED FIXES: customer orders, search autofill, payment gate, permanent admin delete -->
+<style id="mms-final-targeted-fixes">
+#mmsPaymentUtrWrap{margin-top:10px;padding:10px;border:1px solid #e5e7eb;border-radius:12px;background:#fafafa}
+#mmsPaymentUtrWrap label{display:block;font-weight:800;margin-bottom:6px}
+#mmsPaymentUtr{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #d1d5db;border-radius:10px;font-size:14px}
+#mmsPaymentGateHint{font-size:12px;color:#64748b;margin-top:6px;line-height:1.4}
+#mmsFinalPlaceOrder[disabled], #mmsFinalPaymentContinue[disabled]{opacity:.5;cursor:not-allowed}
+.mms-customer-load-error{padding:14px;border-radius:12px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+</style>
+<script>
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id);
+
+  /* 1) Search box must never show/login autofill email by itself. */
+  function cleanSearchAutofill(){
+    ['searchBox','mainMobileSearch','uvGlassSearchBox'].forEach(function(id){
+      const el=$(id); if(!el) return;
+      el.setAttribute('autocomplete','off');
+      el.setAttribute('autocapitalize','none');
+      el.setAttribute('spellcheck','false');
+      el.setAttribute('name','mms-search-'+id);
+      if(/^[^\s@]+@gmail\.com$/i.test((el.value||'').trim())) el.value='';
+    });
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    cleanSearchAutofill();
+    setTimeout(cleanSearchAutofill,500);
+    setTimeout(cleanSearchAutofill,1500);
+  });
+
+  /* 2) Customer My Orders: refresh auth session first and show the real error instead of an endless loader. */
+  window.loadMyOrders=async function(){
+    const box=$('myOrdersList'); if(!box) return;
+    box.innerHTML='<div class="admin-empty">Orders load ho rahe hain...</div>';
+    try{
+      if(!window.storeCloudReady || !window.supabaseClient){
+        if(!window.currentUser){box.innerHTML='<p class="checkout-note">Login karke orders dekhein.</p>';return;}
+        const local=JSON.parse(localStorage.getItem('manohar_orders')||'[]').filter(o=>o.customer_id===window.currentUser.id);
+        if(typeof window.renderOrders==='function') window.renderOrders(local); else box.innerHTML='<div class="admin-empty">Abhi koi order nahi hai.</div>';
+        return;
+      }
+      const sessionRes=await window.supabaseClient.auth.getSession();
+      const sessionUser=sessionRes?.data?.session?.user||null;
+      if(sessionUser) window.currentUser=sessionUser;
+      if(!window.currentUser){box.innerHTML='<p class="checkout-note">Login karke orders dekhein.</p>';return;}
+      const {data,error}=await window.supabaseClient.from('orders').select('*').eq('customer_id',window.currentUser.id).order('created_at',{ascending:false});
+      if(error){
+        console.error('Customer orders load error:',error);
+        box.innerHTML='<div class="mms-customer-load-error"><b>Orders load nahi ho pa rahe.</b><br><small>'+escapeHtml(String(error.message||'Database error'))+'</small><br><button type="button" class="secondary-account-btn" style="margin-top:9px" onclick="loadMyOrders()">↻ Retry</button></div>';
+        return;
+      }
+      if(typeof window.renderOrders==='function') window.renderOrders(data||[]);
+      else box.innerHTML='<div class="admin-empty">Abhi koi order nahi hai.</div>';
+    }catch(err){
+      console.error('Customer My Orders error:',err);
+      box.innerHTML='<div class="mms-customer-load-error"><b>Orders load nahi ho pa rahe.</b><br><small>'+escapeHtml(String(err?.message||err||'Unknown error'))+'</small><br><button type="button" class="secondary-account-btn" style="margin-top:9px" onclick="loadMyOrders()">↻ Retry</button></div>';
+    }
+  };
+
+  /* 3) Stronger payment gate: UTR/transaction reference + payment confirmation are required. */
+  function setupPaymentGate(){
+    const confirmBox=$('upiPaymentConfirmation');
+    if(!confirmBox || confirmBox.dataset.mmsFixed==='1') return;
+    confirmBox.dataset.mmsFixed='1';
+    const check=$('upiPaymentDoneCheck');
+    const oldBtn=$('upiContinueOrderBtn');
+    if(!check || !oldBtn) return;
+    let wrap=$('mmsPaymentUtrWrap');
+    if(!wrap){
+      wrap=document.createElement('div');
+      wrap.id='mmsPaymentUtrWrap';
+      wrap.innerHTML='<label for="mmsPaymentUtr">UPI Transaction ID / UTR *</label><input id="mmsPaymentUtr" type="text" inputmode="text" autocomplete="off" placeholder="Payment ke baad UTR / Transaction ID yahan likhein"><div id="mmsPaymentGateHint">Payment complete karne ke baad UTR/Transaction ID enter karein. Uske baad hi order submit hoga.</div>';
+      check.closest('label')?.before(wrap);
+    }
+    oldBtn.id='mmsFinalPaymentContinue';
+    function refresh(){
+      const utr=($('mmsPaymentUtr')?.value||'').trim();
+      oldBtn.disabled=!(check.checked && utr.length>=6 && window.mmsUpiPaymentLaunched===true);
+    }
+    check.addEventListener('change',refresh);
+    $('mmsPaymentUtr')?.addEventListener('input',refresh);
+    window.mmsRefreshPaymentGate=refresh;
+    refresh();
+  }
+
+  const oldPay=window.payWithUPIApp;
+  window.payWithUPIApp=function(app){
+    const r=oldPay?.apply(this,arguments);
+    setTimeout(function(){setupPaymentGate();window.mmsRefreshPaymentGate?.()},50);
+    return r;
+  };
+
+  const oldUpdateLink=window.updateUpiPayLink;
+  window.updateUpiPayLink=function(){
+    const r=oldUpdateLink?.apply(this,arguments);
+    setTimeout(function(){setupPaymentGate();window.mmsRefreshPaymentGate?.()},30);
+    return r;
+  };
+
+  window.confirmUpiPaymentAndContinue=function(){
+    setupPaymentGate();
+    const check=$('upiPaymentDoneCheck');
+    const utr=($('mmsPaymentUtr')?.value||'').trim();
+    if(!window.mmsUpiPaymentLaunched){alert('Pehle exact amount ka payment Google Pay, PhonePe ya Any UPI App se complete karein.');return;}
+    if(!utr || utr.length<6){alert('Payment ke baad UPI Transaction ID / UTR enter karein.');$('mmsPaymentUtr')?.focus();return;}
+    if(!check?.checked){alert('Payment complete hone ki confirmation select karein.');return;}
+    window.mmsUpiPaymentConfirmed=true;
+    window.mmsUpiTransactionId=utr;
+    if(window.checkoutStep!==2) window.checkoutStep=2;
+    /* Directly call the final order function; no earlier legacy placeOrder path. */
+    if(typeof window.placeOrder==='function') return window.placeOrder();
+  };
+
+  /* Disable the generic Place Order button until the payment gate is satisfied. */
+  function setupPlaceButton(){
+    const btns=document.querySelectorAll('#checkoutFormArea .place-order-btn');
+    btns.forEach(function(btn){
+      if(btn.id==='mmsFinalPaymentContinue') return;
+      if(btn.dataset.mmsPlaceFixed==='1') return;
+      if((btn.textContent||'').toLowerCase().includes('place order')){
+        btn.dataset.mmsPlaceFixed='1';
+        btn.id='mmsFinalPlaceOrder';
+        btn.disabled=true;
+        btn.title='Payment complete karke UTR enter karne ke baad hi order submit hoga.';
+        btn.onclick=function(){window.confirmUpiPaymentAndContinue();};
+      }
+    });
+  }
+  function refreshAllPaymentButtons(){
+    setupPaymentGate(); setupPlaceButton();
+    const ready=!!window.mmsUpiPaymentLaunched && !!window.mmsUpiPaymentConfirmed && (($('mmsPaymentUtr')?.value||'').trim().length>=6) && !!$('upiPaymentDoneCheck')?.checked;
+    const main=$('mmsFinalPlaceOrder'); if(main) main.disabled=!ready;
+    const cont=$('mmsFinalPaymentContinue'); if(cont) cont.disabled=!ready;
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(refreshAllPaymentButtons,100);
+    setTimeout(refreshAllPaymentButtons,500);
+    setTimeout(refreshAllPaymentButtons,1200);
+    document.addEventListener('input',function(e){if(e.target?.id==='mmsPaymentUtr')refreshAllPaymentButtons()});
+    document.addEventListener('change',function(e){if(e.target?.id==='upiPaymentDoneCheck')refreshAllPaymentButtons()});
+  });
+
+  /* When payment app is opened, reset the final gate. */
+  const oldPay2=window.payWithUPIApp;
+  window.payWithUPIApp=function(app){
+    window.mmsUpiPaymentConfirmed=false;
+    window.mmsUpiTransactionId='';
+    const r=oldPay2?.apply(this,arguments);
+    setTimeout(function(){setupPaymentGate();refreshAllPaymentButtons()},80);
+    return r;
+  };
+
+  /* Ensure the final order insert carries the entered UTR. */
+  const oldPlace=window.placeOrder;
+  window.placeOrder=async function(){
+    if(!window.mmsUpiPaymentConfirmed){alert('Payment complete hone ke baad hi order submit hoga.');return;}
+    const utr=($('mmsPaymentUtr')?.value||window.mmsUpiTransactionId||'').trim();
+    if(utr.length<6){alert('UPI Transaction ID / UTR required hai.');return;}
+    window.mmsUpiTransactionId=utr;
+    /* The existing final placeOrder reads the payment state; temporarily ensure its UTR field is available. */
+    const existing=$('upiUtr');
+    if(existing) existing.value=utr;
+    const r=await oldPlace?.apply(this,arguments);
+    return r;
+  };
+
+  /* 4) Permanent delete is available on every admin order card, including History. */
+  window.deleteAdminOrder=async function(orderId){
+    if(window.currentUserRole!=='admin'||!window.storeCloudReady){alert('Admin access nahi hai.');return;}
+    if(!orderId)return;
+    if(!confirm('Order '+orderId+' ko PERMANENTLY DELETE karna hai? Ye wapas restore nahi hoga.'))return;
+    const {error}=await window.supabaseClient.from('orders').delete().eq('order_id',orderId);
+    if(error){alert('Permanent delete nahi hua: '+error.message+'\n\nSupabase me Admin DELETE RLS policy enabled honi chahiye.');return;}
+    await window.loadAdminOrders?.();
+  };
+  function addDeleteButtonsEverywhere(){
+    document.querySelectorAll('#adminOrdersList .admin-order-card').forEach(function(card){
+      const id=card.getAttribute('data-order-id'); if(!id)return;
+      let actions=card.querySelector('.admin-order-actions');
+      if(!actions){actions=document.createElement('div');actions.className='admin-order-actions';card.appendChild(actions);}
+      if(actions.querySelector('.mms-admin-permanent-delete'))return;
+      const b=document.createElement('button');b.type='button';b.className='mms-admin-delete mms-admin-permanent-delete';b.textContent='🗑️ Permanent Delete';b.onclick=function(){window.deleteAdminOrder(id)};actions.appendChild(b);
+    });
+  }
+  const oldRenderAdmin=window.renderAdminOrders;
+  window.renderAdminOrders=function(){const r=oldRenderAdmin?.apply(this,arguments);setTimeout(addDeleteButtonsEverywhere,30);return r;};
+  const oldLoadAdmin=window.loadAdminOrders;
+  window.loadAdminOrders=async function(){const r=await oldLoadAdmin?.apply(this,arguments);setTimeout(addDeleteButtonsEverywhere,80);return r;};
+
+  /* Re-run after checkout opens because the checkout DOM is reused. */
+  ['openCheckout','openCartCheckout','buyNow'].forEach(function(fn){
+    const old=window[fn]; if(typeof old!=='function')return;
+    window[fn]=function(){const r=old.apply(this,arguments);setTimeout(function(){setupPaymentGate();setupPlaceButton();refreshAllPaymentButtons()},100);return r;};
+  });
+})();
+</script>
