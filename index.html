@@ -7533,3 +7533,67 @@ document.addEventListener("keydown",function(event){
 })();
 
 </script>
+
+<!-- MMS payment UTR visibility and continue-button fix -->
+<script id="mms-payment-utr-button-final-fix">
+(function(){
+  'use strict';
+  function $(id){return document.getElementById(id)}
+  function ensureUtr(){
+    var box=$('upiPaymentConfirmation');
+    if(!box)return;
+    var check=$('upiPaymentDoneCheck');
+    var wrap=$('mmsPaymentUtrWrap');
+    if(!wrap){
+      wrap=document.createElement('div');wrap.id='mmsPaymentUtrWrap';
+      wrap.style.cssText='display:block;margin:12px 0;padding:12px;border:1px solid #d7dce2;border-radius:12px;background:#fff';
+      wrap.innerHTML='<label for="mmsPaymentUtr" style="display:block;font-weight:700;margin-bottom:6px">UPI Transaction ID / UTR *</label><input id="mmsPaymentUtr" type="text" inputmode="text" autocomplete="off" placeholder="Payment karne ke baad UTR / Transaction ID daalein" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #bbb;border-radius:8px;font-size:16px"><small style="display:block;margin-top:6px">QR se payment karne ke baad apne UPI app ki transaction details se UTR yahan likhein.</small>';
+      if(check && check.closest('label')) check.closest('label').before(wrap); else box.prepend(wrap);
+    }
+    wrap.style.display='block';
+    box.style.display='block';
+    var btn=$('upiContinueOrderBtn')||$('mmsFinalPaymentContinue')||$('mmsFinalPlaceOrder');
+    if(btn){btn.style.opacity='1';btn.style.filter='none';btn.style.cursor='pointer';btn.disabled=false;btn.removeAttribute('aria-disabled');}
+    refresh();
+  }
+  function refresh(){
+    var utr=($('mmsPaymentUtr')&&$('mmsPaymentUtr').value||'').trim();
+    var check=$('upiPaymentDoneCheck');
+    var btn=$('upiContinueOrderBtn')||$('mmsFinalPaymentContinue')||$('mmsFinalPlaceOrder');
+    var launched=window.mmsUpiPaymentLaunched===true;
+    var ready=launched && utr.length>=6 && !!(check&&check.checked);
+    if(btn){btn.disabled=!ready;btn.style.opacity=ready?'1':'.55';btn.style.filter='none';btn.style.cursor=ready?'pointer':'not-allowed';}
+    window.mmsRefreshPaymentGate=refresh;
+    return ready;
+  }
+  // Show UTR immediately when payment panel/QR is opened, not only after tapping an app button.
+  function watch(){
+    var panel=$('upiPaymentPanel'),confirm=$('upiPaymentConfirmation'),img=$('shopUpiQr');
+    if(panel && getComputedStyle(panel).display!=='none'){
+      ensureUtr();
+      if(img && img.style.display!=='none') window.mmsUpiPaymentLaunched=true;
+    }
+    if(confirm && confirm.style.display!=='none')ensureUtr();
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    watch();setTimeout(watch,250);setTimeout(watch,800);setTimeout(watch,1600);
+    document.addEventListener('input',function(e){if(e.target&&e.target.id==='mmsPaymentUtr')refresh()});
+    document.addEventListener('change',function(e){if(e.target&&e.target.id==='upiPaymentDoneCheck')refresh()});
+    document.addEventListener('click',function(e){if(e.target.closest('#upiPaymentPanel')||e.target.closest('#shopUpiQr'))setTimeout(watch,50)});
+    setInterval(watch,700);
+  });
+  var previousConfirm=window.confirmUpiPaymentAndContinue;
+  window.confirmUpiPaymentAndContinue=function(){
+    watch();
+    var utr=($('mmsPaymentUtr')&&$('mmsPaymentUtr').value||'').trim();
+    var check=$('upiPaymentDoneCheck');
+    if(!window.mmsUpiPaymentLaunched){alert('Pehle QR scan karke ya UPI app se payment karein.');return}
+    if(utr.length<6){alert('Payment ke baad UTR / Transaction ID daalein.');$('mmsPaymentUtr')&&$('mmsPaymentUtr').focus();return}
+    if(!check||!check.checked){alert('Payment complete hone ki confirmation tick karein.');return}
+    window.mmsUpiPaymentConfirmed=true;window.mmsUpiTransactionId=utr;
+    var legacy=$('upiUtr');if(legacy)legacy.value=utr;
+    if(typeof window.placeOrder==='function')return window.placeOrder();
+    if(typeof previousConfirm==='function')return previousConfirm.apply(this,arguments);
+  };
+})();
+</script>
