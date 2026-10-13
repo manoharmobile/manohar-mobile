@@ -7458,3 +7458,78 @@ document.addEventListener("keydown",function(event){
   });
 })();
 </script>
+
+<script id="mms-exact-amount-dynamic-qr-fix">
+(function(){
+  'use strict';
+  function el(id){return document.getElementById(id)}
+  function money(n){return '₹'+Number(n||0).toFixed(2).replace(/\.00$/,'')}
+  function total(){
+    var subtotal=0;
+    try {
+      if(typeof window.getProductSubtotal==='function') subtotal=Number(window.getProductSubtotal())||0;
+      else if(Array.isArray(window.cart)) subtotal=window.cart.reduce(function(s,x){return s+(Number(x.price)||0)*(Number(x.quantity)||1)},0);
+    } catch(e){}
+    var delivery=Number(window.deliveryQuote&&window.deliveryQuote.charge)||0;
+    return Math.max(0,subtotal+delivery);
+  }
+  function makeUri(amount){
+    var cfg=window.APP_CONFIG||{};
+    var pa=String(cfg.UPI_ID||'').trim();
+    var pn=String(cfg.UPI_NAME||'MANOHAR MOBILE SHOP').trim();
+    if(!pa || pa==='YOUR-UPI-ID@BANK') return '';
+    var q=new URLSearchParams();
+    q.set('pa',pa); q.set('pn',pn);
+    q.set('tr',String(window.pendingOrderId||('MMS'+Date.now().toString().slice(-8))));
+    q.set('tn','MANOHAR MOBILE SHOP Order');
+    q.set('am',Number(amount).toFixed(2)); q.set('cu','INR');
+    return 'upi://pay?'+q.toString();
+  }
+  window.mmsRefreshExactPaymentAmount=function(){
+    var amount=total(), uri=makeUri(amount);
+    var a=el('upiPayAmount'),b=el('upiQrAmount');
+    if(a)a.textContent=money(amount); if(b)b.textContent=money(amount);
+    var subtotal=0;
+    try{subtotal=Number(window.getProductSubtotal())||0}catch(e){}
+    if(el('checkoutProductSubtotal'))el('checkoutProductSubtotal').textContent=money(subtotal);
+    if(el('checkoutDeliveryCharge'))el('checkoutDeliveryCharge').textContent=money(Number(window.deliveryQuote&&window.deliveryQuote.charge)||0);
+    if(el('checkoutGrandTotal'))el('checkoutGrandTotal').textContent=money(amount);
+    var img=el('shopUpiQr');
+    if(img && uri){
+      // Never fall back to the shop's static QR: it may encode a different amount.
+      img.onerror=function(){this.onerror=null;this.style.display='none';var msg=el('mmsQrError');if(!msg){msg=document.createElement('p');msg.id='mmsQrError';msg.style.cssText='color:#b42318;font-weight:600;text-align:center';this.insertAdjacentElement('afterend',msg)}msg.textContent='Dynamic QR load nahi hua. Neeche UPI app button use karein; amount '+money(amount)+' hai.';};
+      img.style.display='block';
+      img.src='https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data='+encodeURIComponent(uri)+'&t='+Date.now();
+      var msg=el('mmsQrError');if(msg)msg.remove();
+    } else if(img){
+      img.style.display='none';
+      var parent=img.parentElement;
+      if(parent&&!el('mmsQrConfigError')){var m=document.createElement('p');m.id='mmsQrConfigError';m.style.cssText='color:#b42318;font-weight:600;text-align:center';m.textContent='APP_CONFIG.js me sahi UPI_ID set karein. Static QR ko amount-confirmed QR nahi maana jayega.';parent.appendChild(m)}
+    }
+    return {amount:amount,uri:uri};
+  };
+  window.updateUpiPayLink=window.mmsRefreshExactPaymentAmount;
+  var oldPay=window.payWithUPIApp;
+  window.payWithUPIApp=function(app){
+    var p=window.mmsRefreshExactPaymentAmount();
+    if(!(p.amount>0)){alert('Product aur delivery ka final amount calculate nahi hua.');return;}
+    if(!p.uri){alert('Supabase config se alag app-config.js me valid UPI_ID set karein.');return;}
+    window.pendingOrderId=window.pendingOrderId||('MMS'+Date.now().toString().slice(-8));
+    var q=p.uri.split('?')[1]||'';
+    var android=/Android/i.test(navigator.userAgent),target=p.uri;
+    if(app==='gpay')target=android?'intent://pay?'+q+'#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end':'gpay://upi/pay?'+q;
+    else if(app==='phonepe')target=android?'intent://pay?'+q+'#Intent;scheme=upi;package=com.phonepe.app;end':'phonepe://upi/pay?'+q;
+    window.mmsUpiPaymentLaunched=true;window.mmsUpiPaymentConfirmed=false;
+    var done=el('upiPaymentDoneCheck'),btn=el('upiContinueOrderBtn');if(done)done.checked=false;if(btn)btn.disabled=true;
+    var confirmBox=el('upiPaymentConfirmation');if(confirmBox)confirmBox.style.display='block';
+    try{window.location.href=target}catch(e){window.location.href=p.uri}
+  };
+  document.addEventListener('DOMContentLoaded',function(){
+    window.mmsRefreshExactPaymentAmount();
+    ['customerPin','customerAddress','customerCity'].forEach(function(id){var x=el(id);if(x)x.addEventListener('change',function(){setTimeout(window.mmsRefreshExactPaymentAmount,100)})});
+    document.addEventListener('click',function(e){if(e.target.closest('#checkoutOverlay')||e.target.closest('#cartOverlay'))setTimeout(window.mmsRefreshExactPaymentAmount,100)});
+    setInterval(function(){if(el('checkoutOverlay')&&getComputedStyle(el('checkoutOverlay')).display!=='none')window.mmsRefreshExactPaymentAmount()},1500);
+  });
+})();
+
+</script>
