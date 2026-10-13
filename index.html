@@ -6227,6 +6227,8 @@ document.addEventListener("keydown",function(event){
   function metaString(meta){return JSON.stringify(meta||{});}
 
   function escapeForAttr(v){return String(v??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  /* Export the attribute escaper for the customer-order renderer in later script blocks. */
+  window.escapeForAttr = escapeForAttr;
 
   async function getCurrentRole(){
     if(!window.currentUser || !window.storeCloudReady) return "customer";
@@ -6630,15 +6632,15 @@ document.addEventListener("keydown",function(event){
   window.showCustomerOrderSubtab=function(tab){window.customerOrderView=tab;$("customerActiveOrdersBtn")?.classList.toggle("active",tab==='active');$("customerHistoryOrdersBtn")?.classList.toggle("active",tab==='history');$("customerOrderHeading")&&( $("customerOrderHeading").textContent=tab==='history'?"🗂️ Order History":"📦 My Orders & Tracking");window.loadMyOrders();};
   function customerCancelReasonsHtml(o){
     const m=parseM(o.admin_note),r=m.refund||{};if(!customerCanCancel(o))return '';
-    const id=escapeForAttr(o.order_id),safeId=String(o.order_id).replace(/'/g,"\\'");
+    const id=window.escapeForAttr(o.order_id),safeId=String(o.order_id).replace(/'/g,"\\'");
     return '<div class="customer-cancel-area">'+
       '<h4>Request Order Cancellation</h4>'+
       '<p class="checkout-note">Cancellation is available only before shipment. Please select a reason and provide the preferred refund destination.</p>'+
       '<div class="checkout-field"><label>Reason for cancellation *</label><select id="cancelReason_'+id+'"><option value="">Select a reason</option><option value="Ordered by mistake">Ordered by mistake</option><option value="Need to change product/model">Need to change product/model</option><option value="Delivery issue">Delivery issue</option><option value="Payment issue">Payment issue</option><option value="No longer required">No longer required</option><option value="Other">Other</option></select></div>'+
-      '<div class="checkout-row"><div class="checkout-field"><label>Refund method *</label><select id="cancelRefundMode_'+id+'"><option value="upi">UPI</option><option value="bank">Bank Account</option></select></div><div class="checkout-field"><label>Mobile number</label><input value="'+escapeForAttr(o.customer_phone||'')+'" readonly></div></div>'+
-      '<div class="checkout-field"><label>UPI ID (for UPI refund)</label><input id="cancelRefundUpi_'+id+'" value="'+escapeForAttr(r.upi_id||'')+'" placeholder="example@upi"></div>'+
-      '<div class="checkout-row"><div class="checkout-field"><label>Account holder name</label><input id="cancelRefundHolder_'+id+'" value="'+escapeForAttr(r.account_holder||'')+'"></div><div class="checkout-field"><label>Account number</label><input id="cancelRefundAccount_'+id+'" value="'+escapeForAttr(r.account_number||'')+'"></div></div>'+
-      '<div class="checkout-field"><label>IFSC (for bank refund)</label><input id="cancelRefundIfsc_'+id+'" value="'+escapeForAttr(r.ifsc||'')+'"></div>'+
+      '<div class="checkout-row"><div class="checkout-field"><label>Refund method *</label><select id="cancelRefundMode_'+id+'"><option value="upi">UPI</option><option value="bank">Bank Account</option></select></div><div class="checkout-field"><label>Mobile number</label><input value="'+window.escapeForAttr(o.customer_phone||'')+'" readonly></div></div>'+
+      '<div class="checkout-field"><label>UPI ID (for UPI refund)</label><input id="cancelRefundUpi_'+id+'" value="'+window.escapeForAttr(r.upi_id||'')+'" placeholder="example@upi"></div>'+
+      '<div class="checkout-row"><div class="checkout-field"><label>Account holder name</label><input id="cancelRefundHolder_'+id+'" value="'+window.escapeForAttr(r.account_holder||'')+'"></div><div class="checkout-field"><label>Account number</label><input id="cancelRefundAccount_'+id+'" value="'+window.escapeForAttr(r.account_number||'')+'"></div></div>'+
+      '<div class="checkout-field"><label>IFSC (for bank refund)</label><input id="cancelRefundIfsc_'+id+'" value="'+window.escapeForAttr(r.ifsc||'')+'"></div>'+
       '<label class="account-consent"><input id="cancelAcknowledge_'+id+'" type="checkbox"> <span>I understand that cancellation becomes final after submission and the refund will be processed to the selected details, subject to applicable payment/banking timelines.</span></label>'+
       '<button class="customer-cancel-confirm-btn" type="button" onclick="cancelCustomerOrder(\''+safeId+'\')">Submit Cancellation Request</button></div>';
   }
@@ -6658,7 +6660,7 @@ document.addEventListener("keydown",function(event){
     const steps=['New','Confirmed','Packed','Shipped','Out for Delivery','Delivered'];
     box.innerHTML=list.map(o=>{
       const status=o.status||'New',idx=Math.max(0,steps.indexOf(status)),meta=parseM(o.admin_note),delivery=meta.delivery||{},refund=meta.refund||{},items=Array.isArray(o.items)?o.items:[];
-      const itemsHtml=items.map(it=>'<div class="customer-detail-item"><div class="customer-detail-thumb">'+(it.image?'<img src="'+escapeForAttr(it.image)+'" alt="'+escapeForAttr(it.name)+'">':'📱')+'</div><div><b>'+esc(it.name)+'</b><div>Company: '+esc(it.company||'-')+' • Qty: '+Number(it.quantity||1)+'</div><div>Unit price: '+money2(Number(it.price||0))+'</div></div><strong>'+money2(Number(it.price||0)*Number(it.quantity||1))+'</strong></div>').join('');
+      const itemsHtml=items.map(it=>'<div class="customer-detail-item"><div class="customer-detail-thumb">'+(it.image?'<img src="'+window.escapeForAttr(it.image)+'" alt="'+window.escapeForAttr(it.name)+'">':'📱')+'</div><div><b>'+esc(it.name)+'</b><div>Company: '+esc(it.company||'-')+' • Qty: '+Number(it.quantity||1)+'</div><div>Unit price: '+money2(Number(it.price||0))+'</div></div><strong>'+money2(Number(it.price||0)*Number(it.quantity||1))+'</strong></div>').join('');
       const progress=status!=='Cancelled'?'<div class="order-progress">'+steps.map((st,i)=>'<div class="order-step '+(i<=idx?'done':'')+'">'+esc(st)+'</div>').join('')+'</div>':'';
       const cancelArea=window.customerOrderView==='active'&&customerCanCancel(o)?customerCancelReasonsHtml(o):'';
       const refundNotice=status==='Cancelled'?'<div class="customer-refund-notice">💸 <b>Refund update:</b> Your cancellation has been recorded. Refund processing will follow the selected refund details and applicable payment/banking timelines.'+(refund.status?' Current refund status: '+esc(refund.status)+'.':'')+'</div>':'';
