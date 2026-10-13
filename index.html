@@ -7137,7 +7137,11 @@ document.addEventListener("keydown",function(event){
 
   /* Fix the missing total helpers used by the existing payment runtime. */
   window.getProductSubtotal=function(){
-    return (Array.isArray(window.cart)?window.cart:[]).reduce(function(s,it){var p=Number(it&&it.price);return s+(Number.isFinite(p)?p*Number(it.quantity||1):0)},0);
+    /* The shop's real cart is the top-level lexical `cart`, not window.cart. */
+    var items=[];
+    try { if (typeof cart !== 'undefined' && Array.isArray(cart)) items=cart; else if (Array.isArray(window.cart)) items=window.cart; } catch(e) { items=Array.isArray(window.cart)?window.cart:[]; }
+    window.cart=items;
+    return items.reduce(function(s,it){var p=Number(it&&it.price),q=Number(it&&it.quantity||1);return s+(Number.isFinite(p)&&Number.isFinite(q)?p*q:0)},0);
   };
   window.getGrandTotal=function(){return window.getProductSubtotal()+Number(window.deliveryQuote&&window.deliveryQuote.charge||0)};
 
