@@ -7597,3 +7597,56 @@ document.addEventListener("keydown",function(event){
   };
 })();
 </script>
+
+<!-- Final cleanup: hide refund/cash-back controls and irrelevant refund details in admin -->
+<style id="mms-admin-cleanup-no-refund">
+.admin-refund-box,.admin-refund-grid,.admin-refund-box h4{display:none!important}
+</style>
+<script id="mms-customer-orders-final-retry-fix">
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id);
+  function escText(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  window.loadMyOrders=async function(){
+    const box=$('myOrdersList'); if(!box)return;
+    box.innerHTML='<div class="admin-empty">Aapke orders load ho rahe hain…</div>';
+    try{
+      const client=window.supabaseClient;
+      if(!client || !window.storeCloudReady){
+        if(!window.currentUser){box.innerHTML='<div class="admin-empty">Orders dekhne ke liye pehle login karein.</div>';return;}
+        const local=JSON.parse(localStorage.getItem('manohar_orders')||'[]').filter(o=>o.customer_id===window.currentUser.id);
+        if(typeof window.renderOrders==='function')window.renderOrders(local);else box.innerHTML='<div class="admin-empty">Abhi koi order nahi mila.</div>';
+        return;
+      }
+      const sr=await client.auth.getSession();
+      let user=sr?.data?.session?.user||window.currentUser;
+      if(!user){const ur=await client.auth.getUser();user=ur?.data?.user||null;}
+      if(!user){box.innerHTML='<div class="admin-empty">Orders dekhne ke liye apne customer account me login karein.</div>';return;}
+      window.currentUser=user;
+      const result=await client.from('orders').select('*').eq('customer_id',user.id).order('created_at',{ascending:false});
+      if(result.error){
+        console.error('Customer orders query failed:',result.error);
+        const msg=String(result.error.message||'');
+        const hint=/permission|policy|row.level|not allowed|403/i.test(msg)
+          ?'Supabase me orders table ki customer SELECT RLS policy missing/incorrect ho sakti hai. Neeche diya SQL Supabase SQL Editor me run karein.'
+          :'Supabase query fail hui. Error detail aur SQL Editor check karein.';
+        box.innerHTML='<div class="mms-customer-load-error"><b>Orders load nahi ho pa rahe.</b><br><small>'+escText(msg)+'</small><p style="font-size:12px;line-height:1.5">'+hint+'</p><button type="button" class="secondary-account-btn" style="margin-top:8px" onclick="loadMyOrders()">↻ Dobara try karein</button></div>';
+        return;
+      }
+      if(typeof window.renderOrders==='function')window.renderOrders(result.data||[]);
+      else box.innerHTML='<div class="admin-empty">Order list display function nahi mili. Page refresh karein.</div>';
+    }catch(err){
+      console.error('Customer orders load exception:',err);
+      box.innerHTML='<div class="mms-customer-load-error"><b>Orders load nahi ho pa rahe.</b><br><small>'+escText(err?.message||err||'Unknown error')+'</small><br><button type="button" class="secondary-account-btn" style="margin-top:8px" onclick="loadMyOrders()">↻ Dobara try karein</button></div>';
+    }
+  };
+  document.addEventListener('DOMContentLoaded',function(){
+    // Remove refund-related customer banking details from admin order cards.
+    document.querySelectorAll('.admin-detail-box').forEach(function(box){
+      if(/Customer Details/.test(box.textContent)){
+        box.querySelectorAll('.admin-info-line').forEach(function(line){if(/Refund UPI|Bank Holder|Bank Account|IFSC/i.test(line.textContent))line.remove();});
+      }
+    });
+  });
+})();
+</script>
