@@ -1415,61 +1415,6 @@ img{max-width:100%;}
     .hero-navigation{gap:7px;}
     .hero-navigation .flip-nav summary,.hero-navigation .accessory-nav summary,.hero-navigation .uv-nav summary{padding:9px 11px;font-size:11px;}
 }
-
-/* MANOHAR unified catalogue and responsive product-card repair */
-.hero-navigation .flip-nav,
-.hero-navigation .accessory-nav,
-.hero-navigation .uv-nav,
-.hero-navigation .secondary-btn { display:none !important; }
-.mms-catalog { padding:36px 4% 52px; background:linear-gradient(145deg,#f7f8ff,#f2fbff 55%,#fff7fb); }
-.mms-catalog-inner { max-width:1400px; margin:auto; }
-.mms-catalog-head { text-align:center; margin:0 auto 22px; max-width:820px; }
-.mms-catalog-head .eyebrow { display:inline-block; border-radius:30px; padding:7px 13px; background:#ecebff; color:#5447c9; font-size:11px; font-weight:800; letter-spacing:1px; }
-.mms-catalog-head h2 { color:#1b2340; font-size:clamp(26px,3.5vw,38px); margin:12px 0 7px; }
-.mms-catalog-head p { color:#667085; margin:0; }
-.mms-catalog-tools { background:linear-gradient(120deg,#fff,#f4f3ff,#effcff); border:1px solid #e5e6f3; border-radius:20px; padding:18px; box-shadow:0 10px 28px #27316b12; margin:0 auto 22px; }
-#mmsSearch { width:min(760px,100%); display:block; height:52px; margin:0 auto 15px; padding:0 16px; border:1px solid #d8dced; border-radius:14px; background:#fff; color:#1d263b; font-size:15px; outline:none; }
-#mmsSearch:focus { border-color:#7164df; box-shadow:0 0 0 3px #7164df20; }
-.mms-filter-row { display:flex; flex-wrap:wrap; gap:9px; justify-content:center; }
-.mms-filter { border:1px solid #e1e3ef; border-radius:12px; background:#fff; padding:10px 15px; color:#39435a; font-weight:800; cursor:pointer; }
-.mms-filter.active { background:linear-gradient(110deg,#5748d4,#9b4cce,#e6509d); color:#fff; border-color:transparent; }
-#mmsCount { display:block; text-align:center; color:#667085; font-size:12px; margin-top:13px; }
-#mmsProducts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; align-items:stretch; }
-#mmsProducts > .mms-card { display:flex!important; flex-direction:column!important; min-width:0; height:100%; background:#fff; border:1px solid #e8eaf2; border-radius:17px; overflow:hidden; box-shadow:0 6px 20px #1c285010; }
-#mmsProducts .mms-card-image { height:190px; min-height:190px; display:flex; align-items:center; justify-content:center; background:#f6f7fc; overflow:hidden; }
-#mmsProducts .mms-card-image img { width:100%; height:100%; object-fit:contain; padding:8px; }
-#mmsProducts .mms-card-body { padding:12px; display:flex; flex:1; flex-direction:column; gap:7px; min-width:0; }
-#mmsProducts .mms-card-body h3 { font-size:15px; line-height:1.35; overflow-wrap:anywhere; margin:0; }
-#mmsProducts .mms-card-body .mms-brand { color:#6254d5; font-weight:800; font-size:11px; }
-#mmsProducts .mms-card-body .mms-price { margin-top:auto; font-weight:900; font-size:18px; color:#172033; }
-#mmsProducts .mms-card-body .product-actions { display:flex!important; gap:5px!important; width:100%; }
-#mmsProducts .mms-card-body .product-actions button { flex:1 1 0!important; min-width:0!important; padding-left:5px!important; padding-right:5px!important; font-size:11px!important; }
-.mms-preorder { max-width:1150px; margin:35px auto 5px; padding:24px; border-radius:22px; background:linear-gradient(120deg,#fff 0%,#f4f1ff 55%,#edfbff 100%); border:1px solid #e1e2f1; box-shadow:0 12px 30px #27316b12; }
-.mms-preorder h2 { margin:0 0 7px; text-align:center; color:#24234e; }
-.mms-preorder .mms-preorder-intro { text-align:center; color:#667085; margin:0 0 18px; }
-.mms-preorder-form { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.mms-preorder-form input,.mms-preorder-form textarea { width:100%; border:1px solid #dfe2ee; border-radius:11px; padding:12px; background:#fff; font:inherit; box-sizing:border-box; }
-.mms-preorder-form textarea { grid-column:1/-1; min-height:100px; resize:vertical; }
-.mms-preorder-form input[type=file] { padding:9px; }
-.mms-preorder-actions { grid-column:1/-1; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-.mms-preorder-actions button { border:0; border-radius:11px; padding:12px 18px; color:white; background:#25a95b; font-weight:800; cursor:pointer; }
-.mms-preorder-actions button.secondary { background:#5548cf; }
-@media(max-width:1050px){#mmsProducts{grid-template-columns:repeat(3,minmax(0,1fr));}}
-@media(max-width:680px){
- .mms-catalog{padding:28px 12px 40px}
- .mms-catalog-tools{padding:13px}
- .mms-filter-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
- .mms-filter:first-child{grid-column:1/-1}
- #mmsProducts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
- #mmsProducts .mms-card{border-radius:13px}
- #mmsProducts .mms-card-image{height:145px;min-height:145px}
- #mmsProducts .mms-card-body{padding:9px}
- #mmsProducts .mms-card-body h3{font-size:13px}
- #mmsProducts .mms-card-body .product-actions button{font-size:10px!important;padding:8px 2px!important}
- .mms-preorder-form{grid-template-columns:1fr}
- .mms-preorder-form textarea,.mms-preorder-actions{grid-column:1}
-}
-
 </style>
 
 <style id="morbi-charger-layout-fix">
@@ -3110,7 +3055,7 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 </div>
 <div class="uv-product-grid" id="uvGlassProductList"></div>
 </div></details>
-
+<a class="secondary-btn" href="#contact">📞 Contact Us</a>
 </div>
 </div>
 <div class="hero-phone realistic-phone">
@@ -3178,46 +3123,7 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 
     </div>
 
-    
-<section class="mms-catalog" id="all-products">
- <div class="mms-catalog-inner">
-  <div class="mms-catalog-head">
-   <span class="eyebrow">MANOHAR MOBILE SHOP</span>
-   <h2>सभी प्रोडक्ट एक ही जगह</h2>
-   <p>अपना मोबाइल मॉडल या प्रोडक्ट खोजें और श्रेणी के अनुसार फ़िल्टर करें।</p>
-  </div>
-  <div class="mms-catalog-tools">
-   <input id="mmsSearch" type="search" placeholder="प्रोडक्ट, मोबाइल मॉडल या ब्रांड खोजें..." autocomplete="off">
-   <div class="mms-filter-row" id="mmsFilters">
-    <button class="mms-filter active" data-cat="all" type="button">✨ सभी प्रोडक्ट</button>
-    <button class="mms-filter" data-cat="Back Cover" type="button">📱 Back Cover</button>
-    <button class="mms-filter" data-cat="Flip Cover" type="button">🛡️ Flip Cover</button>
-    <button class="mms-filter" data-cat="Accessories" type="button">🎧 Accessories</button>
-    <button class="mms-filter" data-cat="UV Glass" type="button">💎 UV Glass</button>
-   </div>
-   <span id="mmsCount" aria-live="polite"></span>
-  </div>
-  <div id="mmsProducts"></div>
-  <section class="mms-preorder" id="pre-order">
-   <h2>✨ वेबसाइट पर प्रोडक्ट नहीं मिला?</h2>
-   <p class="mms-preorder-intro">अपनी पसंद का प्रोडक्ट मँगवाने के लिए उसकी तस्वीर और जानकारी भेजें।</p>
-   <form class="mms-preorder-form" id="mmsPreorderForm">
-    <input name="customerName" placeholder="आपका नाम" required>
-    <input name="phone" type="tel" placeholder="मोबाइल नंबर" required>
-    <input name="product" placeholder="प्रोडक्ट / मोबाइल मॉडल" required>
-    <input name="photo" type="file" accept="image/*">
-    <textarea name="details" placeholder="रंग, मॉडल, बजट या ऑर्डर की अन्य जानकारी"></textarea>
-    <div class="mms-preorder-actions">
-     <button type="button" id="mmsPreorderWhatsApp">WhatsApp पर भेजें</button>
-     <button type="submit" class="secondary">Online Pre-Order भेजें</button>
-    </div>
-   </form>
-   <p id="mmsPreorderStatus" role="status" style="text-align:center;color:#667085;font-size:12px"></p>
-  </section>
- </div>
-</section>
-
-<div class="main-mobile-model-list" id="mainMobileModelList">
+    <div class="main-mobile-model-list" id="mainMobileModelList">
 <div class="product main-mobile-product-card" data-brand="Apple" data-name="iPhone 15">
 <div class="detail-image"><img src="./image/Back-Cover/IMG_20260908_184209.jpg" alt="iPhone 15 Back Cover"
 width="250"
@@ -4903,6 +4809,20 @@ Product purchase se pehle model aur item check karein.
 </div>
 </section>
 
+<section class="mms-shop-all" id="shopAllProducts">
+  <div class="section-title"><h2>🛍️ Shop All Products</h2><p>Flip Cover, Accessories aur UV Glass — sabhi products ek hi jagah</p></div>
+  <div class="mms-global-search"><input id="mmsGlobalSearch" type="search" placeholder="🔎 Sabhi products search karein: model, brand, accessory..." oninput="mmsSearchAll(this.value)"><button type="button" onclick="document.getElementById('mmsGlobalSearch').value='';mmsSearchAll('')">Clear</button></div>
+  <div id="mmsAllProductsGrid" class="mms-all-products-grid"><p>Products load ho rahe hain...</p></div>
+</section>
+<section class="mms-preorder-section" id="preorderSection">
+  <div class="mms-preorder-card"><div><span class="mms-preorder-kicker">PRODUCT NOT FOUND?</span><h2>📦 Pre-Order Request</h2><p>Website par product nahi mil raha? Product ki photo upload karein aur model / details likhkar request bhejein. Shop aapse WhatsApp par sampark karegi.</p></div>
+  <form id="mmsPreorderForm" onsubmit="submitPreorder(event)">
+    <div class="mms-preorder-fields"><label>Naam *<input id="mmsPreName" required maxlength="80" placeholder="Aapka naam"></label><label>Mobile Number *<input id="mmsPrePhone" required inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" placeholder="10 digit mobile number"></label></div>
+    <label>Product ki photo (optional)<input id="mmsPreImage" type="file" accept="image/*"></label><div id="mmsPreImagePreview" class="mms-pre-image-preview"></div>
+    <label>Product / Mobile Model / Order Details *<textarea id="mmsPreDetails" required rows="4" maxlength="1500" placeholder="Product ka naam, mobile model, colour, quantity ya koi aur detail likhein..."></textarea></label>
+    <button id="mmsPreSubmit" class="mms-preorder-submit" type="submit">📨 Submit Pre-Order</button><p id="mmsPreStatus" role="status"></p>
+  </form></div>
+</section>
 <section class="contact" id="contact">
 <h2>
 📱 MANOHAR MOBILE SHOP
@@ -6205,6 +6125,7 @@ document.addEventListener("keydown",function(event){
         <button id="adminTabConfirmed" class="admin-main-tab" type="button" onclick="setAdminView('confirmed')">✅ Confirmed / Processing <span id="adminConfirmedCount">0</span></button>
         <button id="adminTabHistory" class="admin-main-tab" type="button" onclick="setAdminView('history')">🗂️ History <span id="adminHistoryCount">0</span></button>
         <button id="adminTabCustomers" class="admin-main-tab" type="button" onclick="setAdminView('customers')">👥 Customer Records</button>
+        <button id="adminTabPreorders" class="admin-main-tab" type="button" onclick="showAdminPreorders()">📦 Pre-Orders <span id="adminPreorderCount">0</span></button>
       </div>
       <div class="admin-section-head">
         <div><h3 id="adminSectionTitle">New Orders</h3><p id="adminSectionHelp">New orders ko open karke verify karein aur clear hone par Confirm karein.</p></div>
@@ -6220,6 +6141,7 @@ document.addEventListener("keydown",function(event){
       </div>
       <div class="admin-note-banner"><strong>💳 Payment:</strong> Product + automatic delivery charge ka final amount customer se liya jata hai. <strong>🚫 COD:</strong> OFF. UPI/QR/Card configured options hi use honge.</div>
       <div id="adminOrdersList" class="admin-orders-list"><div class="admin-empty">Orders load ho rahe hain...</div></div>
+      <section id="adminPreordersPanel" class="mms-preorders-admin" style="display:none"><div class="admin-section-head"><div><h3>📦 Customer Pre-Orders</h3><p>Website par unavailable products ki requests.</p></div><button class="admin-primary-btn" type="button" onclick="loadPreorders()">↻ Refresh</button></div><div id="adminPreordersList" class="admin-orders-list">Pre-orders load ho rahe hain...</div></section>
     </div>
   </div>
 </div>
@@ -7377,75 +7299,43 @@ document.addEventListener("keydown",function(event){
 </script>
 
 
-<script>
+<style id="mms-main-shop-preorder-style">
+.hero-navigation{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:9px!important;width:100%;overflow-x:auto;white-space:nowrap;padding:8px 2px 12px;scrollbar-width:thin}
+.hero-navigation>*{flex:0 0 auto!important}
+.hero-navigation .secondary-btn{white-space:nowrap!important}
+.mms-shop-all,.mms-preorder-section{max-width:1240px;margin:30px auto;padding:0 18px}
+.mms-global-search{display:flex;gap:8px;margin:18px 0 22px}.mms-global-search input{flex:1;min-width:0;padding:14px 16px;border:1px solid #d5dbea;border-radius:13px;font-size:15px}.mms-global-search button{border:0;border-radius:12px;padding:0 16px;background:#18233b;color:white;font-weight:700}
+.mms-all-products-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.mms-all-products-grid .product,.mms-all-products-grid .accessory-product,.mms-all-products-grid .uv-product{display:flex!important;flex-direction:column!important;min-width:0;background:#fff;border:1px solid #e7eaf1;border-radius:15px;overflow:hidden;box-shadow:0 5px 18px #1720330d}
+.mms-all-products-grid .detail-image,.mms-all-products-grid .uv-product-image{order:0!important;width:100%!important;min-height:145px;display:flex;align-items:center;justify-content:center;background:#f7f8fb;overflow:hidden}
+.mms-all-products-grid img{width:100%;height:170px;object-fit:contain;display:block}
+.mms-all-products-grid .product-info,.mms-all-products-grid .detail-info,.mms-all-products-grid .uv-product-info{padding:12px;order:1!important}
+.mms-all-products-grid .product-actions{display:flex;gap:5px;flex-wrap:wrap}
+.mms-all-products-grid .product-actions button{font-size:12px!important;padding:8px 5px!important}
+.mms-preorder-card{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px;padding:26px;border-radius:22px;background:linear-gradient(135deg,#101a32,#263e69);color:#fff;box-shadow:0 12px 32px #17203322}
+.mms-preorder-kicker{font-size:11px;letter-spacing:2px;color:#a9c7ff;font-weight:800}.mms-preorder-card h2{font-size:28px;margin:9px 0}.mms-preorder-card p{color:#dce6f7;line-height:1.55}.mms-preorder-card form{display:grid;gap:12px}.mms-preorder-card label{display:grid;gap:6px;font-size:13px;font-weight:700;color:#e8eef9}.mms-preorder-card input,.mms-preorder-card textarea{width:100%;box-sizing:border-box;padding:12px;border:1px solid #64748b;border-radius:10px;background:#fff;color:#172033;font:inherit}.mms-preorder-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mms-preorder-submit{padding:13px;border:0;border-radius:11px;background:#25d366;color:#062b18;font-weight:800;font-size:15px;cursor:pointer}.mms-pre-image-preview img{max-width:110px;max-height:110px;object-fit:contain;border-radius:10px;background:white;padding:4px}.mms-preorder-admin-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:15px;margin:10px 0;color:#172033}.mms-preorder-admin-card img{width:110px;height:110px;object-fit:contain;background:#f5f6fa;border-radius:10px}.mms-preorder-admin-top{display:flex;gap:14px;align-items:flex-start}.mms-preorder-admin-card button{margin:6px 6px 0 0;padding:8px 12px;border:0;border-radius:8px;cursor:pointer}.mms-preorder-admin-card .wa{background:#25d366;color:#06351c}.mms-preorder-admin-card .done{background:#e0e7ff;color:#1e3a8a}
+@media(max-width:850px){.mms-all-products-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.mms-preorder-card{grid-template-columns:1fr}}
+@media(max-width:560px){.mms-all-products-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.mms-all-products-grid img{height:135px}.mms-preorder-card{padding:17px}.mms-preorder-fields{grid-template-columns:1fr}.hero-navigation{gap:7px!important}.hero-navigation summary,.hero-navigation .secondary-btn{font-size:12px!important;padding:9px 10px!important}}
+</style>
+<script id="mms-main-products-preorders-runtime">
 (function(){
- const sources=[
-  ['#mainMobileModelList .main-mobile-product-card','Back Cover'],
-  ['#productList .product','Flip Cover'],
-  ['.accessory-grid .product','Accessories'],
-  ['#uvGlassProductList .uv-product','UV Glass']
- ];
- let entries=[], category='all';
- const $=id=>document.getElementById(id);
- function txt(el){return (el?.innerText||el?.textContent||'').replace(/\s+/g,' ').trim();}
- function cardFor(original,cat){
-  const c=original.cloneNode(true); c.classList.add('mms-card'); c.hidden=false;
-  c.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));
-  const img=c.querySelector('img');
-  const image=!!(img && (img.getAttribute('src')||img.getAttribute('data-src')));
-  const title=txt(c.querySelector('h3'))||txt(c.querySelector('.company'))||txt(c.querySelector('.product-name'))||cat;
-  const brand=txt(c.querySelector('.company'));
-  const search=[title,brand,cat,txt(c)].join(' ').toLocaleLowerCase();
-  const imageWrap=document.createElement('div'); imageWrap.className='mms-card-image';
-  if(img){const parent=img.closest('.detail-image,.product-img,.uv-product-image')||img.parentElement; if(parent){imageWrap.appendChild(parent.cloneNode(true));}}
-  else imageWrap.textContent='📱';
-  const body=document.createElement('div'); body.className='mms-card-body';
-  const brandNode=document.createElement('div'); brandNode.className='mms-brand'; brandNode.textContent=brand||cat;
-  const h=document.createElement('h3'); h.textContent=title;
-  const originalInfo=c.querySelector('.product-info,.detail-info,.uv-product-info');
-  const price=originalInfo?.querySelector('.price');
-  const actions=originalInfo?.querySelector('.product-actions');
-  if(price) {const p=price.cloneNode(true);p.classList.add('mms-price');body.appendChild(p);}
-  body.prepend(h); body.prepend(brandNode);
-  if(actions) body.appendChild(actions.cloneNode(true));
-  else if(originalInfo){const clone=originalInfo.cloneNode(true); clone.querySelectorAll('img').forEach(x=>x.remove()); body.appendChild(clone);}
-  c.replaceChildren(imageWrap,body);
-  c.dataset.cat=cat; c.dataset.search=search; c.dataset.image=image?'1':'0';
-  return {node:c,cat,search,image};
- }
- function build(){
-  const target=$('mmsProducts'); if(!target)return;
-  const found=[];
-  sources.forEach(([sel,cat])=>document.querySelectorAll(sel).forEach(n=>found.push(cardFor(n,cat))));
-  found.sort((a,b)=>Number(b.image)-Number(a.image));
-  entries=found; target.replaceChildren(...found.map(x=>x.node)); filter();
- }
- function filter(){
-  const q=($('mmsSearch')?.value||'').trim().toLocaleLowerCase(); let n=0;
-  entries.forEach(e=>{const show=(category==='all'||e.cat===category)&&(!q||e.search.includes(q));e.node.hidden=!show;if(show)n++;});
-  if($('mmsCount')) $('mmsCount').textContent=n+' प्रोडक्ट मिले';
- }
- function bind(){
-  $('mmsSearch')?.addEventListener('input',filter);
-  $('mmsFilters')?.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;category=b.dataset.cat;$('mmsFilters').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));filter();});
-  $('mmsPreorderWhatsApp')?.addEventListener('click',()=>sendPreorder(false));
-  $('mmsPreorderForm')?.addEventListener('submit',e=>{e.preventDefault();sendPreorder(true);});
- }
- function sendPreorder(online){
-  const f=$('mmsPreorderForm'),d=new FormData(f);
-  const name=d.get('customerName'),phone=d.get('phone'),product=d.get('product'),details=d.get('details');
-  const msg='PRE-ORDER REQUEST\\nName: '+name+'\\nPhone: '+phone+'\\nProduct: '+product+'\\nDetails: '+details+'\\nPhoto: '+(d.get('photo')?.name||'Not attached');
-  if(online){
-   $('mmsPreorderStatus').textContent='ऑनलाइन Pre-Order को Admin में सुरक्षित दिखाने के लिए Supabase में अलग preorder table और storage policy की जरूरत है। अभी WhatsApp विकल्प से अनुरोध भेजें।';
-   return;
-  }
-  const digits=(window.APP_CONFIG?.WHATSAPP_NUMBER||'').replace(/\\D/g,'');
-  if(!digits){$('mmsPreorderStatus').textContent='WhatsApp नंबर कॉन्फ़िगरेशन में उपलब्ध नहीं है।';return;}
-  window.open('https://wa.me/'+digits+'?text='+encodeURIComponent(msg),'_blank','noopener');
- }
- function start(){bind();let tries=0;const timer=setInterval(()=>{tries++;const ready=document.querySelector('#mainMobileModelList .main-mobile-product-card')||document.querySelector('#productList .product');if(ready||tries>24){clearInterval(timer);build();}},250);}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
- window.refreshManoharCatalog=build;
+'use strict';
+const ADMIN_WA='919407017035';
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function allSourceCards(){return [...document.querySelectorAll('#productList .product,.accessory-dropdown .accessory-product,.accessory-dropdown .product,.uv-dropdown .uv-product')].filter((el,i,a)=>a.indexOf(el)===i);}
+function buildMainCatalog(){const grid=$('mmsAllProductsGrid');if(!grid)return;const cards=allSourceCards();if(!cards.length){grid.innerHTML='<p>Products abhi load nahi hue. Thodi der baad refresh karein.</p>';return;}grid.innerHTML='';cards.sort((a,b)=>Number(!!b.querySelector('img[src]'))-Number(!!a.querySelector('img[src]')));cards.forEach((card,i)=>{const clone=card.cloneNode(true);clone.dataset.mmsCatalog='1';clone.style.display='';clone.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));const img=clone.querySelector('img');if(img){img.loading='lazy';img.onerror=function(){this.closest('.detail-image,.uv-product-image')?.classList.add('mms-image-missing');};}grid.appendChild(clone);});mmsSearchAll($('mmsGlobalSearch')?.value||'');}
+window.mmsSearchAll=function(value){const q=String(value||'').toLowerCase().trim();document.querySelectorAll('#mmsAllProductsGrid [data-mms-catalog="1"]').forEach(card=>{card.style.display=(!q||card.innerText.toLowerCase().includes(q))?'':'none';});};
+function initPreorder(){const f=$('mmsPreImage');if(f&&!f.dataset.bound){f.dataset.bound='1';f.addEventListener('change',()=>{const box=$('mmsPreImagePreview');if(!box)return;box.innerHTML='';const file=f.files?.[0];if(file){if(!file.type.startsWith('image/')){f.value='';alert('Image file hi select karein.');return;}if(file.size>5*1024*1024){f.value='';alert('Photo 5 MB se chhoti honi chahiye.');return;}const im=document.createElement('img');im.src=URL.createObjectURL(file);im.alt='Selected product photo';box.appendChild(im);}});}}
+window.submitPreorder=async function(ev){ev.preventDefault();const name=$('mmsPreName')?.value.trim()||'',phone=$('mmsPrePhone')?.value.trim()||'',details=$('mmsPreDetails')?.value.trim()||'',file=$('mmsPreImage')?.files?.[0]||null,status=$('mmsPreStatus'),btn=$('mmsPreSubmit');if(!name||!/^\+?[6-9]\d{9}$/.test(phone)||!details){alert('Naam, valid 10-digit mobile aur product details bharein.');return;}if(!window.supabaseClient||!window.storeCloudReady){alert('Pre-order online save karne ke liye Supabase connection zaroori hai.');return;}btn.disabled=true;btn.textContent='⏳ Sending...';if(status)status.textContent='Request save ho rahi hai...';try{const user=window.currentUser||null;let imagePath=null;if(file){const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=(user?.id||'guest')+'/'+Date.now()+'-'+crypto.randomUUID()+'.'+ext;const up=await window.supabaseClient.storage.from('preorder-images').upload(path,file,{contentType:file.type,upsert:false});if(up.error)throw up.error;imagePath=path;}
+const payload={customer_id:user?.id||null,customer_name:name,customer_phone:phone,details:details,image_path:imagePath,status:'New'};const ins=await window.supabaseClient.from('preorders').insert(payload).select().single();if(ins.error)throw ins.error;const photoUrl=imagePath?window.supabaseClient.storage.from('preorder-images').getPublicUrl(imagePath).data.publicUrl:'';const waText='MANOHAR MOBILE SHOP - NEW PRE-ORDER\nRequest: '+ins.data.id+'\nName: '+name+'\nMobile: '+phone+'\nDetails: '+details+'\nPhoto: '+(photoUrl||'No photo');window.open('https://wa.me/'+ADMIN_WA+'?text='+encodeURIComponent(waText),'_blank','noopener');if(status)status.textContent='✅ Pre-order submit ho gaya! WhatsApp par bhi request share kar di gayi hai.';$('mmsPreorderForm').reset();$('mmsPreImagePreview').innerHTML='';}catch(err){console.error('Preorder error',err);if(status)status.textContent='❌ Request save nahi hui: '+(err.message||'Supabase setup check karein');alert('Pre-order save nahi hua. Supabase SQL aur Storage setup check karein.\n'+(err.message||''));}finally{btn.disabled=false;btn.textContent='📨 Submit Pre-Order';}};
+window.showAdminPreorders=function(){if(window.currentUserRole!=='admin'){alert('Admin access required.');return;}const orders=$('adminOrdersList'),panel=$('adminPreordersPanel');if(orders)orders.style.display='none';if(panel)panel.style.display='block';document.querySelectorAll('.admin-main-tab').forEach(b=>b.classList.remove('active'));$('adminTabPreorders')?.classList.add('active');loadPreorders();};
+window.loadPreorders=async function(){const box=$('adminPreordersList');if(!box)return;if(window.currentUserRole!=='admin'||!window.storeCloudReady){box.textContent='Admin login aur cloud connection zaroori hai.';return;}box.textContent='Pre-orders load ho rahe hain...';const {data,error}=await window.supabaseClient.from('preorders').select('*').order('created_at',{ascending:false});if(error){box.textContent='Pre-orders load nahi hue: '+error.message;return;}$('adminPreorderCount').textContent=String(data?.length||0);if(!data?.length){box.textContent='Abhi koi pre-order nahi aaya.';return;}box.innerHTML='';for(const item of data){let photo='';if(item.image_path){const {data:pub}=window.supabaseClient.storage.from('preorder-images').getPublicUrl(item.image_path);photo=pub?.publicUrl||'';}const card=document.createElement('article');card.className='mms-preorder-admin-card';card.innerHTML='<div class="mms-preorder-admin-top">'+(photo?'<a href="'+esc(photo)+'" target="_blank" rel="noopener"><img src="'+esc(photo)+'" alt="Customer product photo"></a>':'')+'<div><b>Request #'+esc(item.id)+'</b><div>'+esc(item.customer_name)+' • '+esc(item.customer_phone)+'</div><div>'+new Date(item.created_at).toLocaleString('en-IN')+'</div><span>Status: '+esc(item.status)+'</span></div></div><p style="white-space:pre-wrap">'+esc(item.details)+'</p><button class="wa" type="button">💬 WhatsApp Customer</button><button class="done" type="button">✓ Mark Contacted</button>';
+card.querySelector('.wa').onclick=()=>window.open('https://wa.me/91'+String(item.customer_phone).replace(/\D/g,'').slice(-10)+'?text='+encodeURIComponent('Namaste '+item.customer_name+', aapke MANOHAR MOBILE SHOP pre-order request #'+item.id+' ke baare mein sampark kar rahe hain.'),'_blank','noopener');card.querySelector('.done').onclick=async()=>{const {error}=await window.supabaseClient.from('preorders').update({status:'Contacted'}).eq('id',item.id);if(error){alert(error.message);return;}loadPreorders();};box.appendChild(card);}};
+// If the admin returns to normal orders, restore the standard panel.
+const oldSetView=window.setAdminView;if(typeof oldSetView==='function'){window.setAdminView=function(v){if($('adminPreordersPanel'))$('adminPreordersPanel').style.display='none';if($('adminOrdersList'))$('adminOrdersList').style.display='';return oldSetView.apply(this,arguments);};}
+function boot(){initPreorder();buildMainCatalog();let tries=0;const timer=setInterval(()=>{const n=allSourceCards().length;if(n&&$('uvGlassProductList')?.children.length){buildMainCatalog();clearInterval(timer);}if(++tries>20){buildMainCatalog();clearInterval(timer);}},500);}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
 </script>
 
