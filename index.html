@@ -1416,73 +1416,59 @@ img{max-width:100%;}
     .hero-navigation .flip-nav summary,.hero-navigation .accessory-nav summary,.hero-navigation .uv-nav summary{padding:9px 11px;font-size:11px;}
 }
 
-/* ===== MANOHAR MOBILE SHOP: unified colourful storefront ===== */
-:root{
-  --mms-ink:#172033; --mms-muted:#667085; --mms-primary:#5b4bdb;
-  --mms-cyan:#13b8c9; --mms-pink:#f05aa6; --mms-line:#e7eaf2;
+/* MANOHAR unified catalogue and responsive product-card repair */
+.hero-navigation .flip-nav,
+.hero-navigation .accessory-nav,
+.hero-navigation .uv-nav,
+.hero-navigation .secondary-btn { display:none !important; }
+.mms-catalog { padding:36px 4% 52px; background:linear-gradient(145deg,#f7f8ff,#f2fbff 55%,#fff7fb); }
+.mms-catalog-inner { max-width:1400px; margin:auto; }
+.mms-catalog-head { text-align:center; margin:0 auto 22px; max-width:820px; }
+.mms-catalog-head .eyebrow { display:inline-block; border-radius:30px; padding:7px 13px; background:#ecebff; color:#5447c9; font-size:11px; font-weight:800; letter-spacing:1px; }
+.mms-catalog-head h2 { color:#1b2340; font-size:clamp(26px,3.5vw,38px); margin:12px 0 7px; }
+.mms-catalog-head p { color:#667085; margin:0; }
+.mms-catalog-tools { background:linear-gradient(120deg,#fff,#f4f3ff,#effcff); border:1px solid #e5e6f3; border-radius:20px; padding:18px; box-shadow:0 10px 28px #27316b12; margin:0 auto 22px; }
+#mmsSearch { width:min(760px,100%); display:block; height:52px; margin:0 auto 15px; padding:0 16px; border:1px solid #d8dced; border-radius:14px; background:#fff; color:#1d263b; font-size:15px; outline:none; }
+#mmsSearch:focus { border-color:#7164df; box-shadow:0 0 0 3px #7164df20; }
+.mms-filter-row { display:flex; flex-wrap:wrap; gap:9px; justify-content:center; }
+.mms-filter { border:1px solid #e1e3ef; border-radius:12px; background:#fff; padding:10px 15px; color:#39435a; font-weight:800; cursor:pointer; }
+.mms-filter.active { background:linear-gradient(110deg,#5748d4,#9b4cce,#e6509d); color:#fff; border-color:transparent; }
+#mmsCount { display:block; text-align:center; color:#667085; font-size:12px; margin-top:13px; }
+#mmsProducts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; align-items:stretch; }
+#mmsProducts > .mms-card { display:flex!important; flex-direction:column!important; min-width:0; height:100%; background:#fff; border:1px solid #e8eaf2; border-radius:17px; overflow:hidden; box-shadow:0 6px 20px #1c285010; }
+#mmsProducts .mms-card-image { height:190px; min-height:190px; display:flex; align-items:center; justify-content:center; background:#f6f7fc; overflow:hidden; }
+#mmsProducts .mms-card-image img { width:100%; height:100%; object-fit:contain; padding:8px; }
+#mmsProducts .mms-card-body { padding:12px; display:flex; flex:1; flex-direction:column; gap:7px; min-width:0; }
+#mmsProducts .mms-card-body h3 { font-size:15px; line-height:1.35; overflow-wrap:anywhere; margin:0; }
+#mmsProducts .mms-card-body .mms-brand { color:#6254d5; font-weight:800; font-size:11px; }
+#mmsProducts .mms-card-body .mms-price { margin-top:auto; font-weight:900; font-size:18px; color:#172033; }
+#mmsProducts .mms-card-body .product-actions { display:flex!important; gap:5px!important; width:100%; }
+#mmsProducts .mms-card-body .product-actions button { flex:1 1 0!important; min-width:0!important; padding-left:5px!important; padding-right:5px!important; font-size:11px!important; }
+.mms-preorder { max-width:1150px; margin:35px auto 5px; padding:24px; border-radius:22px; background:linear-gradient(120deg,#fff 0%,#f4f1ff 55%,#edfbff 100%); border:1px solid #e1e2f1; box-shadow:0 12px 30px #27316b12; }
+.mms-preorder h2 { margin:0 0 7px; text-align:center; color:#24234e; }
+.mms-preorder .mms-preorder-intro { text-align:center; color:#667085; margin:0 0 18px; }
+.mms-preorder-form { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.mms-preorder-form input,.mms-preorder-form textarea { width:100%; border:1px solid #dfe2ee; border-radius:11px; padding:12px; background:#fff; font:inherit; box-sizing:border-box; }
+.mms-preorder-form textarea { grid-column:1/-1; min-height:100px; resize:vertical; }
+.mms-preorder-form input[type=file] { padding:9px; }
+.mms-preorder-actions { grid-column:1/-1; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.mms-preorder-actions button { border:0; border-radius:11px; padding:12px 18px; color:white; background:#25a95b; font-weight:800; cursor:pointer; }
+.mms-preorder-actions button.secondary { background:#5548cf; }
+@media(max-width:1050px){#mmsProducts{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:680px){
+ .mms-catalog{padding:28px 12px 40px}
+ .mms-catalog-tools{padding:13px}
+ .mms-filter-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mms-filter:first-child{grid-column:1/-1}
+ #mmsProducts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ #mmsProducts .mms-card{border-radius:13px}
+ #mmsProducts .mms-card-image{height:145px;min-height:145px}
+ #mmsProducts .mms-card-body{padding:9px}
+ #mmsProducts .mms-card-body h3{font-size:13px}
+ #mmsProducts .mms-card-body .product-actions button{font-size:10px!important;padding:8px 2px!important}
+ .mms-preorder-form{grid-template-columns:1fr}
+ .mms-preorder-form textarea,.mms-preorder-actions{grid-column:1}
 }
-body{background:linear-gradient(180deg,#f8faff 0%,#f6f7fc 42%,#fff 100%);}
-header{background:linear-gradient(105deg,#111b3b 0%,#25236b 52%,#512d80 100%);box-shadow:0 8px 28px rgba(28,34,80,.22);}
-.logo-icon{background:linear-gradient(135deg,#10c8d8,#6366f1 55%,#f05aa6);}
-.cart-button{background:linear-gradient(110deg,#ff8a35,#ee4c9b);box-shadow:0 7px 18px rgba(238,76,155,.22);}
-.mms-unified-catalog{padding:48px max(4%,20px) 72px;scroll-margin-top:90px;}
-.mms-catalog-heading{text-align:center;max-width:850px;margin:0 auto 24px;}
-.mms-catalog-heading .mms-eyebrow{display:inline-flex;padding:7px 13px;border-radius:99px;background:#eeedff;color:#5546c9;font-weight:800;font-size:11px;letter-spacing:1.15px;}
-.mms-catalog-heading h2{font-size:clamp(27px,4vw,40px);margin:13px 0 8px;color:#172033;letter-spacing:-.7px;}
-.mms-catalog-heading p{color:#697386;font-size:15px;line-height:1.6;}
-.mms-catalog-panel{max-width:1180px;margin:0 auto 27px;padding:20px;border:1px solid rgba(104,111,180,.14);border-radius:23px;background:linear-gradient(135deg,#fff 0%,#f7f6ff 55%,#f0fcff 100%);box-shadow:0 14px 38px rgba(48,56,110,.08);}
-.mms-catalog-search{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto 18px;padding:0 14px;height:54px;background:#fff;border:1.5px solid #dfe3f1;border-radius:15px;box-shadow:0 5px 16px rgba(31,41,90,.05);}
-.mms-catalog-search>span{font-size:27px;color:#6255d6;line-height:1;}
-.mms-catalog-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#172033;font-size:15px;}
-.mms-catalog-search button{border:0;background:#f0efff;color:#5b4bdb;width:28px;height:28px;border-radius:50%;font-size:20px;cursor:pointer;}
-.mms-category-label{font-weight:800;color:#344054;font-size:13px;margin:0 0 10px;}
-.mms-category-filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
-.mms-category-chip{border:1px solid #e1e4f0;background:#fff;color:#3d4658;border-radius:13px;padding:11px 16px;font-size:13px;font-weight:800;cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;box-shadow:0 3px 9px rgba(31,41,90,.04);}
-.mms-category-chip:hover{transform:translateY(-2px);border-color:#a9a2f4;box-shadow:0 8px 17px rgba(91,75,219,.12);}
-.mms-category-chip.active{color:#fff;border-color:transparent;background:linear-gradient(110deg,#5546d3,#8b4bd5 58%,#e452a0);box-shadow:0 8px 18px rgba(91,75,219,.22);}
-.mms-catalog-meta{display:flex;justify-content:space-between;gap:10px;align-items:center;max-width:1180px;margin:17px auto 0;color:#667085;font-size:12px;font-weight:700;}
-.mms-image-first-note{color:#17836e;}
-.mms-unified-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:19px;}
-.mms-unified-card{min-width:0;position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #e9ebf4;border-radius:19px;overflow:hidden;box-shadow:0 7px 22px rgba(31,41,90,.07);transition:transform .2s,box-shadow .2s;}
-.mms-unified-card:hover{transform:translateY(-4px);box-shadow:0 15px 30px rgba(50,56,120,.14);}
-.mms-unified-card .mms-catalog-category{position:absolute;z-index:2;top:10px;left:10px;padding:5px 9px;border-radius:99px;background:rgba(30,35,75,.84);color:#fff;font-size:10px;font-weight:800;backdrop-filter:blur(5px);}
-.mms-unified-card .detail-image,.mms-unified-card .product-img,.mms-unified-card .uv-product-image{height:205px;min-height:205px;background:linear-gradient(145deg,#f5f6ff,#f0fbff);display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.mms-unified-card .detail-image img,.mms-unified-card .product-img img,.mms-unified-card .uv-product-image img{width:100%;height:100%;object-fit:contain;display:block;padding:8px;}
-.mms-unified-card .product-info,.mms-unified-card .detail-info,.mms-unified-card .uv-product-info{padding:14px;display:flex;flex-direction:column;gap:7px;flex:1;min-width:0;}
-.mms-unified-card .company{color:#6356d8;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.45px;}
-.mms-unified-card h3{font-size:15px;line-height:1.35;color:#1e293b;overflow-wrap:anywhere;}
-.mms-unified-card .product-description,.mms-unified-card .detail-description{font-size:12px;line-height:1.5;color:#697386;}
-.mms-unified-card .price{font-size:18px;font-weight:900;color:#172033;margin-top:auto;padding-top:5px;}
-.mms-unified-card .product-actions{display:flex;align-items:stretch;gap:6px;margin-top:8px;}
-.mms-unified-card .product-actions button{min-width:0;flex:1;padding:9px 6px!important;border-radius:10px!important;font-size:11px!important;white-space:nowrap;}
-.mms-unified-card .whatsapp-product-btn{flex:0 0 39px!important;width:39px!important;display:flex;align-items:center;justify-content:center;}
-.mms-unified-card .whatsapp-product-btn svg{width:21px;height:21px;}
-.mms-unified-card .uv-product{display:contents;}
-.mms-unified-card .uv-product-image{order:0;}
-.mms-unified-card .uv-product-info{order:1;}
-.mms-catalog-empty{max-width:700px;margin:35px auto;padding:38px 20px;text-align:center;border:1px dashed #c9cce0;border-radius:18px;background:#fff;color:#667085;}
-.mms-catalog-empty div{font-size:34px;margin-bottom:8px;}
-.mms-catalog-empty strong{display:block;color:#25304a;font-size:18px;margin-bottom:5px;}
-#legacyModelsData{display:none!important;}
-@media(max-width:1100px){.mms-unified-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
-@media(max-width:720px){
- .mms-unified-catalog{padding:32px 12px 50px;}
- .mms-catalog-panel{padding:14px;border-radius:18px;}
- .mms-category-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
- .mms-category-chip{padding:11px 7px;font-size:12px;}
- .mms-category-chip:first-child{grid-column:1/-1;}
- .mms-catalog-meta{align-items:flex-start;flex-direction:column;}
- .mms-unified-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;}
- .mms-unified-card{border-radius:14px;}
- .mms-unified-card .detail-image,.mms-unified-card .product-img,.mms-unified-card .uv-product-image{height:155px;min-height:155px;}
- .mms-unified-card .product-info,.mms-unified-card .detail-info,.mms-unified-card .uv-product-info{padding:10px;gap:5px;}
- .mms-unified-card h3{font-size:13px;}
- .mms-unified-card .price{font-size:16px;}
- .mms-unified-card .product-actions{gap:4px;}
- .mms-unified-card .product-actions button{font-size:10px!important;padding:8px 3px!important;}
- .mms-unified-card .whatsapp-product-btn{flex-basis:32px!important;width:32px!important;}
-}
-@media(max-width:360px){.mms-unified-grid{grid-template-columns:1fr;}.mms-unified-card .detail-image,.mms-unified-card .product-img,.mms-unified-card .uv-product-image{height:205px;}}
 
 </style>
 
@@ -3124,7 +3110,7 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 </div>
 <div class="uv-product-grid" id="uvGlassProductList"></div>
 </div></details>
-<a class="secondary-btn" href="#contact">📞 Contact Us</a>
+
 </div>
 </div>
 <div class="hero-phone realistic-phone">
@@ -3141,39 +3127,7 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 </div>
 </section>
 
-
-<section class="products mms-unified-catalog" id="models">
-  <div class="mms-catalog-heading">
-    <span class="mms-eyebrow">MANOHAR MOBILE SHOP • ALL PRODUCTS</span>
-    <h2>अपना पसंदीदा प्रोडक्ट खोजें</h2>
-    <p>Back Cover, Flip Cover, Accessories और UV Glass — सभी प्रोडक्ट एक ही जगह</p>
-  </div>
-  <div class="mms-catalog-panel">
-    <label class="mms-catalog-search" for="mmsGlobalSearch">
-      <span aria-hidden="true">⌕</span>
-      <input id="mmsGlobalSearch" type="search" placeholder="मोबाइल मॉडल, ब्रांड या प्रोडक्ट का नाम खोजें..." autocomplete="off">
-      <button type="button" id="mmsClearSearch" aria-label="Search clear">×</button>
-    </label>
-    <div class="mms-category-label">श्रेणी चुनें</div>
-    <div class="mms-category-filters" id="mmsCategoryFilters" role="group" aria-label="Product categories">
-      <button type="button" class="mms-category-chip active" data-category="all">✨ सभी प्रोडक्ट</button>
-      <button type="button" class="mms-category-chip" data-category="Back Cover">📱 Back Cover</button>
-      <button type="button" class="mms-category-chip" data-category="Flip Cover">🛡️ Flip Cover</button>
-      <button type="button" class="mms-category-chip" data-category="Accessories">🎧 Accessories</button>
-      <button type="button" class="mms-category-chip" data-category="UV Glass">💎 UV Glass</button>
-    </div>
-    <div class="mms-catalog-meta">
-      <span id="mmsCatalogCount" aria-live="polite">प्रोडक्ट लोड हो रहे हैं...</span>
-      <span class="mms-image-first-note">तस्वीर वाले प्रोडक्ट पहले दिखेंगे</span>
-    </div>
-  </div>
-  <div class="mms-unified-grid" id="mmsUnifiedProductGrid" aria-live="polite"></div>
-  <div class="mms-catalog-empty" id="mmsCatalogEmpty" hidden>
-    <div>🔎</div><strong>कोई प्रोडक्ट नहीं मिला</strong><span>दूसरा नाम या category चुनकर देखें।</span>
-  </div>
-</section>
-
-<section class="products" id="legacyModelsData" aria-hidden="true">
+<section class="products" id="models">
 <div class="section-title">
 <h2>✨ Mobile Covers</h2>
 <p>Apne mobile model ke liye premium cover select karein</p>
@@ -3224,7 +3178,46 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 
     </div>
 
-    <div class="main-mobile-model-list" id="mainMobileModelList">
+    
+<section class="mms-catalog" id="all-products">
+ <div class="mms-catalog-inner">
+  <div class="mms-catalog-head">
+   <span class="eyebrow">MANOHAR MOBILE SHOP</span>
+   <h2>सभी प्रोडक्ट एक ही जगह</h2>
+   <p>अपना मोबाइल मॉडल या प्रोडक्ट खोजें और श्रेणी के अनुसार फ़िल्टर करें।</p>
+  </div>
+  <div class="mms-catalog-tools">
+   <input id="mmsSearch" type="search" placeholder="प्रोडक्ट, मोबाइल मॉडल या ब्रांड खोजें..." autocomplete="off">
+   <div class="mms-filter-row" id="mmsFilters">
+    <button class="mms-filter active" data-cat="all" type="button">✨ सभी प्रोडक्ट</button>
+    <button class="mms-filter" data-cat="Back Cover" type="button">📱 Back Cover</button>
+    <button class="mms-filter" data-cat="Flip Cover" type="button">🛡️ Flip Cover</button>
+    <button class="mms-filter" data-cat="Accessories" type="button">🎧 Accessories</button>
+    <button class="mms-filter" data-cat="UV Glass" type="button">💎 UV Glass</button>
+   </div>
+   <span id="mmsCount" aria-live="polite"></span>
+  </div>
+  <div id="mmsProducts"></div>
+  <section class="mms-preorder" id="pre-order">
+   <h2>✨ वेबसाइट पर प्रोडक्ट नहीं मिला?</h2>
+   <p class="mms-preorder-intro">अपनी पसंद का प्रोडक्ट मँगवाने के लिए उसकी तस्वीर और जानकारी भेजें।</p>
+   <form class="mms-preorder-form" id="mmsPreorderForm">
+    <input name="customerName" placeholder="आपका नाम" required>
+    <input name="phone" type="tel" placeholder="मोबाइल नंबर" required>
+    <input name="product" placeholder="प्रोडक्ट / मोबाइल मॉडल" required>
+    <input name="photo" type="file" accept="image/*">
+    <textarea name="details" placeholder="रंग, मॉडल, बजट या ऑर्डर की अन्य जानकारी"></textarea>
+    <div class="mms-preorder-actions">
+     <button type="button" id="mmsPreorderWhatsApp">WhatsApp पर भेजें</button>
+     <button type="submit" class="secondary">Online Pre-Order भेजें</button>
+    </div>
+   </form>
+   <p id="mmsPreorderStatus" role="status" style="text-align:center;color:#667085;font-size:12px"></p>
+  </section>
+ </div>
+</section>
+
+<div class="main-mobile-model-list" id="mainMobileModelList">
 <div class="product main-mobile-product-card" data-brand="Apple" data-name="iPhone 15">
 <div class="detail-image"><img src="./image/Back-Cover/IMG_20260908_184209.jpg" alt="iPhone 15 Back Cover"
 width="250"
@@ -5258,11 +5251,11 @@ Cart abhi empty hai.
             <div class="upi-qr-info"><strong>Scan &amp; Pay</strong><p>Current payable amount: <b id="upiQrAmount">₹0</b></p><small>QR aur app buttons final payable amount use karenge.</small></div>
           </div>
           <div id="upiPaymentConfirmation" class="payment-confirm-box" style="display:none">
-            <label class="payment-confirm-check"><input id="upiPaymentDoneCheck" type="checkbox"> <span>मैंने भुगतान किया है — दुकान बैंक/UPI रिकॉर्ड से इसकी पुष्टि करेगी।</span></label>
+            <label class="payment-confirm-check"><input id="upiPaymentDoneCheck" type="checkbox"> <span>I confirm that I have completed the payment for the exact amount shown above.</span></label>
             <button id="upiContinueOrderBtn" type="button" class="place-order-btn" onclick="confirmUpiPaymentAndContinue()" disabled>✅ Payment Complete — Continue</button>
             <div class="payment-card-status warn">Order record will be created only after this confirmation. The shop may verify the payment in its UPI/bank records before confirming the order.</div>
           </div>
-          <div class="payment-card-status ready" style="margin-top:10px">🔐 Payment app खोलना payment की पुष्टि नहीं है। Secure bank/gateway verification के बिना वेबसाइट order submit नहीं करेगी।</div>
+          <div class="payment-card-status ready" style="margin-top:10px">🔐 UPI payment is required before an order can be submitted. No UTR entry is required.</div>
         </div>
         <button class="place-order-btn" onclick="placeOrder()">✅ Place Order</button>
         <p class="checkout-note">UPI payment complete hone ke baad hi order submit hoga. Order status Account me dikhega.</p>
@@ -6464,14 +6457,14 @@ document.addEventListener("keydown",function(event){
     if($('upiPaymentPanel'))$('upiPaymentPanel').style.display='block';
     updateUpiPayLink();
   };
-  function buildUpiQuery(amount,orderId){const cfg=window.APP_CONFIG||{},pa=String(cfg.UPI_ID||'').trim(),pn=String(cfg.UPI_NAME||'Kesari Kushwaha').trim(),q=new URLSearchParams();q.set('pa',pa);q.set('pn',pn);q.set('tr',orderId);q.set('tn','MANOHAR MOBILE SHOP Order '+orderId);q.set('am',Number(amount||0).toFixed(2));q.set('cu','INR');return{pa,query:q.toString(),plain:'upi://pay?'+q.toString()};}
+  function buildUpiQuery(amount,orderId){const cfg=window.APP_CONFIG||{},pa=String(cfg.UPI_ID||'').trim(),pn=String(cfg.UPI_NAME||'MANOHAR MOBILE SHOP').trim(),q=new URLSearchParams();q.set('pa',pa);q.set('pn',pn);q.set('tr',orderId);q.set('tn','MANOHAR MOBILE SHOP Order '+orderId);q.set('am',Number(amount||0).toFixed(2));q.set('cu','INR');return{pa,query:q.toString(),plain:'upi://pay?'+q.toString()};}
   function updateDynamicQr(upiUri,amount){const img=$('shopUpiQr');if(!img||!upiUri)return;const fallback=(window.APP_CONFIG||{}).UPI_QR_IMAGE||'qr/upi-qr.png';img.onerror=function(){this.onerror=null;this.src=fallback;};img.src='https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data='+encodeURIComponent(upiUri);if($('upiQrAmount'))$('upiQrAmount').textContent=money(amount);}
   window.payWithUPIApp=function(app){const amount=getGrandTotal();if(!(amount>0)){alert('Payment amount ready nahi hai.');return;}const orderId=window.pendingOrderId||('MMS'+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId);if(!u.pa){alert('UPI ID configuration missing hai.');return;}window.mmsUpiPaymentLaunched=true;const box=$('upiPaymentConfirmation');if(box)box.style.display='block';const done=$('upiPaymentDoneCheck'),btn=$('upiContinueOrderBtn');if(done)done.checked=false;if(btn)btn.disabled=true;const android=/Android/i.test(navigator.userAgent);let target=u.plain;if(app==='gpay')target=android?'intent://pay?'+u.query+'#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end':'gpay://upi/pay?'+u.query;else if(app==='phonepe')target=android?'intent://pay?'+u.query+'#Intent;scheme=upi;package=com.phonepe.app;end':'phonepe://upi/pay?'+u.query;try{window.location.href=target;}catch(e){window.location.href=u.plain;}};
   function updateUpiPayLink(){const amount=getGrandTotal(),orderId=window.pendingOrderId||('MMS'+Date.now().toString().slice(-8));window.pendingOrderId=orderId;const u=buildUpiQuery(amount,orderId),link=$('upiPayLink');if(link){link.href=u.plain;link.style.display='none';}if($('upiPayAmount'))$('upiPayAmount').textContent=money(amount);updateDynamicQr(u.plain,amount);}
   function updateCardUi(){}
   async function loadRazorpay(){return false;}
   window.openCardPayment=function(){alert('Card payment payment is no longer available. Please use UPI / GPay / PhonePe.');};
-  window.confirmUpiPaymentAndContinue=function(){const done=$('upiPaymentDoneCheck');if(!window.mmsUpiPaymentLaunched){alert('Pehle Google Pay, PhonePe ya Any UPI App se payment start karein.');return;}if(!done?.checked){alert('Payment complete hone ki confirmation select karein.');return;}window.mmsUpiPaymentConfirmed=true;const status=$('upiPaymentConfirmation')?.querySelector('.payment-card-status');if(status){status.className='payment-card-status ready';status.textContent='✅ Customer confirmation मिली है; भुगतान की वास्तविक पुष्टि अभी बाकी है।';}placeOrder();};
+  window.confirmUpiPaymentAndContinue=function(){const done=$('upiPaymentDoneCheck');if(!window.mmsUpiPaymentLaunched){alert('Pehle Google Pay, PhonePe ya Any UPI App se payment start karein.');return;}if(!done?.checked){alert('Payment complete hone ki confirmation select karein.');return;}window.mmsUpiPaymentConfirmed=true;const status=$('upiPaymentConfirmation')?.querySelector('.payment-card-status');if(status){status.className='payment-card-status ready';status.textContent='✅ Payment confirmation received. Order submit ho raha hai.';}placeOrder();};
 
   window.placeOrder = async function(){
     const customer=saveCustomerData(),cleanPhone=customer.customerPhone.replace(/\D/g,'');
@@ -6484,8 +6477,8 @@ document.addEventListener("keydown",function(event){
     if(!window.mmsUpiPaymentLaunched||!window.mmsUpiPaymentConfirmed){const box=$('upiPaymentConfirmation');if(box)box.style.display='block';alert('Pehle exact amount ka UPI payment complete karein, phir payment confirmation karein.');return;}
     const orderId=window.pendingOrderId||('MMS'+Date.now().toString().slice(-8));
     const productSubtotal=getProductSubtotal(),deliveryCharge=Number(window.deliveryQuote.charge||0),finalTotal=productSubtotal+deliveryCharge;
-    const meta={__mms_version:'combined-admin-delivery-upi-manual-review-v2',delivery:{distance_km:Number(window.deliveryQuote.distanceKm||0),charge:deliveryCharge,source:window.deliveryQuote.source||''},payment_confirmation:{customer_claimed_paid:true,confirmed_at:new Date().toISOString(),verification_required:true,method:'upi'}};
-    const order={order_id:orderId,customer_id:window.currentUser.id,customer_name:customer.customerName,customer_phone:cleanPhone,address:customer.customerAddress,city:customer.customerCity,pin:customer.customerPin,landmark:customer.customerLandmark||'',items:JSON.parse(JSON.stringify(cart)),total:finalTotal,status:'New',payment_method:'upi',payment_status:'pending',upi_transaction_id:'',admin_note:metaString(meta)};
+    const meta={__mms_version:'combined-admin-delivery-upi-only-v1',delivery:{distance_km:Number(window.deliveryQuote.distanceKm||0),charge:deliveryCharge,source:window.deliveryQuote.source||''},payment_confirmation:{customer_confirmed:true,confirmed_at:new Date().toISOString(),method:'upi'}};
+    const order={order_id:orderId,customer_id:window.currentUser.id,customer_name:customer.customerName,customer_phone:cleanPhone,address:customer.customerAddress,city:customer.customerCity,pin:customer.customerPin,landmark:customer.customerLandmark||'',items:JSON.parse(JSON.stringify(cart)),total:finalTotal,status:'New',payment_method:'upi',payment_status:'submitted',upi_transaction_id:'',admin_note:metaString(meta)};
     if(window.currentUser&&window.storeCloudReady)await syncCustomerProfileToCloud(customer);
     if(window.storeCloudReady){try{const{data,error}=await window.supabaseClient.from('orders').insert(order).select().single();if(error)throw error;window.currentOrderId=data.order_id;window.mmsUpiPaymentLaunched=false;window.mmsUpiPaymentConfirmed=false;window.pendingOrderId=null;finishSuccessfulOrder(data.order_id);return;}catch(err){console.error(err);alert('Order save nahi ho paya. Please dobara try karein.');return;}}
     try{const orders=JSON.parse(localStorage.getItem('manohar_orders')||'[]');orders.unshift({...order,created_at:new Date().toISOString()});localStorage.setItem('manohar_orders',JSON.stringify(orders));}catch(e){}
@@ -7385,120 +7378,74 @@ document.addEventListener("keydown",function(event){
 
 
 <script>
-/* Unified catalogue: pulls existing cards from all product categories, preserving their original actions. */
 (function(){
-  var selectedCategory = 'all';
-  var allCatalogItems = [];
-  var observerStarted = false;
-  var sourceSelectors = [
-    {selector:'#mainMobileModelList .main-mobile-product-card', category:'Back Cover'},
-    {selector:'#productList > .product', category:'Flip Cover'},
-    {selector:'.accessory-grid > .product', category:'Accessories'},
-    {selector:'#uvGlassProductList .uv-product', category:'UV Glass'}
-  ];
-  function cleanText(node){ return (node && node.innerText ? node.innerText : '').replace(/\s+/g,' ').trim(); }
-  function cloneProduct(source, category, index){
-    var clone = source.cloneNode(true);
-    clone.classList.add('mms-unified-card');
-    clone.setAttribute('data-mms-category', category);
-    clone.setAttribute('data-mms-index', String(index));
-    clone.querySelectorAll('[id]').forEach(function(el){el.removeAttribute('id');});
-    var img = clone.querySelector('img');
-    var hasImage = !!(img && img.getAttribute('src') && !/^(#|$)/.test(img.getAttribute('src')));
-    clone.setAttribute('data-mms-has-image', hasImage ? '1' : '0');
-    var name = cleanText(clone.querySelector('h3')) || cleanText(clone.querySelector('.company')) || 'Product';
-    var brand = cleanText(clone.querySelector('.company'));
-    var searchable = [name,brand,category,cleanText(clone.querySelector('.product-description')),cleanText(clone.querySelector('.detail-description'))].join(' ').toLowerCase();
-    clone.setAttribute('data-mms-search', searchable);
-    var tag = document.createElement('span');
-    tag.className = 'mms-catalog-category';
-    tag.textContent = category;
-    clone.insertBefore(tag, clone.firstChild);
-    return {node:clone,category:category,search:searchable,hasImage:hasImage,name:name};
+ const sources=[
+  ['#mainMobileModelList .main-mobile-product-card','Back Cover'],
+  ['#productList .product','Flip Cover'],
+  ['.accessory-grid .product','Accessories'],
+  ['#uvGlassProductList .uv-product','UV Glass']
+ ];
+ let entries=[], category='all';
+ const $=id=>document.getElementById(id);
+ function txt(el){return (el?.innerText||el?.textContent||'').replace(/\s+/g,' ').trim();}
+ function cardFor(original,cat){
+  const c=original.cloneNode(true); c.classList.add('mms-card'); c.hidden=false;
+  c.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));
+  const img=c.querySelector('img');
+  const image=!!(img && (img.getAttribute('src')||img.getAttribute('data-src')));
+  const title=txt(c.querySelector('h3'))||txt(c.querySelector('.company'))||txt(c.querySelector('.product-name'))||cat;
+  const brand=txt(c.querySelector('.company'));
+  const search=[title,brand,cat,txt(c)].join(' ').toLocaleLowerCase();
+  const imageWrap=document.createElement('div'); imageWrap.className='mms-card-image';
+  if(img){const parent=img.closest('.detail-image,.product-img,.uv-product-image')||img.parentElement; if(parent){imageWrap.appendChild(parent.cloneNode(true));}}
+  else imageWrap.textContent='📱';
+  const body=document.createElement('div'); body.className='mms-card-body';
+  const brandNode=document.createElement('div'); brandNode.className='mms-brand'; brandNode.textContent=brand||cat;
+  const h=document.createElement('h3'); h.textContent=title;
+  const originalInfo=c.querySelector('.product-info,.detail-info,.uv-product-info');
+  const price=originalInfo?.querySelector('.price');
+  const actions=originalInfo?.querySelector('.product-actions');
+  if(price) {const p=price.cloneNode(true);p.classList.add('mms-price');body.appendChild(p);}
+  body.prepend(h); body.prepend(brandNode);
+  if(actions) body.appendChild(actions.cloneNode(true));
+  else if(originalInfo){const clone=originalInfo.cloneNode(true); clone.querySelectorAll('img').forEach(x=>x.remove()); body.appendChild(clone);}
+  c.replaceChildren(imageWrap,body);
+  c.dataset.cat=cat; c.dataset.search=search; c.dataset.image=image?'1':'0';
+  return {node:c,cat,search,image};
+ }
+ function build(){
+  const target=$('mmsProducts'); if(!target)return;
+  const found=[];
+  sources.forEach(([sel,cat])=>document.querySelectorAll(sel).forEach(n=>found.push(cardFor(n,cat))));
+  found.sort((a,b)=>Number(b.image)-Number(a.image));
+  entries=found; target.replaceChildren(...found.map(x=>x.node)); filter();
+ }
+ function filter(){
+  const q=($('mmsSearch')?.value||'').trim().toLocaleLowerCase(); let n=0;
+  entries.forEach(e=>{const show=(category==='all'||e.cat===category)&&(!q||e.search.includes(q));e.node.hidden=!show;if(show)n++;});
+  if($('mmsCount')) $('mmsCount').textContent=n+' प्रोडक्ट मिले';
+ }
+ function bind(){
+  $('mmsSearch')?.addEventListener('input',filter);
+  $('mmsFilters')?.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;category=b.dataset.cat;$('mmsFilters').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));filter();});
+  $('mmsPreorderWhatsApp')?.addEventListener('click',()=>sendPreorder(false));
+  $('mmsPreorderForm')?.addEventListener('submit',e=>{e.preventDefault();sendPreorder(true);});
+ }
+ function sendPreorder(online){
+  const f=$('mmsPreorderForm'),d=new FormData(f);
+  const name=d.get('customerName'),phone=d.get('phone'),product=d.get('product'),details=d.get('details');
+  const msg='PRE-ORDER REQUEST\\nName: '+name+'\\nPhone: '+phone+'\\nProduct: '+product+'\\nDetails: '+details+'\\nPhoto: '+(d.get('photo')?.name||'Not attached');
+  if(online){
+   $('mmsPreorderStatus').textContent='ऑनलाइन Pre-Order को Admin में सुरक्षित दिखाने के लिए Supabase में अलग preorder table और storage policy की जरूरत है। अभी WhatsApp विकल्प से अनुरोध भेजें।';
+   return;
   }
-  function buildCatalog(){
-    var grid = document.getElementById('mmsUnifiedProductGrid');
-    if(!grid) return;
-    var items = [];
-    sourceSelectors.forEach(function(source){
-      document.querySelectorAll(source.selector).forEach(function(card){
-        items.push(cloneProduct(card,source.category,items.length));
-      });
-    });
-    // Image-bearing cards first, without changing their original order within each group.
-    items.sort(function(a,b){ return Number(b.hasImage)-Number(a.hasImage); });
-    allCatalogItems = items;
-    grid.replaceChildren();
-    items.forEach(function(item){grid.appendChild(item.node);});
-    applyCatalogFilters();
-  }
-  function applyCatalogFilters(){
-    var input = document.getElementById('mmsGlobalSearch');
-    var query = (input ? input.value : '').trim().toLowerCase();
-    var shown = 0;
-    allCatalogItems.forEach(function(item){
-      var categoryMatch = selectedCategory === 'all' || item.category === selectedCategory;
-      var queryMatch = !query || item.search.indexOf(query) !== -1;
-      item.node.hidden = !(categoryMatch && queryMatch);
-      if(!item.node.hidden) shown++;
-    });
-    var count = document.getElementById('mmsCatalogCount');
-    if(count) count.textContent = shown + ' प्रोडक्ट दिख रहे हैं • कुल ' + allCatalogItems.length;
-    var empty = document.getElementById('mmsCatalogEmpty');
-    if(empty) empty.hidden = shown !== 0;
-  }
-  function bindControls(){
-    var input = document.getElementById('mmsGlobalSearch');
-    var clear = document.getElementById('mmsClearSearch');
-    if(input && !input.dataset.bound){input.dataset.bound='1';input.addEventListener('input',applyCatalogFilters);}
-    if(clear && !clear.dataset.bound){clear.dataset.bound='1';clear.addEventListener('click',function(){if(input){input.value='';input.focus();}applyCatalogFilters();});}
-    var filters = document.getElementById('mmsCategoryFilters');
-    if(filters && !filters.dataset.bound){
-      filters.dataset.bound='1';
-      filters.addEventListener('click',function(event){
-        var button=event.target.closest('button[data-category]');
-        if(!button)return;
-        selectedCategory=button.getAttribute('data-category')||'all';
-        filters.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b===button);});
-        applyCatalogFilters();
-      });
-    }
-  }
-  function start(){
-    bindControls();
-    // UV Glass cards are rendered by the existing page script shortly after load.
-    var attempts=0;
-    var timer=setInterval(function(){
-      attempts++;
-      var uv=document.querySelectorAll('#uvGlassProductList .uv-product').length;
-      if(uv || attempts>=20){
-        clearInterval(timer);
-        buildCatalog();
-        if(!observerStarted){
-          observerStarted=true;
-          var targets=['#mainMobileModelList','#productList','.accessory-grid','#uvGlassProductList'];
-          targets.forEach(function(selector){
-            var target=document.querySelector(selector);
-            if(target){
-              var observer=new MutationObserver(function(){buildCatalog();});
-              observer.observe(target,{childList:true,subtree:false});
-            }
-          });
-        }
-      }
-    },250);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
-  window.refreshManoharProductCatalog=buildCatalog;
-
-  // Fail closed: a customer checkbox or app-launch event is not bank proof.
-  // No verified gateway callback is configured in the supplied project, so do not create a paid order.
-  window.confirmUpiPaymentAndContinue=function(){
-    alert('Website abhi bank/UPI se payment ko automatically verify nahi kar sakti. Sirf checkbox se order submit nahi hoga. Payment gateway ka secure server-side verification setup hone ke baad hi order create hoga.');
-  };
-  window.placeOrder=async function(){
-    alert('Order abhi submit nahi hua: UPI payment verification gateway configured nahi hai. Payment app me payment successful dikhna aur shop account me credit hona zaroori hai; bina secure verification ke website order accept nahi karegi.');
-  };
+  const digits=(window.APP_CONFIG?.WHATSAPP_NUMBER||'').replace(/\\D/g,'');
+  if(!digits){$('mmsPreorderStatus').textContent='WhatsApp नंबर कॉन्फ़िगरेशन में उपलब्ध नहीं है।';return;}
+  window.open('https://wa.me/'+digits+'?text='+encodeURIComponent(msg),'_blank','noopener');
+ }
+ function start(){bind();let tries=0;const timer=setInterval(()=>{tries++;const ready=document.querySelector('#mainMobileModelList .main-mobile-product-card')||document.querySelector('#productList .product');if(ready||tries>24){clearInterval(timer);build();}},250);}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+ window.refreshManoharCatalog=build;
 })();
 </script>
 
@@ -7720,7 +7667,7 @@ document.addEventListener("keydown",function(event){
   function makeUri(amount){
     var cfg=window.APP_CONFIG||{};
     var pa=String(cfg.UPI_ID||'').trim();
-    var pn=String(cfg.UPI_NAME||'Kesari Kushwaha').trim();
+    var pn=String(cfg.UPI_NAME||'MANOHAR MOBILE SHOP').trim();
     if(!pa || pa==='YOUR-UPI-ID@BANK') return '';
     var q=new URLSearchParams();
     q.set('pa',pa); q.set('pn',pn);
