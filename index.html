@@ -2657,8 +2657,8 @@ class="flip-cover-image">
 <span class="old-price">₹299</span>
 </div>
 <div class="product-actions">
-<button class="add-cart" onclick="addToCart('Realme C83 5G Cover',149)">
-<button class="buy-now" onclick="buyNow('Realme C83 5G Cover',149)">🛍️ Buy</button>
+<button class="add-cart" type="button" onclick="addToCart('Realme C83 5G Cover',149)">🛒 Add</button>
+<button class="buy-now" type="button" onclick="buyNow('Realme C83 5G Cover',149)">🛍️ Buy</button>
 </div>
 </div>
 </div>
@@ -3102,7 +3102,8 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 <section id="shopAllProducts" class="shop-all-products">
   <div class="shop-all-heading"><span class="shop-eyebrow">MANOHAR MOBILE SHOP</span><h2>🛍️ Shop All Products</h2><p>Flip Cover, Accessories aur UV Glass — sabhi products ek hi jagah</p></div>
   <div class="shop-catalog-controls">
-
+    <label class="shop-search-label" for="shopCatalogSearch">🔎 सभी Products खोजें</label>
+    <input id="shopCatalogSearch" class="shop-catalog-search" type="search" placeholder="Product, model, brand ya accessory search karein..." oninput="filterShopCatalog()" autocomplete="off"/>
     <div class="shop-category-filters" role="group" aria-label="Product category filters">
       <button type="button" class="shop-filter active" data-filter="all" onclick="setShopCategory('all',this)">All Products</button>
       <button type="button" class="shop-filter" data-filter="flip" onclick="setShopCategory('flip',this)">📱 Flip Cover</button>
@@ -5198,7 +5199,7 @@ Cart abhi empty hai.
           <h4>💳 Payment Method</h4>
           <label class="payment-option">
             <input id="upiPaymentOption" type="radio" name="paymentMethod" value="upi" checked>
-            <span><b>📲 UPI / GPay / PhonePe</b><small>Final Grand Total ke saath direct UPI payment</small></span>
+            <span><b>📲 UPI / GPay / PhonePe</b><small>UPI QR scan karein; payment se pehle amount verify karein</small></span>
           </label>
         </div>
         <div id="upiPaymentPanel" class="payment-panel-modern">
@@ -7462,15 +7463,19 @@ document.addEventListener("keydown",function(event){
  };
  window.filterShopCatalog=function(){
    const cat=norm(window.selectedAccessoryCategory||'All'), brand=norm(window.selectedAccessoryBrand||'All');
+   const query=norm(document.getElementById('shopCatalogSearch')?.value||'');
    let shown=0;
    all('#shopCatalogGrid .shop-catalog-card').forEach(card=>{
      const c=card.dataset.shopCategory||'', pc=norm(card.dataset.shopProductCategory), pb=norm(card.dataset.shopBrand);
+     const searchText=norm((card.dataset.shopSearch||'')+' '+(card.innerText||card.textContent||''));
+     const searchMatch=!query||searchText.includes(query);
      const categoryMatch=cat==='all'||pc===cat||(cat==='charger'&&pc.includes('charger'));
      const brandMatch=brand==='all'||pb===brand||pb.includes(brand)||brand.includes(pb);
      const backMatch=activeBackBrand==='all'||pb===activeBackBrand||pb.includes(activeBackBrand);
      const ok=(activeShopCategory==='all'||c===activeShopCategory)
        &&(c!=='back'||backMatch)
-       &&(c!=='accessories'||(categoryMatch&&brandMatch));
+       &&(c!=='accessories'||(categoryMatch&&brandMatch))
+       &&searchMatch;
      card.hidden=!ok; card.style.display=ok?'':'none'; if(ok)shown++;
    });
    const count=document.getElementById('shopCatalogCount');
@@ -7523,6 +7528,33 @@ document.addEventListener("keydown",function(event){
 .shop-filter.active,.shop-subfilter.active{background:#111827!important;color:#fff!important;border-color:#111827!important}
 @media(max-width:700px){.hero-shop-actions{justify-content:center!important;width:100%!important;gap:10px!important}.preorder-hero-card{width:132px!important;height:104px!important;flex-basis:132px!important}.hero-contact-link{padding:0 17px!important;height:46px!important;min-height:46px!important;font-size:13px!important}}
 
+</style>
+
+<style id="mms-search-card-payment-polish">
+#shopAllProducts .shop-catalog-controls{max-width:1200px;margin:0 auto;}
+#shopAllProducts .shop-search-label{display:block;margin:0 0 7px 2px;color:#475569;font-size:13px;font-weight:800;}
+#shopAllProducts .shop-catalog-search{display:block!important;width:100%;max-width:100%;box-sizing:border-box;padding:13px 16px;margin:0 auto 12px;border:1px solid #cbd5e1;border-radius:12px;background:#fff;color:#111827;font:inherit;font-size:15px;outline:none;box-shadow:0 4px 14px rgba(15,23,42,.06);}
+#shopAllProducts .shop-catalog-search:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12);}
+#shopAllProducts .shop-catalog-controls>input.shop-catalog-search{display:block!important;}
+#shopAllProducts .shop-catalog-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;align-items:stretch;gap:16px;}
+.shop-catalog-card,.accessory-grid>.accessory-product{display:flex!important;flex-direction:column!important;height:100%;min-height:0;box-sizing:border-box;}
+.shop-catalog-card .product-info,.shop-catalog-card .detail-info,.accessory-grid>.accessory-product .product-info,.accessory-grid>.accessory-product .detail-info{display:flex!important;flex:1 1 auto;flex-direction:column;min-width:0;}
+.shop-catalog-card .product-description,.shop-catalog-card .detail-description,.accessory-grid>.accessory-product .product-description,.accessory-grid>.accessory-product .detail-description{min-height:54px;line-height:1.4;overflow-wrap:anywhere;}
+.shop-catalog-card .product-actions,.shop-catalog-card .detail-info .product-actions,.accessory-grid>.accessory-product .product-actions{display:flex!important;align-items:stretch;gap:6px!important;margin-top:auto!important;padding-top:12px;min-width:0;}
+.shop-catalog-card .product-actions button,.accessory-grid>.accessory-product .product-actions button{flex:1 1 0!important;min-width:0!important;max-width:100%;white-space:nowrap;overflow:visible;text-overflow:clip;padding:8px 5px!important;font-size:12px!important;line-height:1.1;}
+.shop-catalog-card .detail-image,.accessory-grid>.accessory-product .detail-image{height:160px!important;min-height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f8fafc;}
+.shop-catalog-card .detail-image img,.accessory-grid>.accessory-product .detail-image img{width:100%;height:100%;object-fit:contain;display:block;}
+#productList .product .product-info{display:flex;flex-direction:column;min-height:190px;}
+#productList .product .product-actions{margin-top:auto;}
+#productList .product .add-cart{white-space:nowrap;min-width:0;}
+.hero-shop-actions{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;flex-wrap:nowrap;margin:16px 0 0;}
+.hero-shop-actions .preorder-hero-card{width:170px;height:58px;min-width:0;flex-direction:row;gap:9px;padding:0 13px;border-radius:13px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.38);box-shadow:0 4px 12px rgba(17,24,39,.12);backdrop-filter:blur(5px);}
+.hero-shop-actions .preorder-hero-icon{font-size:23px;}
+.hero-shop-actions .preorder-hero-card strong{font-size:12px;letter-spacing:.2px;}
+.hero-shop-actions .preorder-hero-card small{font-size:9px;}
+.hero-shop-actions .hero-contact-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 17px;border:1px solid rgba(255,255,255,.45);border-radius:12px;background:rgba(255,255,255,.08);color:#fff;text-decoration:none;font-size:13px;font-weight:700;box-shadow:none;white-space:nowrap;}
+.hero-shop-actions .hero-contact-link:hover{background:rgba(255,255,255,.16);}
+@media(max-width:600px){#shopAllProducts .shop-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px;}#shopAllProducts .shop-catalog-card .detail-image{height:135px!important;min-height:135px;}#shopAllProducts .shop-catalog-card .product-actions button{font-size:10px!important;padding:7px 3px!important}.hero-shop-actions{gap:8px;}.hero-shop-actions .preorder-hero-card{width:155px;height:54px;padding:0 9px;}.hero-shop-actions .hero-contact-link{min-height:42px;padding:0 12px;font-size:12px;}}
 </style>
 </body>
 </html>
@@ -7762,10 +7794,11 @@ document.addEventListener("keydown",function(event){
     if(el('checkoutGrandTotal'))el('checkoutGrandTotal').textContent=money(amount);
     var img=el('shopUpiQr');
     if(img && uri){
-      // Never fall back to the shop's static QR: it may encode a different amount.
-      img.onerror=function(){this.onerror=null;this.style.display='none';var msg=el('mmsQrError');if(!msg){msg=document.createElement('p');msg.id='mmsQrError';msg.style.cssText='color:#b42318;font-weight:600;text-align:center';this.insertAdjacentElement('afterend',msg)}msg.textContent='Dynamic QR load nahi hua. Neeche UPI app button use karein; amount '+money(amount)+' hai.';};
+      // Use the merchant QR image configured by the shop owner.
+      img.onerror=function(){this.style.display='none';var msg=el('mmsQrError');if(!msg){msg=document.createElement('p');msg.id='mmsQrError';msg.style.cssText='color:#b42318;font-weight:600;text-align:center';this.insertAdjacentElement('afterend',msg)}msg.textContent='Shop QR image load nahi hui. UPI ID copy karke payment app me manually pay karein.';};
       img.style.display='block';
-      img.src='https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data='+encodeURIComponent(uri)+'&t='+Date.now();
+      img.src=String((window.APP_CONFIG||{}).UPI_QR_IMAGE||'qr/upi-qr.png');
+      img.alt='MANOHAR MOBILE SHOP UPI QR code';
       var msg=el('mmsQrError');if(msg)msg.remove();
     } else if(img){
       img.style.display='none';
