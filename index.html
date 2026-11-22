@@ -1949,7 +1949,7 @@ MOBILE SHOP
 <div class="hero-brand-kicker">WELCOME TO</div>
 <h1 class="hero-brand-name">MANOHAR <span>MOBILE</span></h1>
 <p class="hero-tagline">Your trusted mobile accessories destination</p>
-<div class="hero-global-search"><input id="shopGlobalSearch" type="search" placeholder="🔎 Search all products — model, brand, back cover, accessory..." aria-label="Search all products" oninput="filterShopCatalog()"></div>
+
 <div class="hero-shop-actions">
 <a class="preorder-hero-card" href="#preorder-request" aria-label="Open pre-order request"><span class="preorder-hero-icon">🛍️</span><strong>PRE-ORDER</strong><small>Product not listed?</small></a>
 <a class="hero-contact-link" href="#contact">📞 Contact Us</a>
@@ -3082,8 +3082,7 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 </div>
 <div class="uv-product-grid" id="uvGlassProductList"></div>
 </div></details>
-<a class="preorder-hero-card" href="#preorder-request"><span class="preorder-hero-icon">🛍️</span><strong>PRE-ORDER</strong><small>Not listed? Request it</small></a>
-<a class="secondary-btn" href="#contact">📞 Contact Us</a>
+
 </div>
 </div>
 <div class="hero-phone realistic-phone">
@@ -7343,70 +7342,153 @@ document.addEventListener("keydown",function(event){
 
 <script id="shop-all-catalog-runtime">
 (function(){
- let activeShopCategory='all',activeBackBrand='all';
- const norm=v=>String(v||'').trim().toLowerCase().replace(/\s+/g,' ');
+ 'use strict';
+ let activeShopCategory='all', activeBackBrand='all';
+ const norm=v=>String(v||'').normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
+ const all=(sel,root=document)=>Array.from(root.querySelectorAll(sel));
+ const textOf=(node,sel)=>node.querySelector(sel)?.textContent?.trim()||'';
+ function accessoryCategory(node){
+   const raw=norm(node.dataset.category||'');
+   const detail=norm(textOf(node,'.detail-description, .product-description'));
+   const title=norm(textOf(node,'h3'));
+   const hay=raw+' '+detail+' '+title;
+   if(/charger|charging|adapter|power adaptor/.test(hay)) return 'charger';
+   if(/neck ?band/.test(hay)) return 'neckband';
+   if(/ear ?phone/.test(hay)) return 'earphone';
+   if(/head ?phone/.test(hay)) return 'headphone';
+   if(/data ?cable|charging cable|type c cable/.test(hay)) return 'data cable';
+   if(/speaker/.test(hay)) return 'speaker';
+   if(/buds|earbud|tws/.test(hay)) return 'buds';
+   if(/smart ?watch|watch/.test(hay)) return 'smart watch';
+   if(/power ?bank/.test(hay)) return 'power bank';
+   return raw;
+ }
+ function cardBrand(node,category){
+   return norm(category==='accessories' ? (node.dataset.accessoryBrand||textOf(node,'.company')) : (node.dataset.brand||node.dataset.company||textOf(node,'.company')));
+ }
  function makeCard(node,category){
-  const card=node.cloneNode(true);card.classList.add('shop-catalog-card');card.dataset.shopCategory=category;
-  card.dataset.shopBrand=category==='accessories'?(node.dataset.accessoryBrand||node.querySelector('.company')?.textContent||''):(node.dataset.brand||node.querySelector('.company')?.textContent||'');
-  card.dataset.shopProductCategory=node.dataset.category||'';
-  card.removeAttribute('id');card.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
-  card.querySelectorAll('img').forEach(img=>{img.loading='lazy';img.removeAttribute('width');img.removeAttribute('height')});
-  return card;
+   const card=node.cloneNode(true);
+   card.classList.add('shop-catalog-card');
+   card.dataset.shopCategory=category;
+   card.dataset.shopBrand=cardBrand(node,category);
+   card.dataset.shopProductCategory=category==='accessories'?accessoryCategory(node):'';
+   card.dataset.shopSearch=norm((node.innerText||node.textContent||'')+' '+card.dataset.shopBrand+' '+card.dataset.shopProductCategory);
+   card.removeAttribute('id'); all('[id]',card).forEach(el=>el.removeAttribute('id'));
+   card.removeAttribute('hidden'); card.hidden=false; card.style.display='';
+   all('img',card).forEach(img=>{img.loading='lazy';img.removeAttribute('width');img.removeAttribute('height')});
+   return card;
+ }
+ function sourceNodes(){
+   const out=[], seen=new Set();
+   function add(selector,category){all(selector).forEach(n=>{if(!seen.has(n)){seen.add(n);out.push({node:n,category})}})}
+   add('#productList .product','flip');
+   add('#mainMobileModelList .main-mobile-product-card','back');
+   add('.accessory-grid .accessory-product, .accessory-grid .product.accessory-product','accessories');
+   add('#uvGlassProductList .uv-product','uv');
+   return out;
  }
  function buildShopCatalog(){
-  const grid=document.getElementById('shopCatalogGrid');if(!grid)return;grid.innerHTML='';
-  const sources=[];
-  document.querySelectorAll('#productList > .product').forEach(n=>sources.push({n,c:'flip'}));
-  document.querySelectorAll('#mainMobileModelList > .main-mobile-product-card').forEach(n=>sources.push({n,c:'back'}));
-  document.querySelectorAll('.accessory-grid > .accessory-product').forEach(n=>sources.push({n,c:'accessories'}));
-  document.querySelectorAll('#uvGlassProductList > .uv-product').forEach(n=>sources.push({n,c:'uv'}));
-  sources.sort((a,b)=>Number(!!b.n.querySelector('img'))-Number(!!a.n.querySelector('img')));
-  sources.forEach(({n,c})=>grid.appendChild(makeCard(n,c)));filterShopCatalog();
+   const grid=document.getElementById('shopCatalogGrid'); if(!grid)return;
+   const oldCategory=activeShopCategory, oldBack=activeBackBrand;
+   grid.innerHTML='';
+   const sources=sourceNodes();
+   sources.sort((a,b)=>Number(!!b.node.querySelector('img'))-Number(!!a.node.querySelector('img')));
+   sources.forEach(({node,category})=>grid.appendChild(makeCard(node,category)));
+   activeShopCategory=oldCategory; activeBackBrand=oldBack;
+   filterShopCatalog();
+ }
+ function setActive(selector,value,attr){
+   all(selector).forEach(btn=>{
+     let candidate=attr?btn.getAttribute(attr):null;
+     if(!candidate){const oc=btn.getAttribute('onclick')||'';const m=oc.match(/\('([^']+)'/);candidate=m?m[1]:btn.textContent}
+     btn.classList.toggle('active',norm(candidate)===norm(value));
+   });
+ }
+ function applyOriginalAccessoryFilters(){
+   const cat=norm(window.selectedAccessoryCategory||'All'), brand=norm(window.selectedAccessoryBrand||'All');
+   all('.accessory-product').forEach(node=>{
+     const pc=accessoryCategory(node), pb=cardBrand(node,'accessories');
+     const categoryMatch=cat==='all'||pc===cat||(cat==='charger'&&pc.includes('charger'));
+     const brandMatch=brand==='all'||pb===brand||pb.includes(brand)||brand.includes(pb);
+     const show=categoryMatch&&brandMatch;
+     node.hidden=!show; node.style.display=show?'':'none';
+   });
+ }
+ function populateAccessoryBrandFilters(){
+   const row=document.querySelector('#shopAccessorySubfilters .shop-subfilter-row:last-child');
+   if(!row)return;
+   const label=row.querySelector('span');
+   const values=[...new Set(sourceNodes().filter(x=>x.category==='accessories').map(x=>cardBrand(x.node,'accessories')).filter(Boolean))];
+   const existing=new Set();
+   all('button',row).forEach(b=>{const v=norm((b.getAttribute('onclick')||'').match(/\('([^']+)'/)?.[1]||b.textContent);if(v)existing.add(v)});
+   values.forEach(v=>{
+     if(existing.has(v))return;
+     const source=sourceNodes().find(x=>x.category==='accessories'&&cardBrand(x.node,'accessories')===v);
+     const labelText=source?.node.dataset.accessoryBrand||textOf(source?.node||document.createElement('div'),'.company')||v;
+     const b=document.createElement('button');b.type='button';b.className='shop-subfilter';b.textContent=labelText;
+     b.addEventListener('click',()=>window.filterAccessoryBrand(labelText,b));row.appendChild(b);existing.add(v);
+   });
  }
  window.setShopCategory=function(category,button){
-  activeShopCategory=norm(category)||'all';
-  document.querySelectorAll('.shop-filter').forEach(b=>b.classList.toggle('active',b===button));
-  const a=document.getElementById('shopAccessorySubfilters'),b=document.getElementById('shopBackSubfilters');
-  if(a)a.hidden=activeShopCategory!=='accessories';if(b)b.hidden=activeShopCategory!=='back';
-  filterShopCatalog();
+   activeShopCategory=norm(category)||'all';
+   all('.shop-filter').forEach(b=>b.classList.toggle('active',b===button));
+   const a=document.getElementById('shopAccessorySubfilters'),b=document.getElementById('shopBackSubfilters');
+   if(a)a.hidden=activeShopCategory!=='accessories';
+   if(b)b.hidden=activeShopCategory!=='back';
+   if(activeShopCategory!=='accessories'){window.selectedAccessoryCategory='All';window.selectedAccessoryBrand='All';setActive('#shopAccessorySubfilters .shop-subfilter','All');}
+   if(activeShopCategory!=='back'){activeBackBrand='all';setActive('#shopBackSubfilters [data-back-brand]','All','data-back-brand');}
+   applyOriginalAccessoryFilters();filterShopCatalog();
  };
  window.filterBackCoverBrand=function(brand,button){
-  activeBackBrand=norm(brand);document.querySelectorAll('#shopBackSubfilters [data-back-brand]').forEach(b=>b.classList.toggle('active',b===button));filterShopCatalog();
+   activeBackBrand=norm(brand)||'all';
+   all('#shopBackSubfilters [data-back-brand]').forEach(b=>b.classList.toggle('active',b===button));
+   const original=all('.main-mobile-brand').find(b=>norm(b.textContent).includes(activeBackBrand));
+   if(typeof window.filterMainMobileBrand==='function')window.filterMainMobileBrand(brand,original||null);
+   filterShopCatalog();
  };
- function sync(selector,value){
-  document.querySelectorAll(selector).forEach(b=>{
-   const raw=(b.getAttribute('onclick')||'')+' '+(b.textContent||'');
-   const m=raw.match(/filterAccessory(?:Category|Brand)\('([^']+)'/);
-   const candidate=m?m[1]:(b.textContent||'').trim();
-   b.classList.toggle('active',norm(candidate)===norm(value));
-  });
- }
  window.filterAccessoryCategory=function(category,button){
-  window.selectedAccessoryCategory=category||'All';
-  sync('.category-btn',category);sync('#shopAccessorySubfilters .shop-subfilter-row:first-child .shop-subfilter',category);
-  if(button)button.classList.add('active');filterShopCatalog();
+   window.selectedAccessoryCategory=category||'All';
+   setActive('#shopAccessorySubfilters .shop-subfilter-row:first-child .shop-subfilter',category);
+   setActive('.category-btn',category);
+   if(button)button.classList.add('active');
+   applyOriginalAccessoryFilters();filterShopCatalog();
  };
  window.filterAccessoryBrand=function(brand,button){
-  window.selectedAccessoryBrand=brand||'All';
-  sync('.accessory-brand',brand);sync('#shopAccessorySubfilters .shop-subfilter-row:last-child .shop-subfilter',brand);
-  if(button)button.classList.add('active');filterShopCatalog();
+   window.selectedAccessoryBrand=brand||'All';
+   setActive('#shopAccessorySubfilters .shop-subfilter-row:last-child .shop-subfilter',brand);
+   setActive('.accessory-brand',brand);
+   if(button)button.classList.add('active');
+   applyOriginalAccessoryFilters();filterShopCatalog();
  };
  window.filterShopCatalog=function(){
-  const q=norm(document.getElementById('shopGlobalSearch')?.value),cat=norm(window.selectedAccessoryCategory||'All'),brand=norm(window.selectedAccessoryBrand||'All');let shown=0;
-  document.querySelectorAll('#shopCatalogGrid .shop-catalog-card').forEach(card=>{
-   const c=card.dataset.shopCategory||'',pc=norm(card.dataset.shopProductCategory),pb=norm(card.dataset.shopBrand);
-   const ok=(activeShopCategory==='all'||c===activeShopCategory)
-    &&(c!=='back'||activeBackBrand==='all'||pb===activeBackBrand)
-    &&(c!=='accessories'||cat==='all'||pc===cat)
-    &&(c!=='accessories'||brand==='all'||pb===brand)
-    &&(!q||norm(card.innerText).includes(q)||norm(card.dataset.name).includes(q)||pb.includes(q));
-   card.hidden=!ok;if(ok)shown++;
-  });
-  const count=document.getElementById('shopCatalogCount');if(count)count.textContent=shown+' products found';
+   const cat=norm(window.selectedAccessoryCategory||'All'), brand=norm(window.selectedAccessoryBrand||'All');
+   let shown=0;
+   all('#shopCatalogGrid .shop-catalog-card').forEach(card=>{
+     const c=card.dataset.shopCategory||'', pc=norm(card.dataset.shopProductCategory), pb=norm(card.dataset.shopBrand);
+     const categoryMatch=cat==='all'||pc===cat||(cat==='charger'&&pc.includes('charger'));
+     const brandMatch=brand==='all'||pb===brand||pb.includes(brand)||brand.includes(pb);
+     const backMatch=activeBackBrand==='all'||pb===activeBackBrand||pb.includes(activeBackBrand);
+     const ok=(activeShopCategory==='all'||c===activeShopCategory)
+       &&(c!=='back'||backMatch)
+       &&(c!=='accessories'||(categoryMatch&&brandMatch));
+     card.hidden=!ok; card.style.display=ok?'':'none'; if(ok)shown++;
+   });
+   const count=document.getElementById('shopCatalogCount');
+   if(count)count.textContent=shown+' products found';
  };
- function start(){if(typeof window.renderUVGlassProducts==='function')window.renderUVGlassProducts();buildShopCatalog()}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(start,120));else setTimeout(start,120);
- window.addEventListener('load',()=>setTimeout(buildShopCatalog,350));setTimeout(buildShopCatalog,1000);
+ function init(){
+   if(typeof window.renderMainMobileModels==='function') { try{window.renderMainMobileModels()}catch(e){} }
+   if(typeof window.renderUVGlassProducts==='function') { try{window.renderUVGlassProducts()}catch(e){} }
+   buildShopCatalog();populateAccessoryBrandFilters();applyOriginalAccessoryFilters();
+   // Old inline accessory filter buttons now use the same unified working state.
+   window.selectedAccessoryCategory=window.selectedAccessoryCategory||'All';
+   window.selectedAccessoryBrand=window.selectedAccessoryBrand||'All';
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,250));
+ else setTimeout(init,250);
+ window.addEventListener('load',()=>setTimeout(buildShopCatalog,700));
+ // UV models and mobile model cards are rendered asynchronously in this page.
+ let tries=0;const retry=setInterval(()=>{tries++;buildShopCatalog();if(tries>=8)clearInterval(retry)},500);
 })();
 </script>
 
@@ -7423,6 +7505,24 @@ document.addEventListener("keydown",function(event){
 .hero-contact-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1px solid rgba(255,255,255,.85);border-radius:999px;background:#fff;color:#4338ca;text-decoration:none;font-weight:800;box-shadow:0 8px 22px rgba(15,23,42,.16);white-space:nowrap}
 .hero-contact-link:hover{transform:translateY(-2px);background:#f8fafc}
 @media(max-width:700px){.hero-shop-actions{justify-content:center;width:100%;gap:10px}.preorder-hero-card{width:140px!important;height:128px!important}.hero-contact-link{min-height:44px;padding:10px 16px;font-size:13px}}
+
+/* Final hero cleanup: single landscape action row, no global hero search */
+.hero-global-search,#shopGlobalSearch,.main-mobile-cover-search{display:none!important}
+.hero-shop-actions{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:14px!important;flex-wrap:nowrap!important;width:max-content;max-width:100%;margin-top:22px!important}
+.preorder-hero-card{width:154px!important;height:112px!important;flex:0 0 154px!important;border:2px solid rgba(255,255,255,.9)!important;border-radius:18px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
+.hero-contact-link{height:52px!important;min-height:52px!important;flex:0 0 auto!important;padding:0 24px!important}
+.hero-navigation>.preorder-hero-card,.hero-navigation>.secondary-btn{display:none!important}
+#shopCatalogGrid .shop-catalog-card[hidden]{display:none!important}
+#shopCatalogGrid .shop-catalog-card{min-width:0;max-width:100%;}
+#shopCatalogGrid .shop-catalog-card .detail-image,#shopCatalogGrid .shop-catalog-card .product-img,#shopCatalogGrid .shop-catalog-card .uv-product-image{height:180px;min-height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f8fafc}
+#shopCatalogGrid .shop-catalog-card img{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;display:block}
+#shopCatalogGrid .shop-catalog-card .detail-info,#shopCatalogGrid .shop-catalog-card .product-info,#shopCatalogGrid .shop-catalog-card .uv-product-info{padding:13px;min-width:0}
+#shopCatalogGrid .shop-catalog-card .price{display:block!important;visibility:visible!important;opacity:1!important}
+.shop-category-filters{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+.shop-filter,.shop-subfilter{cursor:pointer}
+.shop-filter.active,.shop-subfilter.active{background:#111827!important;color:#fff!important;border-color:#111827!important}
+@media(max-width:700px){.hero-shop-actions{justify-content:center!important;width:100%!important;gap:10px!important}.preorder-hero-card{width:132px!important;height:104px!important;flex-basis:132px!important}.hero-contact-link{padding:0 17px!important;height:46px!important;min-height:46px!important;font-size:13px!important}}
+
 </style>
 </body>
 </html>
