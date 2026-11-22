@@ -1695,6 +1695,17 @@ img{max-width:100%;}
 .hero-navigation{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto;max-width:100%;padding-bottom:5px;scrollbar-width:thin}.hero-navigation>*{flex:0 0 auto!important}.hero-navigation .secondary-btn{white-space:nowrap}
 </style>
 
+<style id="manohar-refinements-v2">
+/* Keep product source dropdowns in the DOM for catalog population, but remove their hero navigation controls. */
+.hero-navigation .flip-nav,.hero-navigation .accessory-nav,.hero-navigation .uv-nav{display:none!important}
+.hero-navigation{display:flex!important;align-items:center;gap:14px;flex-wrap:wrap!important}
+.preorder-hero-card{width:116px;height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:18px;text-decoration:none;color:#fff;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.55);box-shadow:0 8px 22px #17124a33;backdrop-filter:blur(8px);text-align:center}.preorder-hero-icon{font-size:30px}.preorder-hero-card strong{font-size:13px;letter-spacing:.6px}.preorder-hero-card small{font-size:10px;line-height:1.2}
+.hero-global-search{width:min(520px,100%);margin:18px 0 0}.hero-global-search input{width:100%;box-sizing:border-box;padding:13px 17px;border-radius:14px;border:1px solid #ffffffa8;background:#fff;color:#172033;font-size:14px;box-shadow:0 8px 22px #16114b2a}
+.shop-catalog-controls>input{display:none!important}.main-cover-search-box,.flip-dropdown .search-wrapper,.uv-dropdown .uv-search-wrapper{display:none!important}
+.shop-accessory-subfilters{max-width:1100px;margin:4px auto 12px;padding:12px;background:#fff;border:1px solid #e2e8f0;border-radius:12px}.shop-accessory-subfilters[hidden]{display:none!important}.shop-subfilter-row{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:4px 0}.shop-subfilter-row span{font-size:12px;font-weight:800;color:#475569;margin-right:4px}.shop-subfilter{border:1px solid #cbd5e1;background:#fff;color:#334155;padding:7px 11px;border-radius:20px;font-size:12px;font-weight:700}.shop-subfilter.active{background:#312e81;color:#fff;border-color:#312e81}
+.shop-catalog-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr))!important;align-items:stretch}.shop-catalog-card{min-width:0;display:flex!important;flex-direction:column!important;overflow:hidden!important;height:auto!important;min-height:0!important}.shop-catalog-card .detail-image,.shop-catalog-card .uv-product-image,.shop-catalog-card .product-img{height:145px!important;min-height:145px!important;max-height:145px!important;width:100%!important;flex:none!important;padding:8px!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#fff!important;overflow:hidden!important}.shop-catalog-card .detail-image img,.shop-catalog-card .uv-product-image img,.shop-catalog-card .product-img img,.shop-catalog-card img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;display:block!important}.shop-catalog-card .product-info,.shop-catalog-card .detail-info,.shop-catalog-card .uv-product-info{padding:10px!important;display:flex!important;flex-direction:column!important;gap:5px!important;min-width:0!important;flex:1 1 auto!important}.shop-catalog-card h3{font-size:13px!important;line-height:1.3!important;margin:2px 0!important;overflow-wrap:anywhere}.shop-catalog-card .company{font-size:10px!important}.shop-catalog-card .product-description,.shop-catalog-card .detail-description{font-size:10px!important;line-height:1.3!important}.shop-catalog-card .price{display:block!important;visibility:visible!important;opacity:1!important;font-size:15px!important;font-weight:900!important;color:#111827!important;margin:4px 0!important}.shop-catalog-card .old-price{font-size:10px!important}.shop-catalog-card .product-actions{display:flex!important;flex-wrap:wrap!important;gap:4px!important;margin-top:auto!important}.shop-catalog-card .product-actions button{font-size:10px!important;padding:6px 7px!important;min-width:0!important}
+@media(max-width:600px){.shop-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.shop-catalog-card .detail-image,.shop-catalog-card .uv-product-image,.shop-catalog-card .product-img{height:132px!important;min-height:132px!important;max-height:132px!important}.hero-global-search{margin-top:14px}.preorder-hero-card{width:105px;height:100px}}
+</style>
 </head>
 
 <div class="offers-coming-soon">
@@ -1938,6 +1949,7 @@ MOBILE SHOP
 <div class="hero-brand-kicker">WELCOME TO</div>
 <h1 class="hero-brand-name">MANOHAR <span>MOBILE</span></h1>
 <p class="hero-tagline">Your trusted mobile accessories destination</p>
+<div class="hero-global-search"><input id="shopGlobalSearch" type="search" placeholder="🔎 Search all products — model, brand, back cover, accessory..." aria-label="Search all products" oninput="filterShopCatalog()"></div>
 <div class="hero-buttons hero-navigation">
 
 <details class="flip-nav">
@@ -3066,6 +3078,7 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 </div>
 <div class="uv-product-grid" id="uvGlassProductList"></div>
 </div></details>
+<a class="preorder-hero-card" href="#preorder-request"><span class="preorder-hero-icon">🛍️</span><strong>PRE-ORDER</strong><small>Not listed? Request it</small></a>
 <a class="secondary-btn" href="#contact">📞 Contact Us</a>
 </div>
 </div>
@@ -3086,15 +3099,17 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
 <section id="shopAllProducts" class="shop-all-products">
   <div class="shop-all-heading"><span class="shop-eyebrow">MANOHAR MOBILE SHOP</span><h2>🛍️ Shop All Products</h2><p>Flip Cover, Accessories aur UV Glass — sabhi products ek hi jagah</p></div>
   <div class="shop-catalog-controls">
-    <input id="shopGlobalSearch" type="search" placeholder="🔎 Har product search karein — model, brand, accessory..." aria-label="Search all products" oninput="filterShopCatalog()">
+
     <div class="shop-category-filters" role="group" aria-label="Product category filters">
       <button type="button" class="shop-filter active" data-filter="all" onclick="setShopCategory('all',this)">All Products</button>
       <button type="button" class="shop-filter" data-filter="flip" onclick="setShopCategory('flip',this)">📱 Flip Cover</button>
+      <button type="button" class="shop-filter" data-filter="back" onclick="setShopCategory('back',this)">📱 Back Cover</button>
       <button type="button" class="shop-filter" data-filter="accessories" onclick="setShopCategory('accessories',this)">🎧 Accessories</button>
       <button type="button" class="shop-filter" data-filter="uv" onclick="setShopCategory('uv',this)">📱 UV Glass</button>
     </div>
   </div>
-  <p id="shopCatalogCount" class="shop-catalog-count" aria-live="polite"></p>
+  <div id="shopAccessorySubfilters" class="shop-accessory-subfilters" hidden><div class="shop-subfilter-row"><span>Category:</span><button class="shop-subfilter active" onclick="filterAccessoryCategory('All',this)">All</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Charger',this)">Charger</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Neckband',this)">Neckband</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Earphone',this)">Earphone</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Headphone',this)">Headphone</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Data Cable',this)">Data Cable</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Speaker',this)">Speaker</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Buds',this)">Buds</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Smart Watch',this)">Smart Watch</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Power Bank',this)">Power Bank</button></div><div class="shop-subfilter-row"><span>Brand:</span><button class="shop-subfilter active" onclick="filterAccessoryBrand('All',this)">All</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Morbi',this)">Morbi</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Ubon',this)">Ubon</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Boat',this)">Boat</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Zebronics',this)">Zebronics</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Compact',this)">Compact</button></div></div>
+<p id="shopCatalogCount" class="shop-catalog-count" aria-live="polite"></p>
   <div id="shopCatalogGrid" class="shop-catalog-grid"></div>
 </section>
 <section class="products" id="models">
@@ -4834,6 +4849,7 @@ Product purchase se pehle model aur item check karein.
 </div>
 </section>
 
+<section id="preorder-request" class="products" style="padding:30px 5%;text-align:center"><div class="section-title"><h2>🛍️ Pre-Order Request</h2><p>Website par product nahi mil raha? Model / product ka naam WhatsApp par bhejkar availability poochhein.</p><a href="https://wa.me/919407017035?text=Namaste%20Manohar%20Mobile%20Shop%2C%20mujhe%20ek%20product%20pre-order%20karna%20hai." class="buy-now" style="display:inline-block;text-decoration:none;padding:12px 22px">WhatsApp par Pre-Order karein</a></div></section>
 <section class="contact" id="contact">
 <h2>
 📱 MANOHAR MOBILE SHOP
@@ -5285,14 +5301,14 @@ function filterAccessoryCategory(category,button){
     window.selectedAccessoryCategory = category;
     document.querySelectorAll(".category-btn").forEach(btn => btn.classList.remove("active"));
     if(button) button.classList.add("active");
-    applyAccessoryFilters();
+    applyAccessoryFilters();if(typeof window.filterShopCatalog==='function')window.filterShopCatalog();
 }
 
 function filterAccessoryBrand(brand,button){
     window.selectedAccessoryBrand = brand;
     document.querySelectorAll(".accessory-brand").forEach(btn => btn.classList.remove("active"));
     if(button) button.classList.add("active");
-    applyAccessoryFilters();
+    applyAccessoryFilters();if(typeof window.filterShopCatalog==='function')window.filterShopCatalog();
 }
 function findProductMeta(name){
     const target=String(name||"").trim().toLowerCase();
@@ -7322,6 +7338,7 @@ document.addEventListener("keydown",function(event){
    grid.innerHTML='';
    const sources=[];
    document.querySelectorAll('#productList > .product').forEach(n=>sources.push({n,c:'flip'}));
+   document.querySelectorAll('#mainMobileModelList > .main-mobile-product-card').forEach(n=>sources.push({n,c:'back'}));
    document.querySelectorAll('.accessory-grid > .accessory-product').forEach(n=>sources.push({n,c:'accessories'}));
    document.querySelectorAll('#uvGlassProductList > .uv-product').forEach(n=>sources.push({n,c:'uv'}));
    // Show image-bearing products first without dropping products that have no image.
@@ -7332,6 +7349,7 @@ document.addEventListener("keydown",function(event){
  window.setShopCategory=function(category,button){
    activeShopCategory=category;
    document.querySelectorAll('.shop-filter').forEach(b=>b.classList.toggle('active',b===button));
+   const sub=document.getElementById('shopAccessorySubfilters');if(sub)sub.hidden=category!=='accessories';
    filterShopCatalog();
  };
  window.filterShopCatalog=function(){
