@@ -1950,6 +1950,10 @@ MOBILE SHOP
 <h1 class="hero-brand-name">MANOHAR <span>MOBILE</span></h1>
 <p class="hero-tagline">Your trusted mobile accessories destination</p>
 <div class="hero-global-search"><input id="shopGlobalSearch" type="search" placeholder="🔎 Search all products — model, brand, back cover, accessory..." aria-label="Search all products" oninput="filterShopCatalog()"></div>
+<div class="hero-shop-actions">
+<a class="preorder-hero-card" href="#preorder-request" aria-label="Open pre-order request"><span class="preorder-hero-icon">🛍️</span><strong>PRE-ORDER</strong><small>Product not listed?</small></a>
+<a class="hero-contact-link" href="#contact">📞 Contact Us</a>
+</div>
 <div class="hero-buttons hero-navigation">
 
 <details class="flip-nav">
@@ -3108,7 +3112,20 @@ Charger <br><strong>Feature:</strong>  Multi protocol Supprt
       <button type="button" class="shop-filter" data-filter="uv" onclick="setShopCategory('uv',this)">📱 UV Glass</button>
     </div>
   </div>
-  <div id="shopAccessorySubfilters" class="shop-accessory-subfilters" hidden><div class="shop-subfilter-row"><span>Category:</span><button class="shop-subfilter active" onclick="filterAccessoryCategory('All',this)">All</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Charger',this)">Charger</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Neckband',this)">Neckband</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Earphone',this)">Earphone</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Headphone',this)">Headphone</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Data Cable',this)">Data Cable</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Speaker',this)">Speaker</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Buds',this)">Buds</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Smart Watch',this)">Smart Watch</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Power Bank',this)">Power Bank</button></div><div class="shop-subfilter-row"><span>Brand:</span><button class="shop-subfilter active" onclick="filterAccessoryBrand('All',this)">All</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Morbi',this)">Morbi</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Ubon',this)">Ubon</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Boat',this)">Boat</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Zebronics',this)">Zebronics</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Compact',this)">Compact</button></div></div>
+  <div id="shopBackSubfilters" class="shop-accessory-subfilters" hidden><div class="shop-subfilter-row"><span>Brand:</span>
+<button type="button" class="shop-subfilter active" data-back-brand="All" onclick="filterBackCoverBrand('All',this)">All</button>
+<button type="button" class="shop-subfilter" data-back-brand="Apple" onclick="filterBackCoverBrand('Apple',this)">Apple</button>
+<button type="button" class="shop-subfilter" data-back-brand="Samsung" onclick="filterBackCoverBrand('Samsung',this)">Samsung</button>
+<button type="button" class="shop-subfilter" data-back-brand="Redmi" onclick="filterBackCoverBrand('Redmi',this)">Redmi</button>
+<button type="button" class="shop-subfilter" data-back-brand="Poco" onclick="filterBackCoverBrand('Poco',this)">Poco</button>
+<button type="button" class="shop-subfilter" data-back-brand="Realme" onclick="filterBackCoverBrand('Realme',this)">Realme</button>
+<button type="button" class="shop-subfilter" data-back-brand="Vivo" onclick="filterBackCoverBrand('Vivo',this)">Vivo</button>
+<button type="button" class="shop-subfilter" data-back-brand="Oppo" onclick="filterBackCoverBrand('Oppo',this)">Oppo</button>
+<button type="button" class="shop-subfilter" data-back-brand="OnePlus" onclick="filterBackCoverBrand('OnePlus',this)">OnePlus</button>
+<button type="button" class="shop-subfilter" data-back-brand="Motorola" onclick="filterBackCoverBrand('Motorola',this)">Motorola</button>
+<button type="button" class="shop-subfilter" data-back-brand="Tecno" onclick="filterBackCoverBrand('Tecno',this)">Tecno</button>
+</div></div>
+<div id="shopAccessorySubfilters" class="shop-accessory-subfilters" hidden><div class="shop-subfilter-row"><span>Category:</span><button class="shop-subfilter active" onclick="filterAccessoryCategory('All',this)">All</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Charger',this)">Charger</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Neckband',this)">Neckband</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Earphone',this)">Earphone</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Headphone',this)">Headphone</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Data Cable',this)">Data Cable</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Speaker',this)">Speaker</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Buds',this)">Buds</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Smart Watch',this)">Smart Watch</button><button class="shop-subfilter" onclick="filterAccessoryCategory('Power Bank',this)">Power Bank</button></div><div class="shop-subfilter-row"><span>Brand:</span><button class="shop-subfilter active" onclick="filterAccessoryBrand('All',this)">All</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Morbi',this)">Morbi</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Ubon',this)">Ubon</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Boat',this)">Boat</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Zebronics',this)">Zebronics</button><button class="shop-subfilter" onclick="filterAccessoryBrand('Compact',this)">Compact</button></div></div>
 <p id="shopCatalogCount" class="shop-catalog-count" aria-live="polite"></p>
   <div id="shopCatalogGrid" class="shop-catalog-grid"></div>
 </section>
@@ -7326,48 +7343,87 @@ document.addEventListener("keydown",function(event){
 
 <script id="shop-all-catalog-runtime">
 (function(){
- let activeShopCategory='all';
+ let activeShopCategory='all',activeBackBrand='all';
+ const norm=v=>String(v||'').trim().toLowerCase().replace(/\s+/g,' ');
  function makeCard(node,category){
-   const card=node.cloneNode(true); card.classList.add('shop-catalog-card'); card.dataset.shopCategory=category;
-   card.removeAttribute('id'); card.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
-   card.querySelectorAll('img').forEach(img=>{img.loading='lazy';img.removeAttribute('width');img.removeAttribute('height');});
-   return card;
+  const card=node.cloneNode(true);card.classList.add('shop-catalog-card');card.dataset.shopCategory=category;
+  card.dataset.shopBrand=category==='accessories'?(node.dataset.accessoryBrand||node.querySelector('.company')?.textContent||''):(node.dataset.brand||node.querySelector('.company')?.textContent||'');
+  card.dataset.shopProductCategory=node.dataset.category||'';
+  card.removeAttribute('id');card.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+  card.querySelectorAll('img').forEach(img=>{img.loading='lazy';img.removeAttribute('width');img.removeAttribute('height')});
+  return card;
  }
  function buildShopCatalog(){
-   const grid=document.getElementById('shopCatalogGrid'); if(!grid)return;
-   grid.innerHTML='';
-   const sources=[];
-   document.querySelectorAll('#productList > .product').forEach(n=>sources.push({n,c:'flip'}));
-   document.querySelectorAll('#mainMobileModelList > .main-mobile-product-card').forEach(n=>sources.push({n,c:'back'}));
-   document.querySelectorAll('.accessory-grid > .accessory-product').forEach(n=>sources.push({n,c:'accessories'}));
-   document.querySelectorAll('#uvGlassProductList > .uv-product').forEach(n=>sources.push({n,c:'uv'}));
-   // Show image-bearing products first without dropping products that have no image.
-   sources.sort((a,b)=>Number(!!b.n.querySelector('img'))-Number(!!a.n.querySelector('img')));
-   sources.forEach(({n,c})=>grid.appendChild(makeCard(n,c)));
-   filterShopCatalog();
+  const grid=document.getElementById('shopCatalogGrid');if(!grid)return;grid.innerHTML='';
+  const sources=[];
+  document.querySelectorAll('#productList > .product').forEach(n=>sources.push({n,c:'flip'}));
+  document.querySelectorAll('#mainMobileModelList > .main-mobile-product-card').forEach(n=>sources.push({n,c:'back'}));
+  document.querySelectorAll('.accessory-grid > .accessory-product').forEach(n=>sources.push({n,c:'accessories'}));
+  document.querySelectorAll('#uvGlassProductList > .uv-product').forEach(n=>sources.push({n,c:'uv'}));
+  sources.sort((a,b)=>Number(!!b.n.querySelector('img'))-Number(!!a.n.querySelector('img')));
+  sources.forEach(({n,c})=>grid.appendChild(makeCard(n,c)));filterShopCatalog();
  }
  window.setShopCategory=function(category,button){
-   activeShopCategory=category;
-   document.querySelectorAll('.shop-filter').forEach(b=>b.classList.toggle('active',b===button));
-   const sub=document.getElementById('shopAccessorySubfilters');if(sub)sub.hidden=category!=='accessories';
-   filterShopCatalog();
+  activeShopCategory=norm(category)||'all';
+  document.querySelectorAll('.shop-filter').forEach(b=>b.classList.toggle('active',b===button));
+  const a=document.getElementById('shopAccessorySubfilters'),b=document.getElementById('shopBackSubfilters');
+  if(a)a.hidden=activeShopCategory!=='accessories';if(b)b.hidden=activeShopCategory!=='back';
+  filterShopCatalog();
+ };
+ window.filterBackCoverBrand=function(brand,button){
+  activeBackBrand=norm(brand);document.querySelectorAll('#shopBackSubfilters [data-back-brand]').forEach(b=>b.classList.toggle('active',b===button));filterShopCatalog();
+ };
+ function sync(selector,value){
+  document.querySelectorAll(selector).forEach(b=>{
+   const raw=(b.getAttribute('onclick')||'')+' '+(b.textContent||'');
+   const m=raw.match(/filterAccessory(?:Category|Brand)\('([^']+)'/);
+   const candidate=m?m[1]:(b.textContent||'').trim();
+   b.classList.toggle('active',norm(candidate)===norm(value));
+  });
+ }
+ window.filterAccessoryCategory=function(category,button){
+  window.selectedAccessoryCategory=category||'All';
+  sync('.category-btn',category);sync('#shopAccessorySubfilters .shop-subfilter-row:first-child .shop-subfilter',category);
+  if(button)button.classList.add('active');filterShopCatalog();
+ };
+ window.filterAccessoryBrand=function(brand,button){
+  window.selectedAccessoryBrand=brand||'All';
+  sync('.accessory-brand',brand);sync('#shopAccessorySubfilters .shop-subfilter-row:last-child .shop-subfilter',brand);
+  if(button)button.classList.add('active');filterShopCatalog();
  };
  window.filterShopCatalog=function(){
-   const q=(document.getElementById('shopGlobalSearch')?.value||'').trim().toLowerCase();let shown=0;
-   document.querySelectorAll('#shopCatalogGrid .shop-catalog-card').forEach(card=>{
-     const categoryOk=activeShopCategory==='all'||card.dataset.shopCategory===activeShopCategory;
-     const searchOk=!q||card.innerText.toLowerCase().includes(q)||(card.dataset.name||'').toLowerCase().includes(q)||(card.dataset.brand||'').toLowerCase().includes(q);
-     card.hidden=!(categoryOk&&searchOk);if(!card.hidden)shown++;
-   });
-   const count=document.getElementById('shopCatalogCount');if(count)count.textContent=shown+' products found';
+  const q=norm(document.getElementById('shopGlobalSearch')?.value),cat=norm(window.selectedAccessoryCategory||'All'),brand=norm(window.selectedAccessoryBrand||'All');let shown=0;
+  document.querySelectorAll('#shopCatalogGrid .shop-catalog-card').forEach(card=>{
+   const c=card.dataset.shopCategory||'',pc=norm(card.dataset.shopProductCategory),pb=norm(card.dataset.shopBrand);
+   const ok=(activeShopCategory==='all'||c===activeShopCategory)
+    &&(c!=='back'||activeBackBrand==='all'||pb===activeBackBrand)
+    &&(c!=='accessories'||cat==='all'||pc===cat)
+    &&(c!=='accessories'||brand==='all'||pb===brand)
+    &&(!q||norm(card.innerText).includes(q)||norm(card.dataset.name).includes(q)||pb.includes(q));
+   card.hidden=!ok;if(ok)shown++;
+  });
+  const count=document.getElementById('shopCatalogCount');if(count)count.textContent=shown+' products found';
  };
- function start(){if(typeof window.renderUVGlassProducts==='function')window.renderUVGlassProducts();buildShopCatalog();}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(start,80));else setTimeout(start,80);
- // UV list may be rendered by the site's own ready handler; refresh after it is populated.
- window.addEventListener('load',()=>setTimeout(buildShopCatalog,250));
+ function start(){if(typeof window.renderUVGlassProducts==='function')window.renderUVGlassProducts();buildShopCatalog()}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(start,120));else setTimeout(start,120);
+ window.addEventListener('load',()=>setTimeout(buildShopCatalog,350));setTimeout(buildShopCatalog,1000);
 })();
 </script>
 
+<style id="mms-filter-and-layout-repair">
+#models>.section-title{display:none!important}
+#shopBackSubfilters[hidden],#shopAccessorySubfilters[hidden]{display:none!important}
+.shop-subfilter{cursor:pointer;transition:.18s}
+.shop-subfilter:hover{border-color:#6366f1}
+.shop-accessory-subfilters{box-shadow:0 5px 18px rgba(15,23,42,.05)}
+.hero-shop-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+.preorder-hero-card{width:154px!important;height:142px!important;border:2px solid rgba(255,255,255,.82)!important;border-radius:20px!important;background:linear-gradient(145deg,rgba(255,255,255,.25),rgba(255,255,255,.10))!important;box-shadow:0 12px 28px rgba(15,23,42,.24)!important}
+.preorder-hero-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.3)!important}
+.preorder-hero-icon{font-size:38px!important}.preorder-hero-card strong{font-size:15px!important}.preorder-hero-card small{font-size:11px!important}
+.hero-contact-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1px solid rgba(255,255,255,.85);border-radius:999px;background:#fff;color:#4338ca;text-decoration:none;font-weight:800;box-shadow:0 8px 22px rgba(15,23,42,.16);white-space:nowrap}
+.hero-contact-link:hover{transform:translateY(-2px);background:#f8fafc}
+@media(max-width:700px){.hero-shop-actions{justify-content:center;width:100%;gap:10px}.preorder-hero-card{width:140px!important;height:128px!important}.hero-contact-link{min-height:44px;padding:10px 16px;font-size:13px}}
+</style>
 </body>
 </html>
 
