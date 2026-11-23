@@ -5227,7 +5227,7 @@ Cart abhi empty hai.
     </div>
     <div id="orderSuccess" class="order-success">
       <div class="success-icon">🎉</div><h2>Order Received!</h2>
-      <p>Aapka order successfully save ho gaya.</p>
+      <p>Aapka order Admin ko bhej diya gaya hai. Payment aur UTR verify hone ke baad hi payment confirm maana jayega.</p>
       <div class="order-id" id="successOrderId">MMS00000000</div>
       <p class="checkout-note">Order details website par save ho gayi hain. Aap Account → My Orders me tracking dekh sakte hain.</p>
       <button class="place-order-btn" onclick="continueShopping()">🛍️ Continue Shopping</button>
@@ -7778,8 +7778,9 @@ document.addEventListener("keydown",function(event){
     if(!pa || pa==='YOUR-UPI-ID@BANK') return '';
     var q=new URLSearchParams();
     q.set('pa',pa); q.set('pn',pn);
-    q.set('tr',String(window.pendingOrderId||('MMS'+Date.now().toString().slice(-8))));
-    q.set('tn','MANOHAR MOBILE SHOP Order');
+    window.pendingOrderId=window.pendingOrderId||('MMS'+Date.now().toString().slice(-8));
+    q.set('tr',String(window.pendingOrderId));
+    q.set('tn','MANOHAR MOBILE SHOP Order '+String(window.pendingOrderId));
     q.set('am',Number(amount).toFixed(2)); q.set('cu','INR');
     return 'upi://pay?'+q.toString();
   }
@@ -7794,11 +7795,11 @@ document.addEventListener("keydown",function(event){
     if(el('checkoutGrandTotal'))el('checkoutGrandTotal').textContent=money(amount);
     var img=el('shopUpiQr');
     if(img && uri){
-      // Use the merchant QR image configured by the shop owner.
-      img.onerror=function(){this.style.display='none';var msg=el('mmsQrError');if(!msg){msg=document.createElement('p');msg.id='mmsQrError';msg.style.cssText='color:#b42318;font-weight:600;text-align:center';this.insertAdjacentElement('afterend',msg)}msg.textContent='Shop QR image load nahi hui. UPI ID copy karke payment app me manually pay karein.';};
+      // Generate a fresh QR from the exact UPI URI, including the payable amount.
+      img.onerror=function(){this.style.display='none';var msg=el('mmsQrError');if(!msg){msg=document.createElement('p');msg.id='mmsQrError';msg.style.cssText='color:#b42318;font-weight:600;text-align:center';this.insertAdjacentElement('afterend',msg)}msg.textContent='Amount wala QR load nahi hua. Kripya dobara try karein; purana static QR use na karein.';};
       img.style.display='block';
-      img.src=String((window.APP_CONFIG||{}).UPI_QR_IMAGE||'qr/upi-qr.png');
-      img.alt='MANOHAR MOBILE SHOP UPI QR code';
+      img.src='https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data='+encodeURIComponent(uri);
+      img.alt='UPI QR code for exact payable amount '+money(amount);
       var msg=el('mmsQrError');if(msg)msg.remove();
     } else if(img){
       img.style.display='none';
@@ -7946,6 +7947,103 @@ document.addEventListener("keydown",function(event){
         box.querySelectorAll('.admin-info-line').forEach(function(line){if(/Refund UPI|Bank Holder|Bank Account|IFSC/i.test(line.textContent))line.remove();});
       }
     });
+  });
+})();
+</script>
+
+
+<!-- MMS targeted payment fix: exact 12-digit UTR validation -->
+<script id="mms-utr-exact-12-final">
+(function(){
+  'use strict';
+  function $(id){return document.getElementById(id)}
+  function cleanDigits(value){return String(value||'').replace(/\D/g,'').slice(0,12)}
+  function getUtr(){return $('mmsPaymentUtr') ? cleanDigits($('mmsPaymentUtr').value) : ''}
+
+  function ensureExactUtr(){
+    var box=$('upiPaymentConfirmation');
+    if(!box)return;
+    var check=$('upiPaymentDoneCheck');
+    var wrap=$('mmsPaymentUtrWrap');
+    if(!wrap){
+      wrap=document.createElement('div');
+      wrap.id='mmsPaymentUtrWrap';
+      wrap.style.cssText='display:block;margin:12px 0;padding:12px;border:1px solid #d7dce2;border-radius:12px;background:#fff';
+      wrap.innerHTML='<label for="mmsPaymentUtr" style="display:block;font-weight:700;margin-bottom:6px">UPI Transaction ID / UTR (12 digits) *</label><input id="mmsPaymentUtr" type="text" inputmode="numeric" pattern="[0-9]{12}" maxlength="12" minlength="12" autocomplete="off" placeholder="12 अंकों का UTR डालें" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #bbb;border-radius:8px;font-size:16px"><small style="display:block;margin-top:6px">अपने UPI app की transaction details से 12 अंकों का UTR डालें। Admin payment verify करेगा।</small>';
+      if(check && check.closest('label'))check.closest('label').before(wrap);else box.prepend(wrap);
+    }
+    var input=$('mmsPaymentUtr');
+    if(input){
+      input.type='text';input.inputMode='numeric';input.pattern='[0-9]{12}';input.maxLength=12;input.minLength=12;
+      input.autocomplete='off';
+      if(!input.dataset.mmsDigitsOnly){
+        input.dataset.mmsDigitsOnly='1';
+        input.addEventListener('input',function(){
+          var cleaned=cleanDigits(input.value);
+          if(input.value!==cleaned)input.value=cleaned;
+          refreshGate();
+        });
+      }
+    }
+    wrap.style.display='block';box.style.display='block';
+    refreshGate();
+  }
+
+  function refreshGate(){
+    var input=$('mmsPaymentUtr');
+    var utr=getUtr();
+    if(input && input.value!==utr)input.value=utr;
+    var check=$('upiPaymentDoneCheck');
+    var ready=window.mmsUpiPaymentLaunched===true && /^\d{12}$/.test(utr) && !!(check&&check.checked);
+    var btn=$('upiContinueOrderBtn')||$('mmsFinalPaymentContinue')||$('mmsFinalPlaceOrder');
+    if(btn){btn.disabled=!ready;btn.style.opacity=ready?'1':'.55';btn.style.filter='none';btn.style.cursor=ready?'pointer':'not-allowed';}
+    window.mmsRefreshPaymentGate=refreshGate;
+    return ready;
+  }
+
+  function watchPanel(){
+    var panel=$('upiPaymentPanel'),confirmBox=$('upiPaymentConfirmation'),img=$('shopUpiQr');
+    if(panel && getComputedStyle(panel).display!=='none'){
+      ensureExactUtr();
+      // Showing the amount-encoded QR enables the manual UTR submission flow; it does not verify payment.
+      if(img && img.style.display!=='none')window.mmsUpiPaymentLaunched=true;
+    }
+    if(confirmBox && confirmBox.style.display!=='none')ensureExactUtr();
+    refreshGate();
+  }
+
+  var previousPlace=window.placeOrder;
+  window.placeOrder=async function(){
+    var utr=getUtr();
+    if(!/^\d{12}$/.test(utr)){
+      alert('Sahi 12 ankon ka numeric UTR daalein.');$('mmsPaymentUtr')&&$('mmsPaymentUtr').focus();return;
+    }
+    if(!$('upiPaymentDoneCheck') || !$('upiPaymentDoneCheck').checked){
+      alert('Payment complete hone ki confirmation tick karein.');return;
+    }
+    window.mmsUpiTransactionId=utr;
+    var legacy=$('upiUtr');if(legacy)legacy.value=utr;
+    return previousPlace ? previousPlace.apply(this,arguments) : undefined;
+  };
+
+  window.confirmUpiPaymentAndContinue=function(){
+    watchPanel();
+    var utr=getUtr();
+    if(!window.mmsUpiPaymentLaunched){alert('Pehle amount wala QR scan karein ya UPI app kholein.');return;}
+    if(!/^\d{12}$/.test(utr)){alert('Sahi 12 ankon ka numeric UTR daalein.');$('mmsPaymentUtr')&&$('mmsPaymentUtr').focus();return;}
+    if(!$('upiPaymentDoneCheck') || !$('upiPaymentDoneCheck').checked){alert('Payment complete hone ki confirmation tick karein.');return;}
+    window.mmsUpiPaymentConfirmed=true;window.mmsUpiTransactionId=utr;
+    var legacy=$('upiUtr');if(legacy)legacy.value=utr;
+    return window.placeOrder();
+  };
+
+  document.addEventListener('DOMContentLoaded',function(){
+    watchPanel();
+    setTimeout(watchPanel,250);setTimeout(watchPanel,800);setTimeout(watchPanel,1600);
+    document.addEventListener('input',function(e){if(e.target&&e.target.id==='mmsPaymentUtr')refreshGate()});
+    document.addEventListener('change',function(e){if(e.target&&e.target.id==='upiPaymentDoneCheck')refreshGate()});
+    document.addEventListener('click',function(e){if(e.target.closest('#upiPaymentPanel')||e.target.closest('#checkoutOverlay'))setTimeout(watchPanel,80)});
+    setInterval(watchPanel,700);
   });
 })();
 </script>
